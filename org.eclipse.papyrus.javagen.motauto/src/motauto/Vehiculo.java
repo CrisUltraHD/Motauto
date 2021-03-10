@@ -16,24 +16,41 @@ public class Vehiculo {
 	/**
 	 * 
 	 */
+	 	private static String color;
+
+		 	private static String tipo_vehiculo;
 	public Cliente Cliente;
 
 	/**
 	 * 
-	 * @param Insert Correcte 
+	 * @param InsertCorrecte 
 	 */
-	public static void insertVehiculo(boolean Insert Correcte) {
+	public static boolean insertVehiculo() 
+	{
+		
+		boolean insertCorrecte = false;
+		
+		return insertCorrecte;
+		
 	}
 
 	/**
 	 * 
 	 */
 	public static void modificarVehiculo() {
+
+
+
 	}
 
 	/**
 	 * 
 	 */
 	public void imprimirVehicle() {
-	}
-};
+	System.out.println(this.matricula);
+	System.out.println(this.color);
+	System.out.println(this.tipo_vehiculo);
+	//System.out.println(this.Cliente.ImprmirClient());
+}
+}
+

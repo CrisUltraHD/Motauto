@@ -9,25 +9,61 @@ package motauto;
  * 
  */
 public class Modificacions {
-	/**
-	 * 
-	 * @param ObjecteClient 
-	 */
-	public static void altaCliente(undefined ObjecteClient) {
+	
+	public static void altaCliente() {
+		String dni, nombre, apellidos, correo, direccion;
+		int telefono;
+		System.out.println("Dni cliente: ");
+		dni = Utiles.demanarString();
+		System.out.println("Nombre cliente: ");
+		nombre = Utiles.demanarString();
+		System.out.println("Apellidos cliente: ");
+		apellidos = Utiles.demanarString();
+		System.out.println("Correo cliente: ");
+		correo = Utiles.demanarString();
+		System.out.println("Telefono cliente: ");
+		telefono = Utiles.demanarNum();
+		System.out.println("Direccion cliente: ");
+		direccion = Utiles.demanarString();
+		Cliente cliente = new Cliente(dni, nombre, apellidos, correo, telefono, direccion);
 	}
 
 	/**
 	 * 
 	 * @param ObjectArticulo 
 	 */
-	public static void altaArticulo(undefined ObjectArticulo) {
+	public static void altaArticulo() {
+		String codigo, nombre;
+		float precio, iva;
+		System.out.println("Codigo Articulo: ");
+		codigo = Utiles.demanarString();
+		System.out.println("Nombre Articulo: ");
+		nombre = Utiles.demanarString();
+		System.out.println("Precio Articulo: ");
+		precio = Utiles.demanarNumFloat();
+		System.out.println("Iva Articulo: ");
+		iva = Utiles.demanarNumFloat();
+		//Articulo articulo = new Articulo();
+		
+		
 	}
+		 
 
 	/**
 	 * 
 	 * @param ObjecteVehicle 
 	 */
-	public static void altaVehiculo(undefined ObjecteVehicle) {
+	public static void altaVehiculo() {
+		String matricula, dni, color, tipo;
+		System.out.println("Matricula Vehiculo: ");
+		matricula = Utiles.demanarString(); 
+		System.out.println("Dni client: ");
+		dni = Utiles.demanarString();
+		System.out.println("Color Vehiculo: ");
+		color = Utiles.demanarString();
+		System.out.println("Tipo Vehiculo: ");
+		tipo = Utiles.demanarString();
+		Vehiculo vehiculo = new Vehiculo();
 	}
 
 	/**
@@ -58,8 +94,7 @@ public class Modificacions {
 	 * @param iva 
 	 * @param Descuento 
 	 */
-	public static void calcularTotal(int cantidadArticulo, EcorePrimitiveTypes.EFloat precioArticulo,
-			EcorePrimitiveTypes.EFloat iva, int Descuento) {
+	public static void calcularTotal(int cantidadArticulo, float precioArticulo,float iva, int Descuento) {
 	}
 
 	/**
@@ -81,8 +116,12 @@ public class Modificacions {
 	/**
 	 * 
 	 * @param ObjecteVehicle 
+	 * @return 
 	 */
-	public static void ModificarVehiculo(undefined ObjecteVehicle) {
+	public static Object ModificarVehiculo() 
+	{
+		Vehiculo objecteVehicle;
+		return objecteVehicle;
 	}
 
 	/**
@@ -90,22 +129,26 @@ public class Modificacions {
 	 * @param FacturaHeader 
 	 * @param FacturaFiles 
 	 */
-	public static void Modificar
-
-	Factura(FacturaHeader FacturaHeader, FacturaFiles FacturaFiles) {
+	public static void ModificarFactura(FacturaHeader FacturaHeader, FacturaFiles FacturaFiles) {
 	}
 
 	/**
 	 * 
 	 * @param ObjecteClient 
 	 */
-	public static void ModificarCliente(undefined ObjecteClient) {
+	public static Object ModificarCliente() 
+	{
+		Cliente objecteClient;
+		return objecteClient;
 	}
 
 	/**
 	 * 
 	 * @param ObjectArticulo 
 	 */
-	public static void ModificarAriculo(undefined ObjectArticulo) {
+	public static Object ModificarAriculo() 
+	{
+		Articulos objectArticulo;
+		return objectArticulo;
 	}
 };

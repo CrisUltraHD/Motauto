@@ -4,28 +4,159 @@
 
 package motauto;
 
+import java.util.Scanner;
+
 /************************************************************/
 /**
  * 
  */
 public interface MotAuto {
+	public static void main(String[] args) {
+		
+		Scanner lector = new Scanner(System.in);
+		while(true) 
+		{
+			MenuPrincipal();
+		}
+		
+	}
 	/**
 	 * 
 	 */
-	public void MenuFactures();
+	
+	public static void MenuPrincipal() 
+	{
+		System.out.println("\n--------MOTAUTO--------");
+		System.out.println("1 - Menu Facturas");
+		System.out.println("2 - Menu Clientes");
+		System.out.println("3 - Menu Vehiculos");
+		System.out.println("4 - Salir del programa");
+		System.out.println("_______________________");
+		System.out.print("Opcio: ");
+		
+		int opcio = Utiles.demanarNum();
+		
+		switch(opcio) 
+		{
+		
+		case 1:
+			MenuFactures();
+			break;
+		case 2:
+			MenuClient();
+			break;
+		case 3:
+			MenuVehicles();
+			break;
+		case 4:
+			System.exit(0);
+			break;
+	
+		}
 
-	/**
-	 * 
-	 */
-	public void MenuPrincipal();
+	}
 
-	/**
-	 * 
-	 */
-	public void MenuClient();
+	
+	
+	
+	public static void MenuFactures() 
+	{
+		System.out.println("\n--------MOTAUTO--------");
+		System.out.println("1 - Crear Factura");
+		System.out.println("2 - Modificar Factura");
+		System.out.println("3 - Borrar Factura");
+		System.out.println("4 - Imprimir Factura");
+		System.out.println("5 - Tornar");
+		System.out.println("6 - Salir del programa");
+		System.out.println("_______________________");
+		
+		int opcio = Utiles.demanarNum();
+		
+		switch(opcio) 
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			MenuPrincipal();
+			break;
+		case 6:
+			System.exit(0);
+			break;
+			
+		}
+	}
 
-	/**
-	 * 
-	 */
-	public void MenuVehicles();
-};
+	public static void MenuClient() 
+	{
+		System.out.println("\n--------MOTAUTO--------");
+		System.out.println("1 - Crear Vehiculo");
+		System.out.println("2 - Modificar Cliente");
+		System.out.println("3 - Borrar Cliente");
+		System.out.println("4 - Imprimir Cliente");
+		System.out.println("5 - Tornar");
+		System.out.println("6 - Salir del programa");
+		System.out.println("_______________________");
+
+		int opcio = Utiles.demanarNum();
+		
+		switch(opcio) 
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			MenuPrincipal();
+			break;
+		case 6:
+			System.exit(0);
+			break;
+			
+		}
+	}
+	
+	
+	public static void MenuVehicles()
+	{
+		System.out.println("\n--------MOTAUTO--------");
+		System.out.println("1 - Crear Vehiculo");
+		System.out.println("2 - Modificar Cliente");
+		System.out.println("3 - Borrar Cliente");
+		System.out.println("4 - Imprimir Cliente");
+		System.out.println("5 - Tornar");
+		System.out.println("6 - Salir del programa");
+		System.out.println("_______________________");
+		
+		int opcio = Utiles.demanarNum();
+		
+		switch(opcio) 
+		{
+		case 1:
+			
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			MenuPrincipal();
+			break;
+		case 6:
+			System.exit(0);
+			break;
+			
+		}
+	}
+}

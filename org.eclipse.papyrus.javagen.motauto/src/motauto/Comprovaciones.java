@@ -22,7 +22,8 @@ public class Comprovaciones {
 	 * @param codigoArticulo 
 	 * @return 
 	 */
-	public static EcorePrimitiveTypes.EBoolean comprovarCodigoArticulo(String codigoArticulo) {
+	public static boolean comprovarCodigoArticulo(String codigoArticulo) {
+		return false;
 	}
 
 	/**

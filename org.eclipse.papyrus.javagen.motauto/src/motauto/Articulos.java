@@ -20,17 +20,17 @@ public class Articulos {
 	/**
 	 * 
 	 */
-	private EcorePrimitiveTypes.EFloat precio;
+	private float precio;
 	/**
 	 * 
 	 */
-	private EcorePrimitiveTypes.EFloat iva;
+	private float iva;
 
 	/**
 	 * 
 	 * @param Insert Correcte 
 	 */
-	public static void insertArticulo(boolean Insert Correcte) {
+	public static void insertArticulo(boolean InsertCorrecte) {
 	}
 
 	/**

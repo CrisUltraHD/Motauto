@@ -4,6 +4,8 @@
 
 package motauto;
 
+import java.time.LocalDate;
+
 /************************************************************/
 /**
  * 
@@ -24,7 +26,7 @@ package motauto;
 				/**
 				 * 
 				 */
-				public EcorePrimitiveTypes.EFloat total;
+				public float total;
 				/**
 				 * 
 				 */
@@ -44,34 +46,34 @@ package motauto;
 				/**
 				 * 
 				 */
-				public undefined Descuento Factura;
+				public int DescuentoFactura;
 				/**
 				 * 
 				 */
-				public undefined Total Iva;
+				public float TotalIva;
 				/**
 				 * 
 				 */
-				public undefined Total Factura;
+				public float TotalFactura;
 				/**
 				 * 
 				 */
-				public undefined Observaciones;
+				public String Observaciones;
 				/**
 				 * 
 				 */
-				public EcorePrimitiveTypes.EDate Data Factura;
+				public LocalDate DataFactura;
 	/**
 	 * 
 	 * @param InsertFacturaCompletat 
 	 */
-	public void insertFactura(undefined InsertFacturaCompletat) {
+	public void insertFactura(boolean InsertFacturaCompletat) {
 	}
 	/**
 	 * 
 	 * @param UpdateFacturaCompletat 
 	 */
-	public void modificarFactura(undefined UpdateFacturaCompletat) {
+	public void modificarFactura(boolean UpdateFacturaCompletat) {
 	}
 	/**
 	 * 

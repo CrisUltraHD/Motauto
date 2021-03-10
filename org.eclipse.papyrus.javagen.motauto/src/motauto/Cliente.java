@@ -4,41 +4,36 @@
 
 package motauto;
 
-/************************************************************/
-/**
- * 
- */
-public class Cliente {
-	/**
-	 * 
-	 */
-	private String dni;
-	/**
-	 * 
-	 */
-	private String nombre;
-	/**
-	 * 
-	 */
-	private String apellidos;
-	/**
-	 * 
-	 */
-	private String correo;
-	/**
-	 * 
-	 */
-	private int telefono;
-	/**
-	 * 
-	 */
-	private String direccion;
 
+public class Cliente {
+	
+
+	private String dni;
+
+	private String nombre;
+
+	private String apellidos;
+
+	private String correo;
+
+	private int telefono;
+
+	private String direccion;
+	Cliente (String dni, String nombre, String apellidos, String correo, int telefono, String direccion ){
+		this.dni=dni;
+		this.nombre=nombre;
+		this.apellidos=apellidos;
+		this.correo=correo;
+		this.telefono=telefono;
+	}
 	/**
 	 * 
 	 * @param creacioncorrecta 
 	 */
 	public static void insertCliente(boolean creacioncorrecta) {
+		
+
+
 	}
 
 	/**
