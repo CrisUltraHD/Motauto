@@ -3,6 +3,9 @@
 // --------------------------------------------------------
 
 package motauto;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 
 /************************************************************/
@@ -96,5 +99,147 @@ public class Utiles {
 		return opcio;
 
 	}
+	
+	public static LocalDate demanarData() 
+	{
+		System.out.println("Introdueix Data Factura: DD-MM-YYYY");
+		int dia = demanarNum();
+		int mes = demanarNum();
+		int any = demanarNum();
+
+		return LocalDate.of(any, mes, dia);
+		
+	}
+	
+	
+	public static void ImprimirArticulos(Database db) 
+	{
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos");
+            while (rs.next()) 
+            {
+            	System.out.println("CODIGO:\tNombre: ");
+            	System.out.println(rs.getString(1)+"\t"+rs.getString(2));
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}       		
+	}
+	
+	public static void ArticlesComprats()
+	{
+		Database db = new Database();
+		
+		boolean fiArticles = false;
+
+		ArrayList<String> codiArticles = new ArrayList<String>();
+				
+		while(!fiArticles) 
+		{
+			System.out.println("ARTICULOS A AÑADIR: ");
+			Utiles.ImprimirArticulos(db);
+			System.out.println("CODIGO ARTICULO: \n Inserta 999 para salir");
+			String codigo = lector.nextLine();
+			
+			if(codigo.equalsIgnoreCase("999")) 
+			{
+				fiArticles = true;
+			}
+			
+			//SI EL CODIGO ARTICULO NO EXISTE
+			if(!Comprovaciones.comprovarCodigoArticulo(codigo)) 
+			{
+				//GUARDA SI O NO
+				boolean creacio = siNo("El articulo no existe quieres crearlo? Si No");
+				
+				if(creacio) 
+				{
+					Modificacions.altaArticulo();	
+				}				
+			}
+			else if(Comprovaciones.comprovarCodigoArticulo(codigo)) 
+			{
+				//DEVUELVE UN OBJETO ARTICULO
+				Articulos articulo = Comprovaciones.consultaArticulo(codigo, db);
+
+				System.out.println("Cantidad: ");
+				int cantidad = demanarNum();
+				
+				System.out.println("Descuento: ");
+				float descuento = demanarNum();
+				
+				float total;
+				total = (articulo.getPrecio() * cantidad) + (articulo.getPrecio() * articulo.getIva());
+				
+				FacturaFiles ff = new FacturaFiles();
+			}	
+		}
+	}
+	
+	
+	
+	public static boolean siNo(String frase) 
+	{
+		System.out.println(frase);
+		String opcion = lector.nextLine();
+		
+		boolean crear = false;
+		
+		if(opcion.equalsIgnoreCase("si")) 
+		{
+			crear = true;
+		}
+		else if(opcion.equalsIgnoreCase("no")) 
+		{
+			crear = false;
+		}
+		else 
+		{
+			siNo(frase);
+		}
+		
+		return crear;
+
+	}
+	public static Database dadesConexion(){
+		int opcio;
+		String driver="org.mariadb.jdbc.Driver";
+		System.out.println("Diges la base de dades on treballaras: ");
+		String db = demanarString();
+		System.out.println("Diges l'usuari de la base de dades: ");
+		String user = demanarString();
+		System.out.println("Diges la contrasenya de la base de dades: ");
+		String passwd = demanarString();
+		System.out.println("Diges la IP de la base de dades: (nomes la Ip)");
+		String ip = demanarString();
+		String url = "jdbc:mysql://" + ip+"/";
+		System.out.println("Quin es la base de dades utilitzada? ");
+		System.out.println("0- MariaDB ");
+		System.out.println("1- PostGress ");
+		System.out.println("2- MySQL ");
+		
+		opcio = menu(3);
+		switch(opcio){
+			case 0:
+			 driver = "org.mariadb.jdbc.Driver";
+			break;
+			case 1:
+			 driver = "org.postgresql.Driver";
+			break;
+			case 2:
+			 driver = "com.mysql.jdbc.Driver";
+			break;
+			
+		}
+		Database conexion = new Database(db, user, passwd, url, driver);
+		return conexion;
+	
+	}
+
+	
+	
 
 }

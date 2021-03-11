@@ -4,6 +4,8 @@
 
 package motauto;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /************************************************************/
@@ -11,9 +13,16 @@ import java.util.Scanner;
  * 
  */
 public interface MotAuto {
+	
+	static Scanner lector = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		
-		Scanner lector = new Scanner(System.in);
+		boolean introducirParametros = Utiles.siNo("Quieres introducir los datos par la conexion? ");
+		if (introducirParametros){
+		Database db = Utiles.dadesConexion();
+		}
+		
 		while(true) 
 		{
 			MenuPrincipal();
@@ -32,11 +41,11 @@ public interface MotAuto {
 		System.out.println("3 - Menu Vehiculos");
 		System.out.println("4 - Salir del programa");
 		System.out.println("_______________________");
-		System.out.print("Opcio: ");
+		System.out.print("Opcion: ");
 		
-		int opcio = Utiles.demanarNum();
+		int opcion = Utiles.demanarNum();
 		
-		switch(opcio) 
+		switch(opcion) 
 		{
 		
 		case 1:
@@ -66,15 +75,32 @@ public interface MotAuto {
 		System.out.println("2 - Modificar Factura");
 		System.out.println("3 - Borrar Factura");
 		System.out.println("4 - Imprimir Factura");
-		System.out.println("5 - Tornar");
+		System.out.println("5 - Volver");
 		System.out.println("6 - Salir del programa");
 		System.out.println("_______________________");
 		
-		int opcio = Utiles.demanarNum();
+		int opcion = Utiles.demanarNum();
 		
-		switch(opcio) 
+		switch(opcion) 
 		{
 		case 1:
+			System.out.println("Introdueix DNI Client: ");
+			String dniClient = lector.nextLine();
+			
+			LocalDate data = Utiles.demanarData();
+			
+			System.out.println("Insereix Forma De Pagament: ");
+			String formaPagament = lector.nextLine();
+			
+			System.out.println("Insereix Matricula Client: ");
+			String matriculaClient = lector.nextLine();
+			
+			System.out.println("Estado Factura: ");
+			String estado = lector.nextLine();
+			
+			//ArrayList<String> articulos = Utiles.ArticlesComprats();
+
+
 			break;
 		case 2:
 			break;
@@ -99,13 +125,13 @@ public interface MotAuto {
 		System.out.println("2 - Modificar Cliente");
 		System.out.println("3 - Borrar Cliente");
 		System.out.println("4 - Imprimir Cliente");
-		System.out.println("5 - Tornar");
+		System.out.println("5 - Volver");
 		System.out.println("6 - Salir del programa");
 		System.out.println("_______________________");
 
-		int opcio = Utiles.demanarNum();
+		int opcion = Utiles.demanarNum();
 		
-		switch(opcio) 
+		switch(opcion) 
 		{
 		case 1:
 			break;
@@ -133,13 +159,13 @@ public interface MotAuto {
 		System.out.println("2 - Modificar Cliente");
 		System.out.println("3 - Borrar Cliente");
 		System.out.println("4 - Imprimir Cliente");
-		System.out.println("5 - Tornar");
+		System.out.println("5 - Volver");
 		System.out.println("6 - Salir del programa");
 		System.out.println("_______________________");
 		
-		int opcio = Utiles.demanarNum();
+		int opcion = Utiles.demanarNum();
 		
-		switch(opcio) 
+		switch(opcion) 
 		{
 		case 1:
 			

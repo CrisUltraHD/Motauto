@@ -4,7 +4,6 @@
 
 package motauto;
 
-/************************************************************/
 /**
  * 
  */
@@ -35,17 +34,28 @@ public class Modificacions {
 	public static void altaArticulo() {
 		String codigo, nombre;
 		float precio, iva;
+		Database db = new Database();
+		
 		System.out.println("Codigo Articulo: ");
 		codigo = Utiles.demanarString();
-		System.out.println("Nombre Articulo: ");
-		nombre = Utiles.demanarString();
-		System.out.println("Precio Articulo: ");
-		precio = Utiles.demanarNumFloat();
-		System.out.println("Iva Articulo: ");
-		iva = Utiles.demanarNumFloat();
-		//Articulo articulo = new Articulo();
 		
-		
+		boolean existe = Comprovaciones.comprovarCodigoArticulo(codigo);
+		if(existe) 
+		{
+			System.out.println("CODIGO ARTICULO YA EXISTE");
+		}
+		else if(!existe) 
+		{
+			System.out.println("Nombre Articulo: ");
+			nombre = Utiles.demanarString();
+			System.out.println("Precio Articulo: ");
+			precio = Utiles.demanarNumFloat();
+			System.out.println("Iva Articulo: ");
+			iva = Utiles.demanarNumFloat();
+			
+			Articulos articulo = new Articulos(codigo, nombre, precio, iva);
+			articulo.insertArticulo(db);
+		}	
 	}
 		 
 
@@ -71,6 +81,7 @@ public class Modificacions {
 	 * @param dni 
 	 */
 	public static void borrarCliente(String dni) {
+		
 	}
 
 	/**
@@ -95,6 +106,7 @@ public class Modificacions {
 	 * @param Descuento 
 	 */
 	public static void calcularTotal(int cantidadArticulo, float precioArticulo,float iva, int Descuento) {
+	
 	}
 
 	/**
@@ -151,4 +163,5 @@ public class Modificacions {
 		Articulos objectArticulo;
 		return objectArticulo;
 	}
-};
+	
+;

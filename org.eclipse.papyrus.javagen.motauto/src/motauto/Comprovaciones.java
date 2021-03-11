@@ -4,6 +4,9 @@
 
 package motauto;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /************************************************************/
 /**
  * 
@@ -22,8 +25,27 @@ public class Comprovaciones {
 	 * @param codigoArticulo 
 	 * @return 
 	 */
-	public static boolean comprovarCodigoArticulo(String codigoArticulo) {
-		return false;
+	public static boolean comprovarCodigoArticulo(String codigoArticulo) 
+	{
+		Database db = new Database();
+		boolean trobat = false;
+		
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos WHERE codigo = '"+codigoArticulo+"';");
+            
+            while (rs.next()) 
+            {
+            	trobat = true;
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return trobat;
+
 	}
 
 	/**
@@ -55,7 +77,34 @@ public class Comprovaciones {
 	 * @param codigoArticulo 
 	 * @param Articulo 
 	 */
-	public static void consultaArticulo(String codigoArticulo, Articulos Articulo) {
+	public static Articulos consultaArticulo(String codigoArticulo, Database db) {
+		
+		
+		String codigo = "";
+		String nombre = "";
+		float precio = 0;
+		float iva = 0;
+		
+		
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos WHERE codigo = '"+codigoArticulo+"';");
+            while (rs.next()) 
+            {
+            	codigo = rs.getString(1);
+            	nombre = rs.getString(2);
+            	precio = rs.getFloat(3);
+            	iva = rs.getFloat(4);
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		Articulos articulo = new Articulos(codigo,nombre,precio,iva);
+		
+		return articulo;
 	}
 
 	/**

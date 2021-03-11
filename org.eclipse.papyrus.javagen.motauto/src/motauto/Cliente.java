@@ -9,16 +9,12 @@ public class Cliente {
 	
 
 	private String dni;
-
 	private String nombre;
-
 	private String apellidos;
-
 	private String correo;
-
 	private int telefono;
-
 	private String direccion;
+	
 	Cliente (String dni, String nombre, String apellidos, String correo, int telefono, String direccion ){
 		this.dni=dni;
 		this.nombre=nombre;
@@ -26,12 +22,63 @@ public class Cliente {
 		this.correo=correo;
 		this.telefono=telefono;
 	}
+	
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellidos() {
+		return apellidos;
+	}
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	public int getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
+	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	public String columnes(){
+		String columnes = "("+dni+","+nombre+","+apellidos+","+correo+","+telefono+","+direccion+")";
+		return columnes;
+	}
 	/**
 	 * 
 	 * @param creacioncorrecta 
 	 */
-	public static void insertCliente(boolean creacioncorrecta) {
-		
+	public void insertCliente(Database db) {
+		boolean creacionCorrecta = false;
+
+		try 
+		{
+		creacionCorrecta = db.ExecuteUpdate("INSERT INTO cliente"+columnes()+" VALUES ("+ this.dni +","+ this.nombre + ","+ this.apellidos +","+ this.correo + ","+ this.telefono +","+ this.direccion +");");			
+		System.out.println(creacionCorrecta ? "Insert Correcte" : "Insert Incorrecte");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
 
 	}
@@ -39,12 +86,13 @@ public class Cliente {
 	/**
 	 * 
 	 */
-	public static void ImprmirClient() {
+	public void ImprimirClient() {
+
 	}
 
 	/**
 	 * 
 	 */
-	public static void modificarCliente() {
+	public void modificarCliente() {
 	}
 };

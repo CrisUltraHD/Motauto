@@ -9,28 +9,65 @@ package motauto;
  * 
  */
 public class Articulos {
-	/**
-	 * 
-	 */
+
 	private String codigo;
-	/**
-	 * 
-	 */
 	private String nombre;
-	/**
-	 * 
-	 */
 	private float precio;
-	/**
-	 * 
-	 */
 	private float iva;
 
-	/**
-	 * 
-	 * @param Insert Correcte 
-	 */
-	public static void insertArticulo(boolean InsertCorrecte) {
+	Articulos (String codigo, String nombre, float precio, float iva){
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.iva = iva;
+	}
+	
+	//CRIS
+	public void insertArticulo(Database db) {
+		boolean creacionCorrecta = false;
+
+		try 
+		{
+		creacionCorrecta = db.ExecuteUpdate("INSERT INTO articulos VALUES ("+ this.codigo +","+ this.nombre + ","+ this.precio +","+ this.iva + ");");			
+		System.out.println(creacionCorrecta ? "Insert Correcte" : "Insert Incorrecte");
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+
+	public float getIva() {
+		return iva;
+	}
+
+	public void setIva(float iva) {
+		this.iva = iva;
 	}
 
 	/**

@@ -4,40 +4,136 @@
 
 package motauto;
 
+import java.sql.SQLException;
+import java.util.Scanner;
+
 /************************************************************/
 /**
  * 
  */
 public class Vehiculo {
-	/**
-	 * 
-	 */
-	private static String matricula;
-	/**
-	 * 
-	 */
-	 	private static String color;
+	static Scanner lector = new Scanner(System.in);
 
-		 	private static String tipo_vehiculo;
-	public Cliente Cliente;
+	private String matricula;
 
-	/**
-	 * 
-	 * @param InsertCorrecte 
-	 */
-	public static boolean insertVehiculo() 
-	{
-		
+	private String color;
+
+	private String tipo_vehiculo;
+
+	private Cliente cliente;
+
+	private Database db;
+
+	Vehiculo(String matricula, String color, String tipo_vehiculo, Cliente cliente, Database db) {
+		this.matricula = matricula;
+		this.color = color;
+		this.tipo_vehiculo = tipo_vehiculo;
+		this.cliente = cliente;
+		this.db = db;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getTipo_vehiculo() {
+		return tipo_vehiculo;
+	}
+
+	public void setTipo_vehiculo(String tipo_vehiculo) {
+		this.tipo_vehiculo = tipo_vehiculo;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Database getDb() {
+		return db;
+	}
+
+	public void setDb(Database db) {
+		this.db = db;
+	}
+
+	public void insertVehiculo(Database db) {
 		boolean insertCorrecte = false;
-		
-		return insertCorrecte;
-		
+
+		try {
+			db.ExecuteUpdate("INSERT INTO vehiculo values (" + matricula + ", " + cliente.getDni() + ", " + color + ","
+					+ tipo_vehiculo + ")");
+			System.out.println(insertCorrecte ? "Insert Correcte" : "Insert Incorrecte");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
 	 * 
 	 */
-	public static void modificarVehiculo() {
+	public  void modificarVehiculo(Database db) {
+	System.out.println("Menu:");
+				boolean sortir2 = false;
+
+				while (!sortir2) {
+					// les tres opcions
+					
+					System.out.print("\n1: Modificar color ");
+					System.out.print("\n2: Modificar Tipo vehiculo ");
+					System.out.print("\n3: Sortir ");
+					System.out.println("\nTria opcio: ");
+					int menuGeneral1 = lector.nextInt();
+					lector.nextLine();
+					
+					switch (menuGeneral1) {
+					
+					case 1:
+						try {
+		db.ExecuteUpdate("ALTER TABLE  vehiculo MODIFY matricula ("SELECT MATRICULA ")");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+						break;
+					case 2:
+							try {
+		db.ExecuteUpdate("INSERT INTO vehiculo values ("+matricula+", "+cliente.getDni()+", "+color +","+ tipo_vehiculo + ")");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+						break;
+
+
+					case 3:
+						// while en sortir true i sortim
+						System.out.print("\nHas sortit de modificacions ");
+						sortir2 = true;
+						break;
+
+					}
+				}
+	
+
 
 
 
@@ -47,10 +143,9 @@ public class Vehiculo {
 	 * 
 	 */
 	public void imprimirVehicle() {
-	System.out.println(this.matricula);
-	System.out.println(this.color);
-	System.out.println(this.tipo_vehiculo);
-	//System.out.println(this.Cliente.ImprmirClient());
+		System.out.println(this.matricula);
+		System.out.println(this.color);
+		System.out.println(this.tipo_vehiculo);
+		cliente.modificarCliente();
+	}
 }
-}
-
