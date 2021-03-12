@@ -128,60 +128,9 @@ public class Utiles {
 			e.printStackTrace();
 		}       		
 	}
-	
-	public static void ArticlesComprats()
-	{
-		Database db = new Database();
 		
-		boolean fiArticles = false;
-
-		ArrayList<String> codiArticles = new ArrayList<String>();
-				
-		while(!fiArticles) 
-		{
-			System.out.println("ARTICULOS A AÑADIR: ");
-			Utiles.ImprimirArticulos(db);
-			System.out.println("CODIGO ARTICULO: \n Inserta 999 para salir");
-			String codigo = lector.nextLine();
-			
-			if(codigo.equalsIgnoreCase("999")) 
-			{
-				fiArticles = true;
-			}
-			
-			//SI EL CODIGO ARTICULO NO EXISTE
-			if(!Comprovaciones.comprovarCodigoArticulo(codigo)) 
-			{
-				//GUARDA SI O NO
-				boolean creacio = siNo("El articulo no existe quieres crearlo? Si No");
-				
-				if(creacio) 
-				{
-					Modificacions.altaArticulo();	
-				}				
-			}
-			else if(Comprovaciones.comprovarCodigoArticulo(codigo)) 
-			{
-				//DEVUELVE UN OBJETO ARTICULO
-				Articulos articulo = Comprovaciones.consultaArticulo(codigo, db);
-
-				System.out.println("Cantidad: ");
-				int cantidad = demanarNum();
-				
-				System.out.println("Descuento: ");
-				float descuento = demanarNum();
-				
-				float total;
-				total = (articulo.getPrecio() * cantidad) + (articulo.getPrecio() * articulo.getIva());
-				
-				FacturaFiles ff = new FacturaFiles();
-			}	
-		}
-	}
 	
-	
-	
-	public static boolean siNo(String frase) 
+	public static boolean siNo(String frase)
 	{
 		System.out.println(frase);
 		String opcion = lector.nextLine();
@@ -204,6 +153,7 @@ public class Utiles {
 		return crear;
 
 	}
+	
 	public static Database dadesConexion(){
 		int opcio;
 		String driver="org.mariadb.jdbc.Driver";

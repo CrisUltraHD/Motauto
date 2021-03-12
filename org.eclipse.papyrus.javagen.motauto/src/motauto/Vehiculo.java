@@ -22,15 +22,14 @@ public class Vehiculo {
 
 	private Cliente cliente;
 
-	private Database db;
-
-	Vehiculo(String matricula, String color, String tipo_vehiculo, Cliente cliente, Database db) {
+	Vehiculo(String matricula, String color, String tipo_vehiculo, Cliente cliente) {
 		this.matricula = matricula;
 		this.color = color;
 		this.tipo_vehiculo = tipo_vehiculo;
 		this.cliente = cliente;
-		this.db = db;
 	}
+	
+	Vehiculo(){}
 
 	public String getMatricula() {
 		return matricula;
@@ -64,13 +63,6 @@ public class Vehiculo {
 		this.cliente = cliente;
 	}
 
-	public Database getDb() {
-		return db;
-	}
-
-	public void setDb(Database db) {
-		this.db = db;
-	}
 
 	public void insertVehiculo(Database db) {
 		boolean insertCorrecte = false;
@@ -89,56 +81,33 @@ public class Vehiculo {
 	/**
 	 * 
 	 */
-	public  void modificarVehiculo(Database db) {
-	System.out.println("Menu:");
-				boolean sortir2 = false;
-
-				while (!sortir2) {
-					// les tres opcions
-					
-					System.out.print("\n1: Modificar color ");
-					System.out.print("\n2: Modificar Tipo vehiculo ");
-					System.out.print("\n3: Sortir ");
-					System.out.println("\nTria opcio: ");
-					int menuGeneral1 = lector.nextInt();
-					lector.nextLine();
-					
-					switch (menuGeneral1) {
-					
-					case 1:
-						try {
-		db.ExecuteUpdate("ALTER TABLE  vehiculo MODIFY matricula ("SELECT MATRICULA ")");
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-
-						break;
-					case 2:
-							try {
-		db.ExecuteUpdate("INSERT INTO vehiculo values ("+matricula+", "+cliente.getDni()+", "+color +","+ tipo_vehiculo + ")");
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-						break;
-
-
-					case 3:
-						// while en sortir true i sortim
-						System.out.print("\nHas sortit de modificacions ");
-						sortir2 = true;
-						break;
-
-					}
-				}
-	
-
-
+	public void modificarVehiculo(Database db) {
+				
+	boolean correcto;
+		try 
+		{
+		correcto = db.ExecuteUpdate("UPDATE vehiculo SET color = '"+this.color+"', tipo = '"+this.tipo_vehiculo+"';");			
+		System.out.println(correcto ? "Update Correcte" : "Update Incorrecte");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
 
 	}
-
+	public void borrarVehiculo(Database db) {
+		boolean correcto;
+		try 
+		{
+		correcto = db.ExecuteUpdate("DELETE FROM vehiculo WHERE matricula='"+this.matricula+"';");			
+		System.out.println(correcto ? "Delete Correcte" : "Delete Incorrecte");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 
 	 */
@@ -146,6 +115,6 @@ public class Vehiculo {
 		System.out.println(this.matricula);
 		System.out.println(this.color);
 		System.out.println(this.tipo_vehiculo);
-		cliente.modificarCliente();
+		cliente.ImprimirClient();
 	}
 }

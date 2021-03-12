@@ -4,8 +4,11 @@
 
 package motauto;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /************************************************************/
 /**
@@ -17,7 +20,23 @@ public class Comprovaciones {
 	 * @param dni 
 	 * @param existe 
 	 */
-	public static void comprovarDni(String dni, boolean existe) {
+	public static boolean  comprovarDni(String dni, Database db) {
+		boolean existe=false;
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes WHERE dni = '"+dni+"';");
+            
+            if(rs.next()) 
+            {
+            	existe = true;
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return existe;
 	}
 
 	/**
@@ -34,7 +53,7 @@ public class Comprovaciones {
 		{
             ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos WHERE codigo = '"+codigoArticulo+"';");
             
-            while (rs.next()) 
+            if (rs.next()) 
             {
             	trobat = true;
             }
@@ -53,15 +72,53 @@ public class Comprovaciones {
 	 * @param matricula 
 	 * @param Existeix 
 	 */
-	public static void comprovarMatricula(String matricula, boolean Existeix) {
+	public static boolean comprovarMatricula(String matricula, Database db) 
+	{
+
+
+		boolean trobat = false;
+		
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo WHERE matricula = '"+matricula+"';");
+            
+            if (rs.next()) 
+            {
+            	trobat = true;
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return trobat;
+
 	}
 
 	/**
 	 * 
 	 * @param DNI 
-	 * @param Client 
+	 *  
 	 */
-	public static void consultaClient(String DNI, Cliente Client) {
+	public static Cliente consultaClient(String dni, Database db) {
+		Cliente cliente=null;
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes WHERE dni = '"+dni+"';");
+            
+            if(rs.next()) 
+            {
+            	cliente = new Cliente(rs.getString(1), rs.getNString(2), rs.getNString(3), rs.getNString(4), rs.getInt(5), rs.getString(6));
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		return cliente;
 	}
 
 	/**
@@ -69,23 +126,47 @@ public class Comprovaciones {
 	 * @param Matricula 
 	 * @param Vehiculo 
 	 */
-	public static void consultaVehiculo(String Matricula, Vehiculo Vehiculo) {
+	public static Vehiculo consultaVehiculo(String Matricula, Database db) {
+
+	String matricula="";
+
+
+	 String color="";
+
+	 String tipo_vehiculo="";
+
+	 String dni="";
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM vehciculo WHERE matricula = '"+Matricula+"';");
+            while (rs.next()) 
+            {
+            	matricula = rs.getString(1);
+            	color = rs.getString(2);
+            	tipo_vehiculo = rs.getString(3);
+            	dni = rs.getString(4);
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		Cliente cliente = Comprovaciones.consultaClient(dni, db);
+		Vehiculo vehiculo = new Vehiculo(matricula,color,tipo_vehiculo,cliente);
+		
+		return vehiculo;
+		
 	}
 
 	/**
 	 * 
 	 * @param codigoArticulo 
-	 * @param Articulo 
 	 */
 	public static Articulos consultaArticulo(String codigoArticulo, Database db) {
-		
-		
 		String codigo = "";
 		String nombre = "";
 		float precio = 0;
 		float iva = 0;
-		
-		
 		try 
 		{
             ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos WHERE codigo = '"+codigoArticulo+"';");
@@ -106,6 +187,50 @@ public class Comprovaciones {
 		
 		return articulo;
 	}
+	
+	/**
+	 * 
+	 * @param codigoFactura 
+	 */
+	public static FacturaHeader consultaFacturaHeader(String codigoFactura, Database db) 
+	{
+
+		int numPressupost = 0;
+		String cifEmpresa = "";
+		int estado = 0;
+		float total = 0;
+		Cliente cliente = new Cliente();
+		Vehiculo vehiculo = new Vehiculo();
+		ArrayList<FacturaFiles> arrayFacturaFiles = new ArrayList<FacturaFiles>();
+		String forma_pago = "";
+		float descuentoFactura = 0;
+		float totalIva = 0;
+		float totalFactura = 0;
+		String observaciones = "";
+		Date dataFactura = null;
+		
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_header WHERE num_factura = '"+codigoFactura+"';");
+            while (rs.next()) 
+            {
+            	cifEmpresa = rs.getString(1);
+            	numPressupost = rs.getInt(2);
+            	dataFactura = rs.getDate(4);
+            	forma_pago = rs.getString(5);
+            	estado = rs.getInt(7);
+            	observaciones = rs.getString(12);
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		FacturaHeader fh = new FacturaHeader(0,"",estado,total,cliente,vehiculo,arrayFacturaFiles,descuentoFactura,totalIva,totalFactura,observaciones,LocalDate.now(),forma_pago);
+		
+		return fh;
+	}
 
 	/**
 	 * 
@@ -120,6 +245,51 @@ public class Comprovaciones {
 	 * @param numFactura 
 	 * @param Existeix 
 	 */
-	public static void comprovarNumeroFactura(String numFactura, boolean Existeix) {
+	public static boolean comprovarNumeroFactura(String numFactura, Database db) {
+		return false;
+	}
+	
+	public static void mostrarClientes(Database db) {
+
+	}
+	
+	
+	public static void mostrarVehiculos(Database db) {
+	String matricula="";
+
+
+	 String color="";
+
+	 String tipo_vehiculo;
+
+	 String dni;
+
+
+	try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo ;");
+            while (rs.next()) 
+            {
+            	matricula = rs.getString(1);
+				System.out.println("Matricula: "+matricula+" ");
+            	color = rs.getString(2);
+				System.out.println("Color: "+color+" ");
+            	tipo_vehiculo = rs.getString(3);
+				System.out.println("Tipo: "+tipo_vehiculo+" ");
+            	dni = rs.getString(4);
+				System.out.println("dni: "+dni+" ");
+            }
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+
+
+	}
+
+	public static void mostrarFacturas() {
+		// TODO Auto-generated method stub
+		
 	}
 };

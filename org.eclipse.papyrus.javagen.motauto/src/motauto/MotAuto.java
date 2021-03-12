@@ -17,15 +17,16 @@ public interface MotAuto {
 	static Scanner lector = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		
-		boolean introducirParametros = Utiles.siNo("Quieres introducir los datos par la conexion? ");
+		Database db = new Database();
+		boolean introducirParametros = Utiles.ask("Quieres introducir los datos par la conexion? ");
 		if (introducirParametros){
-		Database db = Utiles.dadesConexion();
+		db = Utiles.dadesConexion();
 		}
+		System.out.println(db.connectDatabase() ? "Conexio establerta" : "Conexio fallida");
 		
 		while(true) 
 		{
-			MenuPrincipal();
+			MenuPrincipal(db);
 		}
 		
 	}
@@ -75,8 +76,9 @@ public interface MotAuto {
 		System.out.println("2 - Modificar Factura");
 		System.out.println("3 - Borrar Factura");
 		System.out.println("4 - Imprimir Factura");
-		System.out.println("5 - Volver");
-		System.out.println("6 - Salir del programa");
+		System.out.println("5 - Imprimir Facturas");
+		System.out.println("6 - Volver");
+		System.out.println("7 - Salir del programa");
 		System.out.println("_______________________");
 		
 		int opcion = Utiles.demanarNum();
@@ -84,34 +86,22 @@ public interface MotAuto {
 		switch(opcion) 
 		{
 		case 1:
-			System.out.println("Introdueix DNI Client: ");
-			String dniClient = lector.nextLine();
-			
-			LocalDate data = Utiles.demanarData();
-			
-			System.out.println("Insereix Forma De Pagament: ");
-			String formaPagament = lector.nextLine();
-			
-			System.out.println("Insereix Matricula Client: ");
-			String matriculaClient = lector.nextLine();
-			
-			System.out.println("Estado Factura: ");
-			String estado = lector.nextLine();
-			
-			//ArrayList<String> articulos = Utiles.ArticlesComprats();
-
-
+			Modificacions.CrearFactura();
 			break;
 		case 2:
+			Modificacions.ModificarFactura();
 			break;
 		case 3:
 			break;
 		case 4:
+			
 			break;
 		case 5:
-			MenuPrincipal();
 			break;
 		case 6:
+			MenuPrincipal();
+			break;
+		case 7:
 			System.exit(0);
 			break;
 			
@@ -121,7 +111,7 @@ public interface MotAuto {
 	public static void MenuClient() 
 	{
 		System.out.println("\n--------MOTAUTO--------");
-		System.out.println("1 - Crear Vehiculo");
+		System.out.println("1 - Crear Cliente");
 		System.out.println("2 - Modificar Cliente");
 		System.out.println("3 - Borrar Cliente");
 		System.out.println("4 - Imprimir Cliente");
