@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="1200.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <HBox layoutX="14.0" layoutY="5.0">
+               <children>
+                  <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="98.0" text="FACTURAS">
+                    <items>
+                      <MenuItem fx:id="crearFactura" mnemonicParsing="false" text="Crear Factura" />
+                      <MenuItem fx:id="modificarFactura" mnemonicParsing="false" text="Modificar Factura" />
+                        <MenuItem fx:id="borrarFactura" mnemonicParsing="false" text="Borrar Factura" />
+                        <MenuItem fx:id="verFacturas" mnemonicParsing="false" text="Ver Facturas" />
+                    </items>
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../../imagenes/Grupo%201.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets right="10.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets right="65.0" />
+                     </padding>
+                  </MenuButton>
+                  <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="98.0" text="CLIENTES">
+                     <items>
+                        <MenuItem fx:id="crearCliente" mnemonicParsing="false" text="Crear Cliente" />
+                        <MenuItem fx:id="modificarCliente" mnemonicParsing="false" text="Modificar Cliente" />
+                        <MenuItem fx:id="borrarCliente" mnemonicParsing="false" text="Borrar Cliente" />
+                        <MenuItem fx:id="verClientes" mnemonicParsing="false" text="Ver Clientes" />
+                     </items>
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../../imagenes/Grupo%202.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets right="10.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets right="65.0" />
+                     </padding>
+                  </MenuButton>
+                  <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="98.0" text="ARTÍCULOS">
+                     <items>
+                        <MenuItem fx:id="crearArticulo" mnemonicParsing="false" text="Crear Artículo" />
+                        <MenuItem fx:id="modificarArticulo" mnemonicParsing="false" text="Modificar Artículo" />
+                        <MenuItem fx:id="borrarArticulo" mnemonicParsing="false" text="Borrar Artículo" />
+                        <MenuItem fx:id="verArticulos" mnemonicParsing="false" text="Ver Artículos" />
+                     </items>
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../../imagenes/Grupo%203.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets right="10.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets right="65.0" />
+                     </padding>
+                  </MenuButton>
+                  <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="98.0" text="VEHICULOS">
+                     <items>
+                        <MenuItem fx:id="crearVehiculo" mnemonicParsing="false" text="Crear Vehículo" />
+                        <MenuItem fx:id="modificarVehiculo" mnemonicParsing="false" text="Modificar Vehículo" />
+                        <MenuItem fx:id="borrarVehiculos" mnemonicParsing="false" text="Borrar Vehículo" />
+                        <MenuItem fx:id="verVehiculos" mnemonicParsing="false" text="Ver Vehículos" />
+                     </items>
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../../imagenes/Grupo%204.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets right="10.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets right="65.0" />
+                     </padding>
+                  </MenuButton>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Button fx:id="home" mnemonicParsing="false" prefHeight="42.0" prefWidth="113.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="10.0">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../imagenes/Logo.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
