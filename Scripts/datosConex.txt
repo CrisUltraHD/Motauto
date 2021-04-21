@@ -1,1 +1,0 @@
-motauto#lab#lab#jdbc:mysql://26.41.52.124/#org.mariadb.jdbc.Driver
