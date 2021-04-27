@@ -6,8 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="H:/motauto/org.eclipse.papyrus.javagen.motauto/src/ibatis2-common-2.1.7.597.jar"/>
-	<classpathentry kind="lib" path="H:/motauto/org.eclipse.papyrus.javagen.motauto/src/mariadb-java-client-2.3.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/java/lib/javafx.base.jar"/>
 	<classpathentry kind="lib" path="C:/java/lib/javafx.controls.jar"/>
@@ -17,6 +15,8 @@
 	<classpathentry kind="lib" path="C:/java/lib/javafx.swing.jar"/>
 	<classpathentry kind="lib" path="C:/java/lib/javafx.web.jar"/>
 	<classpathentry kind="lib" path="C:/java/lib/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="org.eclipse.papyrus.javagen.motauto/src/ibatis2-common-2.1.7.597.jar"/>
 	<classpathentry kind="lib" path="org.eclipse.papyrus.javagen.motauto/src/jfoenix-8.0.10.jar"/>
+	<classpathentry kind="lib" path="org.eclipse.papyrus.javagen.motauto/src/mariadb-java-client-2.3.0.jar"/>
 	<classpathentry kind="output" path="org.eclipse.papyrus.javagen.motauto/bin"/>
 </classpath>
