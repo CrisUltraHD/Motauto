@@ -1,0 +1,6 @@
+Datos conexion Base de datos:
+    db = "motauto";
+    user = "lab";
+    passwd = "lab";
+    url = "jdbc:mysql://26.41.52.124/" + db;
+    driver = "org.mariadb.jdbc.Driver";
