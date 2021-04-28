@@ -167,7 +167,8 @@ public class Crear_Factura implements Initializable {
 				iva.setText(""+ivat);
 				precio.setText("" +preciot);
 				total.setText(""+((preciot * ivat)+preciot * cantidadt));
-			}});
+			}
+		});
 
     	
     	
@@ -224,6 +225,12 @@ public class Crear_Factura implements Initializable {
     			}
     			catch(Exception e) {e.printStackTrace();}    			
     		}
-    	});   	
+    	});   
+    	
+    	
+    	
+    	//ADD FILA
+    	
+	
 	}
 }
