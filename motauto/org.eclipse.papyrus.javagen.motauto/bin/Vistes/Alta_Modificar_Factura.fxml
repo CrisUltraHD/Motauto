@@ -31,7 +31,7 @@
                   </VBox>
                   <VBox prefHeight="102.0" prefWidth="752.0">
                      <children>
-                        <ComboBox fx:id="dni" editable="true" prefWidth="150.0" />
+                        <ComboBox fx:id="dni" prefWidth="150.0" />
                         <Label id="nombre" fx:id="nombre" prefHeight="17.0" prefWidth="641.0" />
                         <Label id="apeliido" fx:id="apellido" prefHeight="17.0" prefWidth="641.0" />
                         <Label id="correo" fx:id="correo" prefHeight="17.0" prefWidth="523.0" />
@@ -59,7 +59,7 @@
                   <TableColumn id="id" fx:id="id" prefWidth="69.0" text="ID Fila" />
                   <TableColumn fx:id="colCodArticulo" prefWidth="124.0">
                      <graphic>
-                        <ComboBox id="codArticulo" fx:id="codart" editable="true" prefHeight="25.0" prefWidth="232.0" promptText="codArticulo" />
+                        <ComboBox id="codArticulo" fx:id="codart" prefHeight="25.0" prefWidth="232.0" promptText="codArticulo" />
                      </graphic>
                   </TableColumn>
                   <TableColumn fx:id="colDescripcion" minWidth="0.0" prefWidth="512.0">

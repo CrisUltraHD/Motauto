@@ -132,19 +132,17 @@ public class Crear_Factura implements Initializable {
 		dni.setItems(clientsFiltrats);
 
 		dni.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cliente>() {
-
 			@Override
 			public void changed(ObservableValue<? extends Cliente> seleccionat, Cliente anterior, Cliente nou) {
-
 	    		nombre.setText(nou.getNombre());
 	    		apellido.setText(nou.getApellidos());
 	    		correo.setText(nou.getCorreo());
 	    		tlf.setText(nou.getTelefono()+"");
 	    		dir.setText(nou.getDireccion());
-
-			}});
+			}
+		});
 		
-
+		
     	
     	//ARTICULOS
     	articulos = FXCollections.observableArrayList();
@@ -153,13 +151,10 @@ public class Crear_Factura implements Initializable {
 		FilteredList<Articulos> articlesFiltrats;
 		articlesFiltrats = new FilteredList<>(articulos, p -> true);
     	codart.setItems(articlesFiltrats);
-
-
     	
     	codart.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Articulos>() {
 			@Override
 			public void changed(ObservableValue<? extends Articulos> seleccionat, Articulos anterior, Articulos nou) {
-
 				System.out.println("HAS CANVIAT EL COMBO");
 				//PREUS DE LA FILA
 				float ivat;
@@ -172,13 +167,12 @@ public class Crear_Factura implements Initializable {
 				iva.setText(""+ivat);
 				precio.setText("" +preciot);
 				total.setText(""+((preciot * ivat)+preciot * cantidadt));
-
-
 			}});
+
+    	
     	
     	//CANTIDAD
     	cantidad.textProperty().addListener(new ChangeListener<String>() {
-    		
     		@Override
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
     			
@@ -194,8 +188,10 @@ public class Crear_Factura implements Initializable {
     		}
     	});
     	
+    	
+    	
+    	//IVA
     	iva.textProperty().addListener(new ChangeListener<String>() {
-    		
     		@Override
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
     			
@@ -210,25 +206,11 @@ public class Crear_Factura implements Initializable {
     			catch(Exception e) {e.printStackTrace();}    			
     		}
     	});
+    	
+    	
+    	//PRECIO ARTICULO
 
     	
-    	// TEXTO COMBOBOX
-		/*codart.getEditor().textProperty().addListener(new ChangeListener<String>() 
-		{
-			    @Override
-			    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-			    	codart.show();
-
-			    	articlesFiltrats.setPredicate(stringCerca -> {
-						if (newValue == null || newValue.isEmpty())
-							return true;
-						if (stringCerca.getNombre().toLowerCase().contains(newValue.toLowerCase()) || stringCerca.getCodigo().toLowerCase().contains(newValue.toLowerCase()))
-							return true;
-						return false;
-					});
-			    	
-			    }
-		});*/
 		
 	}
 }
