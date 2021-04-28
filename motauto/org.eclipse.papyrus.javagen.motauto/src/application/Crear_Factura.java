@@ -126,8 +126,12 @@ public class Crear_Factura implements Initializable {
 		//CLIENTES
     	clientes = FXCollections.observableArrayList();
     	Cliente.llenarInformacionCliente(db, clientes);
-    	dni.setItems(clientes);
-    	dni.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cliente>() {
+    	
+		FilteredList<Cliente> clientsFiltrats;
+		clientsFiltrats = new FilteredList<>(clientes, p -> true);
+		dni.setItems(clientsFiltrats);
+
+		dni.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cliente>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Cliente> seleccionat, Cliente anterior, Cliente nou) {
@@ -139,6 +143,8 @@ public class Crear_Factura implements Initializable {
 	    		dir.setText(nou.getDireccion());
 
 			}});
+		
+
     	
     	//ARTICULOS
     	articulos = FXCollections.observableArrayList();
@@ -153,17 +159,62 @@ public class Crear_Factura implements Initializable {
     	codart.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Articulos>() {
 			@Override
 			public void changed(ObservableValue<? extends Articulos> seleccionat, Articulos anterior, Articulos nou) {
-	    		/*nombre.setText(nou.getNombre());
-	    		apellido.setText(nou.getApellidos());
-	    		correo.setText(nou.getCorreo());
-	    		tlf.setText(nou.getTelefono()+"");
-	    		dir.setText(nou.getDireccion());*/
+
+				System.out.println("HAS CANVIAT EL COMBO");
+				//PREUS DE LA FILA
+				float ivat;
+				float preciot;
+				int cantidadt = 1;
+				ivat = codart.getSelectionModel().getSelectedItem().getIva();
+				preciot = codart.getSelectionModel().getSelectedItem().getPrecio();
+													
+				cantidad.setText("1");
+				iva.setText(""+ivat);
+				precio.setText("" +preciot);
+				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+
 
 			}});
     	
-    	// TEXTO COMBOBOX
-		codart.getEditor().textProperty().addListener(new ChangeListener<String>() {
+    	//CANTIDAD
+    	cantidad.textProperty().addListener(new ChangeListener<String>() {
+    		
+    		@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			
+    			try 
+    			{
+    				float ivat = Float.parseFloat(iva.getText());
+    				float preciot = Float.parseFloat(precio.getText());
+    				int cantidadt = Integer.parseInt(newValue);
+    				
+    				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+    			}
+    			catch(Exception e) {e.printStackTrace();}    			
+    		}
+    	});
+    	
+    	iva.textProperty().addListener(new ChangeListener<String>() {
+    		
+    		@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			
+    			try 
+    			{
+    				float ivat = Float.parseFloat(newValue);
+    				float preciot = Float.parseFloat(precio.getText());
+    				int cantidadt = Integer.parseInt(cantidad.getText());
+    				
+    				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+    			}
+    			catch(Exception e) {e.printStackTrace();}    			
+    		}
+    	});
 
+    	
+    	// TEXTO COMBOBOX
+		/*codart.getEditor().textProperty().addListener(new ChangeListener<String>() 
+		{
 			    @Override
 			    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			    	codart.show();
@@ -175,9 +226,9 @@ public class Crear_Factura implements Initializable {
 							return true;
 						return false;
 					});
+			    	
 			    }
-		});
-
-
+		});*/
+		
 	}
 }

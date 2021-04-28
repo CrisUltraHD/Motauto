@@ -9,9 +9,9 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Crear_Factura">
    <children>
-      <fx:include source="Header.fxml" />
       <Pane layoutX="7.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
          <children>
+            <fx:include source="Header.fxml" />
             <Text layoutX="529.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FACTURA" textAlignment="CENTER" underline="true">
                <font>
                   <Font name="Consolas" size="36.0" />
@@ -31,7 +31,7 @@
                   </VBox>
                   <VBox prefHeight="102.0" prefWidth="752.0">
                      <children>
-                        <ComboBox fx:id="dni" prefWidth="150.0" />
+                        <ComboBox fx:id="dni" editable="true" prefWidth="150.0" />
                         <Label id="nombre" fx:id="nombre" prefHeight="17.0" prefWidth="641.0" />
                         <Label id="apeliido" fx:id="apellido" prefHeight="17.0" prefWidth="641.0" />
                         <Label id="correo" fx:id="correo" prefHeight="17.0" prefWidth="523.0" />
