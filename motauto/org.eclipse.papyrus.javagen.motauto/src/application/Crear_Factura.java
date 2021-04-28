@@ -208,9 +208,22 @@ public class Crear_Factura implements Initializable {
     	});
     	
     	
-    	//PRECIO ARTICULO
-
     	
-		
+    	//PRECIO ARTICULO
+    	precio.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			
+    			try 
+    			{
+    				float ivat = Float.parseFloat(iva.getText());
+    				float preciot = Float.parseFloat(newValue);
+    				int cantidadt = Integer.parseInt(cantidad.getText());
+    				
+    				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+    			}
+    			catch(Exception e) {e.printStackTrace();}    			
+    		}
+    	});   	
 	}
 }

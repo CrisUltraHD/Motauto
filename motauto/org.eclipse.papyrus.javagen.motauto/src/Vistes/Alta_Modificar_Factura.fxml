@@ -79,7 +79,7 @@
                   </TableColumn>
                   <TableColumn fx:id="colPrecio" prefWidth="92.0">
                      <graphic>
-                        <TextField id="precio" fx:id="precio" prefHeight="25.0" prefWidth="168.0" promptText="Precio" />
+                        <TextField id="precio" fx:id="precio" prefHeight="25.0" prefWidth="168.0" promptText="Precio Articulo" />
                      </graphic>
                   </TableColumn>
                   <TableColumn fx:id="colTotal" prefWidth="170.0">
