@@ -1,12 +1,20 @@
 package application;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import com.sun.media.sound.FFT;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,15 +24,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
 import motauto.Cliente;
+import motauto.Comprovaciones;
 import motauto.Database;
 import motauto.FacturaFiles;
+import motauto.FacturaHeader;
+import motauto.Vehiculo;
 
 public class Crear_Factura implements Initializable {
 
-
+    @FXML
+    private TextField estado;
+    
     @FXML
     private TableColumn<FacturaFiles, String> colCodArticulo;
 
@@ -54,9 +68,6 @@ public class Crear_Factura implements Initializable {
 
     @FXML
     private TextField total;
-
-    @FXML
-    private TableColumn<FacturaFiles, String> colDescripcion;
 
     @FXML
     private TextField iva;
@@ -98,13 +109,40 @@ public class Crear_Factura implements Initializable {
     private TextField cantidad;
 
     @FXML
-    private TextField desc;
+    private TableColumn<FacturaFiles, Float> colDescuento;  
+    
+    @FXML
+    private TextField descuento;
+    
+    @FXML
+    private ComboBox<Vehiculo> vehiculo;
+    
+    @FXML
+    private TextField formapago;
+    
+    
+    @FXML
+    private TextField ivaFactura;
+    @FXML
+    private Label baseImponible;
+    @FXML
+    private TextField descuentoTotalFactura;
+    @FXML
+    private Label totalIvaFactura;
+    @FXML
+    private Label totalFactura;
+
+    
+
     
     //CLIENTES
     private ObservableList <Cliente> clientes;
-
+    //VEHICULOS
+    private ObservableList <Vehiculo> vehiculos;
     //ARTICULOS
     private ObservableList <Articulos> articulos;
+    //FACTURA FILAS
+    private ObservableList <FacturaFiles> facturaFiles;
 
 
     
@@ -122,6 +160,9 @@ public class Crear_Factura implements Initializable {
 		{
 			e.printStackTrace();
 		}
+		
+    	Database bd = db;
+
 
 		//CLIENTES
     	clientes = FXCollections.observableArrayList();
@@ -139,6 +180,16 @@ public class Crear_Factura implements Initializable {
 	    		correo.setText(nou.getCorreo());
 	    		tlf.setText(nou.getTelefono()+"");
 	    		dir.setText(nou.getDireccion());
+	    		
+	    		//VEHICULO CLIENTE
+	        	vehiculos = FXCollections.observableArrayList();
+	        	Vehiculo.llenarInformacionVehiculo(bd, vehiculos, nou.getDni());
+	        	
+	    		FilteredList<Vehiculo> vehiculoFiltrado;
+	    		vehiculoFiltrado = new FilteredList<>(vehiculos, p -> true);
+	    		vehiculo.setItems(vehiculoFiltrado);
+
+	    		
 			}
 		});
 		
@@ -164,6 +215,7 @@ public class Crear_Factura implements Initializable {
 				preciot = codart.getSelectionModel().getSelectedItem().getPrecio();
 													
 				cantidad.setText("1");
+				descuento.setText("0.0");
 				iva.setText(""+ivat);
 				precio.setText("" +preciot);
 				total.setText(""+((preciot * ivat)+preciot * cantidadt));
@@ -182,8 +234,11 @@ public class Crear_Factura implements Initializable {
     				float ivat = Float.parseFloat(iva.getText());
     				float preciot = Float.parseFloat(precio.getText());
     				int cantidadt = Integer.parseInt(newValue);
+    				float descuentot = Float.parseFloat(descuento.getText());
     				
-    				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+    				float totalt = (preciot * ivat)+preciot * cantidadt;
+    				float totalDescuento = (totalt*descuentot)+totalt;
+    				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {e.printStackTrace();}    			
     		}
@@ -201,8 +256,11 @@ public class Crear_Factura implements Initializable {
     				float ivat = Float.parseFloat(newValue);
     				float preciot = Float.parseFloat(precio.getText());
     				int cantidadt = Integer.parseInt(cantidad.getText());
+    				float descuentot = Float.parseFloat(descuento.getText());
     				
-    				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+    				float totalt = (preciot * ivat)+preciot * cantidadt;
+    				float totalDescuento = (totalt*descuentot)+totalt;
+    				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {e.printStackTrace();}    			
     		}
@@ -220,17 +278,106 @@ public class Crear_Factura implements Initializable {
     				float ivat = Float.parseFloat(iva.getText());
     				float preciot = Float.parseFloat(newValue);
     				int cantidadt = Integer.parseInt(cantidad.getText());
+    				float descuentot = Float.parseFloat(descuento.getText());
     				
-    				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+    				float totalt = (preciot * ivat)+preciot * cantidadt;
+    				float totalDescuento = (totalt*descuentot)+totalt;
+    				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {e.printStackTrace();}    			
     		}
-    	});   
+    	}); 
+    	
+    	//DESCUENTO FILA
+    	descuento.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			
+    			try 
+    			{
+    				float ivat = Float.parseFloat(iva.getText());
+    				float preciot = Float.parseFloat(precio.getText());
+    				int cantidadt = Integer.parseInt(cantidad.getText());
+    				float descuentot = Float.parseFloat(newValue);
+    				
+    				float totalt = (preciot * ivat)+preciot * cantidadt;
+    				float totalDescuento = (totalt*descuentot)+totalt;
+    				total.setText(totalDescuento+"");
+    			}
+    			catch(Exception e) {e.printStackTrace();}    			
+    		}
+    	}); 
+    	
+    	
+    	//HORA
+    	hora.setText(LocalTime.now()+"");
+    	//NUM FACTURA
+    	int numFactura = Comprovaciones.getNumFactura(db);
+    	nfactura.setText("Num Factura: "+numFactura+"");
     	
     	
     	
-    	//ADD FILA
+    	//TABLEVIEW    	
+    	id.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("numFila"));    	
+    	colCodArticulo.setCellValueFactory(new PropertyValueFactory<FacturaFiles,String>("nombre"));
+    	colCantidad.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("cantidad"));
+    	colDescuento.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("descuento"));
+    	colIva.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("iva"));
+    	colPrecio.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("precio"));
+    	colTotal.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("precio_total"));  
     	
+    	ArrayList<FacturaFiles> files = new ArrayList<FacturaFiles>();
+    	/*
+    	 *     @FXML
+    private TextField ivaFactura;
+    @FXML
+    private Label baseImponible;
+    @FXML
+    private TextField descuentoTotalFactura;
+    @FXML
+    private Label totalIvaFactura;
+    @FXML
+    private Label totalFactura;
+
+    	 */
+    	
+    	addfila.setOnAction(new EventHandler<ActionEvent>()
+        {    	
+            public void handle(ActionEvent e)
+            {
+            	files.add(anadirFila(numFactura,bd));
+            	
+            	//BASE IMPONIBLE
+            	float bi = 0;
+            	for(FacturaFiles f : files) 
+            	{
+            		bi += f.getPrecio_total();
+            	}
+            	baseImponible.setText(bi+" €");
+            }
+        });     
+	}
 	
+	
+	FacturaFiles anadirFila(int numFactura, Database db) 
+	{
+		FacturaFiles ff = new FacturaFiles();
+		try 
+		{
+			int cant = Integer.parseInt(cantidad.getText());
+			Articulos art = codart.getSelectionModel().getSelectedItem();
+			float desc = Float.parseFloat(descuento.getText());
+			float precioTotal = Float.parseFloat(total.getText());
+			FacturaHeader fh = new FacturaHeader();
+
+			ff = new FacturaFiles(cant,art,art.getNombre(),art.getIva(), art.getPrecio(),fh,desc,precioTotal);
+			tabla.getItems().add(ff);
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return ff;
 	}
 }

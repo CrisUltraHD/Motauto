@@ -528,4 +528,52 @@ public class Comprovaciones {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Obtener el ultimo numero de factura +1 que no sea repetido
+	 * 
+	 */
+	public static int getNumFactura(Database db) 
+	{
+		int num = 0;
+		
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT COUNT(num_factura)+1 FROM facturas_header;");
+            num = rs.getInt(1);
+
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return num;
+
+	}
+	
+	/**
+	 * Obtener el ultimo numero de factura +1 que no sea repetido
+	 * 
+	 */
+	public static int getNumFila(Database db) 
+	{
+		int num = 0;
+		
+		try 
+		{
+            ResultSet rs = db.ExecuteQuery("SELECT COUNT(num_fila) FROM facturas_filas;");
+            num = rs.getInt(1);
+
+		}
+		catch(SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return num;
+
+	}
+
+
 }

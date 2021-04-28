@@ -4,6 +4,10 @@
 
 package motauto;
 
+import java.sql.ResultSet;
+
+import javafx.collections.ObservableList;
+
 /************************************************************/
 /**
  * 
@@ -16,8 +20,11 @@ public class FacturaFiles {
 	private FacturaHeader facturasHeader;
 	private float descuento;
 	private float precio_total;
+	private String nombre;
+	private float precio;
+	private float iva;
 	
-	FacturaFiles(int numFila, int cantidad, Articulos articulo,FacturaHeader facturasHeader, float descuento, float precio_total)
+	public FacturaFiles(int numFila, int cantidad, Articulos articulo,FacturaHeader facturasHeader, float descuento, float precio_total)
 	{
 		this.numFila = numFila;
 		this.cantidad = cantidad;
@@ -27,13 +34,29 @@ public class FacturaFiles {
 		this.precio_total = precio_total;
 	}
 	
-	FacturaFiles(int cantidad, Articulos articulo,FacturaHeader facturasHeader, float descuento, float precio_total)
+	public FacturaFiles(int cantidad, Articulos articulo,FacturaHeader facturasHeader, float descuento, float precio_total)
 	{
 		this.cantidad = cantidad;
 		this.articulos = articulo;
 		this.facturasHeader = facturasHeader;
 		this.descuento = descuento;
 		this.precio_total = precio_total;
+	}
+	
+	public FacturaFiles(int cantidad, Articulos articulo, String nombre, float iva, float precio, FacturaHeader facturasHeader, float descuento, float precio_total)
+	{
+		this.cantidad = cantidad;
+		this.articulos = articulo;
+		this.setNombre(nombre);
+		this.setIva(iva);
+		this.setPrecio(precio);
+		this.facturasHeader = facturasHeader;
+		this.descuento = descuento;
+		this.precio_total = precio_total;
+	}
+
+	public FacturaFiles() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getCantidad() {
@@ -78,6 +101,30 @@ public class FacturaFiles {
 	}
 
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+
+	public float getIva() {
+		return iva;
+	}
+
+	public void setIva(float iva) {
+		this.iva = iva;
+	}
+
 	public boolean insertFacturaFila(Database db) {
 		boolean creacionCorrecta = false;
 
@@ -134,6 +181,31 @@ public class FacturaFiles {
 		
 		return updateCorrecto;
 	}
+	
+	public static void llenarInformacionFacturaFiles(Database db, ObservableList<FacturaFiles> ff) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes");
+			
+			while(rs.next()) 
+			{
+				ff.add(
+						//	FacturaFiles(int numFila, int cantidad, Articulos articulo,FacturaHeader facturasHeader, float descuento, float precio_total)
+
+				new FacturaFiles(rs.getInt(5),rs.getInt(4),Comprovaciones.consultaArticulo(rs.getString(2), db),Comprovaciones.consultaFacturaHeader(rs.getInt(1), db), rs.getFloat(6), rs.getFloat(7)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
 
 	
 }

@@ -4,8 +4,11 @@
 
 package motauto;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import javafx.collections.ObservableList;
 
 /************************************************************/
 /**
@@ -117,4 +120,33 @@ public class Vehiculo {
 		System.out.println(this.tipo_vehiculo);
 		cliente.ImprimirClient();
 	}
+	
+	@Override
+	public String toString() 
+	{
+		return this.matricula + " " + this.tipo_vehiculo;
+	}
+	
+	public static void llenarInformacionVehiculo(Database db, ObservableList<Vehiculo> vehiculo, String dni) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo where dni = '" + dni + "';");
+			
+			while(rs.next()) 
+			{
+				vehiculo.add(
+				new Vehiculo(rs.getString(2),rs.getString(3),rs.getString(4),Comprovaciones.consultaClient(rs.getString(1), db)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
 }

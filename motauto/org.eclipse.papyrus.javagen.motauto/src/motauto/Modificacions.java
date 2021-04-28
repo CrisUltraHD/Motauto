@@ -381,9 +381,6 @@ public class Modificacions {
 			System.out.println("5 - Modificar Forma de Pago");
 			System.out.println("6 - Modificar Matricula");
 			System.out.println("7 - Modificar Estado");
-			//System.out.println("8 - Modificar Total Base Imponible");
-			//System.out.println("9 - Modificar Descuento");
-			//System.out.println("10 - Modificar Total Iva");
 			System.out.println("8 - Modificar Observaciones");
 			System.out.println("9 - Volver");
 
@@ -456,30 +453,6 @@ public class Modificacions {
 				fh.modificarFactura(db);
 				break;
 				
-			/*case 8:
-				System.out.println("Modificar Total Base Imponible: ");
-				float total = Utiles.demanarNumFloat();
-				
-				fh.setTotal(total);
-				fh.modificarFactura(db);
-				break;
-				
-			case 9:
-				System.out.println("Modificar Descuento: ");
-				float descuento = Utiles.demanarNumFloat();
-				
-				fh.setDescuentoFactura(descuento);
-				fh.modificarFactura(db);
-				break;
-				
-			case 10:
-				System.out.println("Modificar Total Iva: ");
-				float iva = Utiles.demanarNumFloat();
-				
-				fh.setTotalIva(iva);
-				fh.modificarFactura(db);
-				break;*/
-				
 			case 8:
 				System.out.println("Modificar Observaciones: ");
 				String observaciones = Utiles.demanarString();
@@ -492,113 +465,6 @@ public class Modificacions {
 				MotAuto.MenuPrincipal(db);
 				break;
 			}
-			
-		//MODIFICAR FILAS
-		/*case 2:
-			System.out.println("1 - Modificar Codigo Articulo Fila");
-			System.out.println("2 - Modificar Cantidad Fila");
-			System.out.println("3 - Modificar Descuento Fila");
-			int opcion3 = Utiles.menu(3);
-			
-			Comprovaciones.mostrarFiles(fh, ff, db);
-			System.out.println("Introduce codigo fila a modificar: ");
-			int numFila = Utiles.demanarNum();
-			
-			if(!Comprovaciones.comprobarNumFila(numFila, db)) 
-			{
-				System.out.println("Codigo Fila No existente saliendo...");
-				MotAuto.MenuPrincipal(db);
-			}
-			
-			//OBTE LA POSICIO DE LA FILA EN EL ARRAYLIST
-			int posArrayList = 0;
-			for(FacturaFiles f : ff)
-			{
-				if(f.getNumFila() == numFila) 
-				{
-					break;
-				}
-				posArrayList++;
-			}
-
-			switch(opcion3) 
-			{
-			case 1:
-				Comprovaciones.mostrarArticulos(db);
-				System.out.println("Introduce nuevo codigo articulo: ");
-				String numArticle = Utiles.demanarString();
-				
-				if(!Comprovaciones.comprovarCodigoArticulo(numArticle, db)) 
-				{
-					System.out.println("Articulo no existente saliendo...");
-					MotAuto.MenuPrincipal(db);
-				}
-				
-				ff.get(posArrayList).setArticulos(Comprovaciones.consultaArticulo(numArticle, db));				
-				ff.get(posArrayList).modificarFilaFactura(db);
-				ff.clear();
-				break;
-				//CAMBIAR CANTIDAD
-			case 2:
-				System.out.println("Inserta nueva cantidad: ");
-				int cantidad = Utiles.demanarNum();
-				
-				ff.get(posArrayList).setPrecio_total((ff.get(posArrayList).getArticulos().getPrecio()*cantidad));
-				
-				float total = 0;
-				for(FacturaFiles f : ff) 
-				{
-					total += f.getPrecio_total();
-				}
-				
-				fh.setTotal(total);
-				
-			
-				fh.setTotalIva(fh.getTotal() * ff.get(posArrayList).getArticulos().getIva());
-				
-				fh.setTotalFactura(fh.getTotal() + fh.getTotalIva());
-				
-				fh.modificarFactura(db);
-				
-				ff.get(posArrayList).setCantidad(cantidad);
-				ff.get(posArrayList).modificarFilaFactura(db);
-				
-				ff.clear();
-				
-				break;
-				
-			case 3:
-				System.out.println("Inserta nuevo descuento: ");
-				float descuento = Utiles.demanarNumFloat();
-								
-				float totalDescuento = 0;
-				totalDescuento = totalDescuento + (ff.get(posArrayList).getPrecio_total() * descuento);
-
-				
-				float totalFilas = 0;
-				for(FacturaFiles f : ff) 
-				{
-					totalFilas += f.getPrecio_total();
-				}
-				
-				fh.setTotalIva(fh.getTotal() * ff.get(posArrayList).getArticulos().getIva());
-				
-				fh.setTotalFactura(fh.getTotal() + fh.getTotalIva());
-
-				fh.setTotal(totalFilas);
-				
-				
-				fh.modificarFactura(db);
-				
-				ff.get(posArrayList).setDescuento(descuento);
-				ff.get(posArrayList).modificarFilaFactura(db);
-				
-				ff.clear();
-				break;
-			}
-
-			break;*/
-
 		}
 	}
 

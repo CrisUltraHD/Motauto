@@ -4,6 +4,8 @@
 
 package motauto;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 /**
  * 
  */
- class FacturaHeader {
+public class FacturaHeader {
 	private int numPressupost;
 	private String cifEmpresa;
 	private int estado;
@@ -46,7 +48,7 @@ import java.util.ArrayList;
 		this.forma_pago = forma_pago;
 	}
 	
-	FacturaHeader(){}
+	public FacturaHeader(){}
 		
 	
 	public int getNumPressupost() {
@@ -208,6 +210,9 @@ import java.util.ArrayList;
 	public void setHoraFactura(LocalTime horaFactura) {
 		this.horaFactura = horaFactura;
 	}
+	
+
+
 
 
 	/**
