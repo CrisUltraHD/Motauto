@@ -21,9 +21,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
@@ -35,9 +38,6 @@ import motauto.FacturaHeader;
 import motauto.Vehiculo;
 
 public class Crear_Factura implements Initializable {
-
-    @FXML
-    private TextField estado;
     
     @FXML
     private TableColumn<FacturaFiles, String> colCodArticulo;
@@ -120,6 +120,17 @@ public class Crear_Factura implements Initializable {
     @FXML
     private TextField formapago;
     
+
+    @FXML
+    private ToggleGroup pago;
+    @FXML
+    private RadioButton pagado;
+    @FXML
+    private RadioButton porpagar;
+
+    @FXML
+    private TextArea observaciones;
+
     
     @FXML
     private TextField ivaFactura;
@@ -240,9 +251,12 @@ public class Crear_Factura implements Initializable {
     				float totalDescuento = (totalt*descuentot)+totalt;
     				total.setText(totalDescuento+"");
     			}
-    			catch(Exception e) {e.printStackTrace();}    			
+    			catch(Exception e) {}    			
     		}
     	});
+    	
+    	//DESCUENTO TOTAL FACTURA
+    	descuentoTotalFactura.setText("0");
     	
     	
     	
@@ -262,7 +276,7 @@ public class Crear_Factura implements Initializable {
     				float totalDescuento = (totalt*descuentot)+totalt;
     				total.setText(totalDescuento+"");
     			}
-    			catch(Exception e) {e.printStackTrace();}    			
+    			catch(Exception e) {}    			
     		}
     	});
     	
@@ -294,31 +308,78 @@ public class Crear_Factura implements Initializable {
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
     			
     			try 
-    			{
+    			{  					
     				float ivat = Float.parseFloat(iva.getText());
     				float preciot = Float.parseFloat(precio.getText());
     				int cantidadt = Integer.parseInt(cantidad.getText());
     				float descuentot = Float.parseFloat(newValue);
     				
     				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = (totalt*descuentot)+totalt;
+    				float totalDescuento = totalt - (totalt*descuentot);
     				total.setText(totalDescuento+"");
+    			}
+    			catch(Exception e) {}    			
+    		}
+    	}); 
+    	
+    	
+    	//IVA FINAL FACTURA
+    	ivaFactura.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			
+    			try 
+    			{
+    				float baseImponibleC = Float.parseFloat(baseImponible.getText());
+    				float precioIvaC = baseImponibleC * Float.parseFloat(newValue);
+    				float totalFacturaConIvaC = baseImponibleC + (baseImponibleC * Float.parseFloat(newValue));
+    				totalFacturaConIvaC = totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(descuentoTotalFactura.getText()));
+    				
+    				//Base Imponible
+    				baseImponible.setText(baseImponibleC+"");
+    				//IVA
+    				totalIvaFactura.setText(precioIvaC+"");
+    				//Total
+    				totalFactura.setText(totalFacturaConIvaC+"");
+    				
     			}
     			catch(Exception e) {e.printStackTrace();}    			
     		}
     	}); 
     	
+    	//DESCUENTO FINAL FACTURA
+    	descuentoTotalFactura.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			
+    			try 
+    			{
+    				float baseImponibleC = Float.parseFloat(baseImponible.getText());
+    				float precioIvaC = baseImponibleC * Float.parseFloat(ivaFactura.getText());
+    				float totalFacturaConIvaC = baseImponibleC + (baseImponibleC * Float.parseFloat(ivaFactura.getText()));
+    				totalFacturaConIvaC = totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(newValue));
+    				
+    				//Base Imponible
+    				baseImponible.setText(baseImponibleC+"");
+    				//IVA
+    				totalIvaFactura.setText(precioIvaC+"");
+    				//Total
+    				totalFactura.setText(totalFacturaConIvaC+"");
+
+    			}
+    			catch(Exception e) {}    			
+    		}
+    	}); 
     	
     	//HORA
     	hora.setText(LocalTime.now()+"");
+    	
     	//NUM FACTURA
     	int numFactura = Comprovaciones.getNumFactura(db);
     	nfactura.setText("Num Factura: "+numFactura+"");
-    	
-    	
-    	
+    		
     	//TABLEVIEW    	
-    	id.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("numFila"));    	
+    	//id.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("numFila"));    	
     	colCodArticulo.setCellValueFactory(new PropertyValueFactory<FacturaFiles,String>("nombre"));
     	colCantidad.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("cantidad"));
     	colDescuento.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("descuento"));
@@ -327,22 +388,12 @@ public class Crear_Factura implements Initializable {
     	colTotal.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("precio_total"));  
     	
     	ArrayList<FacturaFiles> files = new ArrayList<FacturaFiles>();
-    	/*
-    	 *     @FXML
-    private TextField ivaFactura;
-    @FXML
-    private Label baseImponible;
-    @FXML
-    private TextField descuentoTotalFactura;
-    @FXML
-    private Label totalIvaFactura;
-    @FXML
-    private Label totalFactura;
 
-    	 */
-    	
+    	//BOTON + AÑADIR FILA
     	addfila.setOnAction(new EventHandler<ActionEvent>()
         {    	
+    		//int numFila = Comprovaciones.getNumFila(bd);
+    		
             public void handle(ActionEvent e)
             {
             	files.add(anadirFila(numFactura,bd));
@@ -353,9 +404,56 @@ public class Crear_Factura implements Initializable {
             	{
             		bi += f.getPrecio_total();
             	}
-            	baseImponible.setText(bi+" €");
+            	baseImponible.setText(bi+"");
+            	//numFila++;
             }
         });     
+    	
+    	//BOTON CREAR FACTURA
+    	btncrear.setOnAction(new EventHandler<ActionEvent>()
+        {    	
+            public void handle(ActionEvent e)
+            {
+            	//PAGADO, POR PAGAR
+            	int estado = 0;
+            	
+            	if(pagado.isSelected()) {estado = 1;}
+            	else if(pagado.isSelected()) {estado = 0;}
+            	//POR SI ACASO :)
+            	else {estado = 0;}
+            	
+            	try 
+            	{
+            		LocalDate value = fechaFactura.getValue();
+
+            		FacturaHeader fh = new FacturaHeader(0,"",estado,Float.parseFloat(baseImponible.getText()),dni.getSelectionModel().getSelectedItem(),vehiculo.getSelectionModel().getSelectedItem(),files,Float.parseFloat(descuentoTotalFactura.getText()),Float.parseFloat(totalIvaFactura.getText()),Float.parseFloat(totalFactura.getText()),observaciones.getText(),value,LocalTime.parse(hora.getText()),formapago.getText());
+            	
+	        		fh.insertFacturaHeader(bd);
+
+            		//AL HACER EL INSERT DEL HEADER TIENE QUE OBTENER EL NUM FACTURA
+            		int numFactura = Comprovaciones.returnNumFactura(bd, dni.getSelectionModel().getSelectedItem().getDni(), value, LocalTime.parse(hora.getText()));
+            		fh.setNumPressupost(numFactura);
+
+            		
+	            	for(FacturaFiles f : files) 
+	            	{
+	            		f.setFacturasHeader(fh);
+	            	}
+	            	
+	        		// HACE LOS INSERT DEL HEADER Y LAS FILAS
+	
+	        		for (FacturaFiles f : files) {
+	        			f.insertFacturaFila(bd);
+	        		}
+	        		
+	        		System.out.println("INSERT CORRECTO");
+
+            	
+            	}
+            	catch(Exception ex) {ex.printStackTrace();}
+        	}
+        });     
+
 	}
 	
 	

@@ -539,8 +539,11 @@ public class Comprovaciones {
 		
 		try 
 		{
+			
             ResultSet rs = db.ExecuteQuery("SELECT COUNT(num_factura)+1 FROM facturas_header;");
+            rs.next();
             num = rs.getInt(1);
+
 
 		}
 		catch(SQLException e) 
@@ -568,7 +571,6 @@ public class Comprovaciones {
 		}
 		catch(SQLException e) 
 		{
-			e.printStackTrace();
 		}
 		
 		return num;

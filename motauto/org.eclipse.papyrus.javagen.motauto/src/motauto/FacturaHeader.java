@@ -30,7 +30,7 @@ public class FacturaHeader {
 	private LocalDate dataFactura;
 	private LocalTime horaFactura;
 				
-	FacturaHeader(int numPressupost, String cifEmpresa, int estado, float total, Cliente cliente, Vehiculo vehiculo, ArrayList<FacturaFiles> arrayFacturaFiles, float descuentoFactura, float totalIva, float totalFactura, String observaciones, LocalDate dataFactura, LocalTime horaFactura, String forma_pago)
+	public FacturaHeader(int numPressupost, String cifEmpresa, int estado, float total, Cliente cliente, Vehiculo vehiculo, ArrayList<FacturaFiles> arrayFacturaFiles, float descuentoFactura, float totalIva, float totalFactura, String observaciones, LocalDate dataFactura, LocalTime horaFactura, String forma_pago)
 	{
 		this.numPressupost = numPressupost;
 		this.cifEmpresa = "C565845";
