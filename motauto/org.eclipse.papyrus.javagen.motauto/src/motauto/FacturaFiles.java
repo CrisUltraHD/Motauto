@@ -182,11 +182,11 @@ public class FacturaFiles {
 		return updateCorrecto;
 	}
 	
-	public static void llenarInformacionFacturaFiles(Database db, ObservableList<FacturaFiles> ff) 
+	public static void llenarInformacionFacturaFiles(Database db, ObservableList<FacturaFiles> ff, int numFactura) 
 	{
 		try 
 		{
-			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_filas");
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_filas where num_factura = '"+numFactura+"';");
 			
 			while(rs.next()) 
 			{

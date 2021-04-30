@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,8 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -47,6 +44,9 @@ public class Modificar_Factura implements Initializable{
 
     @FXML
     private Label hora;
+    
+    @FXML
+    private Label info;
 
     @FXML
     private Button btncrear;
@@ -195,9 +195,6 @@ public class Modificar_Factura implements Initializable{
 		
 		//INICIALIZAR FILAS
     	filas = FXCollections.observableArrayList();
-    	FacturaFiles.llenarInformacionFacturaFiles(db, filas);
-    	
-		filasFiltradas = new FilteredList<>(filas, p -> true);
 
 		
     	//TABLEVIEW    	
@@ -215,9 +212,16 @@ public class Modificar_Factura implements Initializable{
 			public void changed(ObservableValue<? extends FacturaHeader> seleccionat, FacturaHeader anterior, FacturaHeader nou) {
 				
 				fh = nou;
+				arrayFiles.clear();
 				arrayFiles = Comprovaciones.consultaFacturaFiles(fh, fh.getNumPressupost(), bd);
 				
+				tabla.getItems().clear();
+				filas.clear();
+		    	
+				FacturaFiles.llenarInformacionFacturaFiles(bd, filas, nou.getNumPressupost());
+				filasFiltradas = new FilteredList<>(filas, p -> true);
 				tabla.getItems().addAll(filasFiltradas);
+				
 				dni.setValue(fh.getCliente());
 				vehiculo.setValue(fh.getVehiculo());
 				fechaFactura.setValue(fh.getDataFactura());
@@ -231,10 +235,12 @@ public class Modificar_Factura implements Initializable{
 				{
 					baseImponibleFactura += f.getPrecio_total();
 				}
+				float ivaFact = (float) round1(fh.getTotalIva()/baseImponibleFactura,2);
 				baseImponible.setText(baseImponibleFactura+"");
-				ivaFactura.setText(fh.getTotalIva()/baseImponibleFactura+"");
+				ivaFactura.setText(ivaFact+"");
 				descuentoTotalFactura.setText(fh.getDescuentoFactura()+"");
 				observaciones.setText(fh.getObservaciones());
+
 
 			}
 		});
@@ -311,8 +317,8 @@ public class Modificar_Factura implements Initializable{
     				int cantidadt = Integer.parseInt(newValue);
     				float descuentot = Float.parseFloat(descuento.getText());
     				
-    				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = (totalt*descuentot)+totalt;
+    				float totalt = (float) round1((preciot * ivat)+preciot * cantidadt,2);
+    				float totalDescuento = (float) round1((totalt*descuentot)+totalt,2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {}    			
@@ -336,8 +342,8 @@ public class Modificar_Factura implements Initializable{
     				int cantidadt = Integer.parseInt(cantidad.getText());
     				float descuentot = Float.parseFloat(descuento.getText());
     				
-    				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = (totalt*descuentot)+totalt;
+    				float totalt = (float) round1((preciot * ivat)+preciot * cantidadt,2);
+    				float totalDescuento = (float) round1((totalt*descuentot)+totalt,2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {}    			
@@ -358,8 +364,8 @@ public class Modificar_Factura implements Initializable{
     				int cantidadt = Integer.parseInt(cantidad.getText());
     				float descuentot = Float.parseFloat(descuento.getText());
     				
-    				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = (totalt*descuentot)+totalt;
+    				float totalt = (float) round1((preciot * ivat)+preciot * cantidadt,2);
+    				float totalDescuento = (float) round1((totalt*descuentot)+totalt,2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {e.printStackTrace();}    			
@@ -378,8 +384,8 @@ public class Modificar_Factura implements Initializable{
     				int cantidadt = Integer.parseInt(cantidad.getText());
     				float descuentot = Float.parseFloat(newValue);
     				
-    				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = totalt - (totalt*descuentot);
+    				float totalt = (float) round1((preciot * ivat)+preciot * cantidadt,2);
+    				float totalDescuento = (float) round1(totalt - (totalt*descuentot),2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {}    			
@@ -395,9 +401,9 @@ public class Modificar_Factura implements Initializable{
     			try 
     			{
     				float baseImponibleC = Float.parseFloat(baseImponible.getText());
-    				float precioIvaC = baseImponibleC * Float.parseFloat(newValue);
-    				float totalFacturaConIvaC = baseImponibleC + (baseImponibleC * Float.parseFloat(newValue));
-    				totalFacturaConIvaC = totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(descuentoTotalFactura.getText()));
+    				float precioIvaC = (float) round1(baseImponibleC * Float.parseFloat(newValue),2);
+    				float totalFacturaConIvaC = (float) round1(baseImponibleC + (baseImponibleC * Float.parseFloat(newValue)),2);
+    				totalFacturaConIvaC = (float) round1(totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(descuentoTotalFactura.getText())),2);
     				
     				//Base Imponible
     				baseImponible.setText(baseImponibleC+"");
@@ -419,9 +425,9 @@ public class Modificar_Factura implements Initializable{
     			try 
     			{
     				float baseImponibleC = Float.parseFloat(baseImponible.getText());
-    				float precioIvaC = baseImponibleC * Float.parseFloat(ivaFactura.getText());
-    				float totalFacturaConIvaC = baseImponibleC + (baseImponibleC * Float.parseFloat(ivaFactura.getText()));
-    				totalFacturaConIvaC = totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(newValue));
+    				float precioIvaC = (float) round1(baseImponibleC * Float.parseFloat(ivaFactura.getText()),2);
+    				float totalFacturaConIvaC = (float) round1(baseImponibleC + (baseImponibleC * Float.parseFloat(ivaFactura.getText())),2);
+    				totalFacturaConIvaC = (float) round1(totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(newValue)),2);
     				
     				//Base Imponible
     				baseImponible.setText(baseImponibleC+"");
@@ -457,7 +463,7 @@ public class Modificar_Factura implements Initializable{
             	{
             		bi += f.getPrecio_total();
             	}
-            	baseImponible.setText(bi+"");
+            	baseImponible.setText(round1(bi,2)+"");
             }
         }); 
     	
@@ -530,7 +536,8 @@ public class Modificar_Factura implements Initializable{
 
 		            	
 		            	}
-		            	catch(Exception ex) {ex.printStackTrace();}
+		            	catch(Exception ex) {ex.printStackTrace();info.setText(ex.getCause()+"");}
+		            	info.setText("Factura Modificada Correctamente");
 		        	}
 		        });     
 
@@ -584,6 +591,8 @@ public class Modificar_Factura implements Initializable{
 		}
 	}
 
-
+	public static double round1(double value, int scale) {
+	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
+	}
 
 }

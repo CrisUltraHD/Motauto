@@ -142,6 +142,8 @@ public class Crear_Factura implements Initializable {
     private Label totalIvaFactura;
     @FXML
     private Label totalFactura;
+    @FXML
+    private Label info;
 
     
 
@@ -227,7 +229,7 @@ public class Crear_Factura implements Initializable {
 				descuento.setText("0.0");
 				iva.setText(""+ivat);
 				precio.setText("" +preciot);
-				total.setText(""+((preciot * ivat)+preciot * cantidadt));
+				total.setText(""+round1(((preciot * ivat)+preciot * cantidadt),2));
 			}
 		});
 
@@ -246,7 +248,7 @@ public class Crear_Factura implements Initializable {
     				float descuentot = Float.parseFloat(descuento.getText());
     				
     				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = (totalt*descuentot)+totalt;
+    				float totalDescuento = (float) round1(((totalt*descuentot)+totalt),2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {}    			
@@ -265,13 +267,15 @@ public class Crear_Factura implements Initializable {
     			
     			try 
     			{
+    				codart.getSelectionModel().getSelectedItem().setIva(Float.parseFloat(newValue));
+    				
     				float ivat = Float.parseFloat(newValue);
     				float preciot = Float.parseFloat(precio.getText());
     				int cantidadt = Integer.parseInt(cantidad.getText());
     				float descuentot = Float.parseFloat(descuento.getText());
     				
     				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = (totalt*descuentot)+totalt;
+    				float totalDescuento = (float) round1(((totalt*descuentot)+totalt),2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {}    			
@@ -287,13 +291,15 @@ public class Crear_Factura implements Initializable {
     			
     			try 
     			{
+    				codart.getSelectionModel().getSelectedItem().setPrecio(Float.parseFloat(newValue));
+    				
     				float ivat = Float.parseFloat(iva.getText());
     				float preciot = Float.parseFloat(newValue);
     				int cantidadt = Integer.parseInt(cantidad.getText());
     				float descuentot = Float.parseFloat(descuento.getText());
     				
     				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = (totalt*descuentot)+totalt;
+    				float totalDescuento = (float) round1(((totalt*descuentot)+totalt),2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {e.printStackTrace();}    			
@@ -313,7 +319,7 @@ public class Crear_Factura implements Initializable {
     				float descuentot = Float.parseFloat(newValue);
     				
     				float totalt = (preciot * ivat)+preciot * cantidadt;
-    				float totalDescuento = totalt - (totalt*descuentot);
+    				float totalDescuento = (float) round1(totalt - (totalt*descuentot),2);
     				total.setText(totalDescuento+"");
     			}
     			catch(Exception e) {}    			
@@ -329,9 +335,9 @@ public class Crear_Factura implements Initializable {
     			try 
     			{
     				float baseImponibleC = Float.parseFloat(baseImponible.getText());
-    				float precioIvaC = baseImponibleC * Float.parseFloat(newValue);
-    				float totalFacturaConIvaC = baseImponibleC + (baseImponibleC * Float.parseFloat(newValue));
-    				totalFacturaConIvaC = totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(descuentoTotalFactura.getText()));
+    				float precioIvaC = (float) round1(baseImponibleC * Float.parseFloat(newValue),2);
+    				float totalFacturaConIvaC = (float) round1(baseImponibleC + (baseImponibleC * Float.parseFloat(newValue)),2);
+    				totalFacturaConIvaC = (float) round1(totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(descuentoTotalFactura.getText())),2);
     				
     				//Base Imponible
     				baseImponible.setText(baseImponibleC+"");
@@ -353,9 +359,9 @@ public class Crear_Factura implements Initializable {
     			try 
     			{
     				float baseImponibleC = Float.parseFloat(baseImponible.getText());
-    				float precioIvaC = baseImponibleC * Float.parseFloat(ivaFactura.getText());
-    				float totalFacturaConIvaC = baseImponibleC + (baseImponibleC * Float.parseFloat(ivaFactura.getText()));
-    				totalFacturaConIvaC = totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(newValue));
+    				float precioIvaC = (float) round1(baseImponibleC * Float.parseFloat(ivaFactura.getText()),2);
+    				float totalFacturaConIvaC = (float) round1(baseImponibleC + (baseImponibleC * Float.parseFloat(ivaFactura.getText())),2);
+    				totalFacturaConIvaC = (float) round1(totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(newValue)),2);
     				
     				//Base Imponible
     				baseImponible.setText(baseImponibleC+"");
@@ -441,6 +447,7 @@ public class Crear_Factura implements Initializable {
 	        			f.insertFacturaFila(bd);
 	        		}
 	        		
+	        		info.setText("FACTURA CREADA CORRECTAMENTE");
 	        		System.out.println("INSERT CORRECTO");
 
             	
@@ -472,5 +479,9 @@ public class Crear_Factura implements Initializable {
 			e.printStackTrace();
 		}
 		return ff;
+	}
+	
+	public static double round1(double value, int scale) {
+	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
 	}
 }
