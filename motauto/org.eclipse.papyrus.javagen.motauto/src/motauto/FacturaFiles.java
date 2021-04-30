@@ -186,14 +186,12 @@ public class FacturaFiles {
 	{
 		try 
 		{
-			ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes");
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_filas");
 			
 			while(rs.next()) 
 			{
 				ff.add(
-						//	FacturaFiles(int numFila, int cantidad, Articulos articulo,FacturaHeader facturasHeader, float descuento, float precio_total)
-
-				new FacturaFiles(rs.getInt(5),rs.getInt(4),Comprovaciones.consultaArticulo(rs.getString(2), db),Comprovaciones.consultaFacturaHeader(rs.getInt(1), db), rs.getFloat(6), rs.getFloat(7)));
+				new FacturaFiles(rs.getInt(4),Comprovaciones.consultaArticulo(rs.getString(2), db),Comprovaciones.consultaArticulo(rs.getString(2), db).getNombre(),Comprovaciones.consultaArticulo(rs.getString(2), db).getIva(),Comprovaciones.consultaArticulo(rs.getString(2), db).getPrecio(),Comprovaciones.consultaFacturaHeader(rs.getInt(1), db),rs.getFloat(6),rs.getFloat(7)));
 			}
 			
 			rs.close();
@@ -206,6 +204,7 @@ public class FacturaFiles {
 		}
 	}
 
+	
 
 	
 }

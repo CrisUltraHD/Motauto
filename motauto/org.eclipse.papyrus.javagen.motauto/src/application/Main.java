@@ -15,7 +15,10 @@ public class Main extends Application {
 
 		try 
 		{
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Vistes/Alta_Modificar_Factura.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Vistes/Alta_Factura.fxml"));
+			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Vistes/Borrar_Factura.fxml"));
+			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/Vistes/Modificar_Factura.fxml"));
+
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

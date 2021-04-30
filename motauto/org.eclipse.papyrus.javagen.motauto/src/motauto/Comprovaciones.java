@@ -540,7 +540,7 @@ public class Comprovaciones {
 		try 
 		{
 			
-            ResultSet rs = db.ExecuteQuery("SELECT COUNT(num_factura)+1 FROM facturas_header;");
+            ResultSet rs = db.ExecuteQuery("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_NAME = 'facturas_header';");
             rs.next();
             num = rs.getInt(1);
 

@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
+
 /************************************************************/
 /**
  * 
@@ -212,7 +214,11 @@ public class FacturaHeader {
 	}
 	
 
-
+	@Override
+	public String toString() 
+	{
+		return "Nº: " + this.numPressupost + " DNI: " + this.cliente.getDni() + " NOMBRE: " + this.cliente.getNombre();
+	}
 
 
 	/**
@@ -248,7 +254,7 @@ public class FacturaHeader {
 		try 
 		{
 			updateCorrecto = db.ExecuteUpdate("UPDATE facturas_header SET cif_empresa = '"+this.cifEmpresa+"', dni_cliente = '"+this.cliente.getDni()+"', fecha = '"+this.dataFactura+"', hora = '"+this.horaFactura+"', forma_pago = '"+this.forma_pago+"', matricula = '"+this.vehiculo.getMatricula()+"', estado = '"+this.estado+"', total_base_imponible = '"+this.total+"', descuento = '"+this.descuentoFactura+"', total_iva = '"+this.totalIva+"', total_factura = '"+this.totalFactura+"', observaciones = '"+this.observaciones+"' WHERE num_factura = '"+this.numPressupost+"';");			
-			System.out.println(updateCorrecto ? "Insert Correcte" : "Insert Incorrecte");
+			System.out.println(updateCorrecto ? "Insert Header Correcte" : "Insert Header Incorrecte");
 		}
 		catch(Exception e)
 		{
@@ -277,4 +283,27 @@ public class FacturaHeader {
 		
 		return updateCorrecto;
 	}
+	
+	public static void llenarInformacionHeader(Database db, ObservableList<FacturaHeader> header) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_header");
+			ArrayList<FacturaFiles> ff = new ArrayList<FacturaFiles>();
+			while(rs.next()) 
+			{
+				header.add(
+				new FacturaHeader(rs.getInt(2),rs.getString(1),rs.getInt(8),rs.getFloat(9), Comprovaciones.consultaClient(rs.getString(3), db), Comprovaciones.consultaVehiculo(rs.getString(7), db),ff,rs.getFloat(10),rs.getFloat(11),rs.getFloat(12),rs.getString(13),rs.getDate(4).toLocalDate(),rs.getTime(5).toLocalTime(),rs.getString(6)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
 }

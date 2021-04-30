@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -7,17 +8,17 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Crear_Factura">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Modificar_Factura">
    <children>
       <Pane layoutX="7.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
          <children>
             <fx:include source="Header.fxml" />
-            <Text layoutX="529.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FACTURA" textAlignment="CENTER" underline="true">
+            <Text layoutX="705.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FACTURA" textAlignment="CENTER" underline="true">
                <font>
                   <Font name="Consolas" size="36.0" />
                </font>
             </Text>
-            <HBox layoutX="35.0" layoutY="141.0" prefHeight="102.0" prefWidth="1147.0">
+            <HBox layoutX="35.0" layoutY="116.0" prefHeight="154.0" prefWidth="1147.0">
                <children>
                   <VBox prefHeight="102.0" prefWidth="173.0">
                      <children>
@@ -44,9 +45,11 @@
                         <ComboBox fx:id="vehiculo" prefWidth="150.0" />
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="198.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="126.0" prefWidth="393.0">
                      <children>
-                        <Label fx:id="nfactura" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="1241.0" text="NºFactura     0" textAlignment="RIGHT" />
+                        <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="256.0" text="SELECCIONA NUMERO FACTURA A MODIFICAR" textAlignment="RIGHT" />
+                        <ComboBox fx:id="seleccionaNumFactura" prefWidth="150.0" />
+                        <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="41.0" layoutY="10.0" prefHeight="17.0" prefWidth="256.0" text="SELECCIONA NUMERO FACTURA A MODIFICAR" textAlignment="RIGHT" />
                         <DatePicker fx:id="fechaFactura" />
                         <Label fx:id="hora" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="1251.0" text="Hora: 00:00:00" textAlignment="RIGHT" />
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -64,19 +67,18 @@
                   </VBox>
                </children>
             </HBox>
-            <Text layoutX="33.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLIENTE" textAlignment="CENTER">
+            <Text layoutX="33.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLIENTE" textAlignment="CENTER">
                <font>
                   <Font name="Consolas" size="25.0" />
                </font>
             </Text>
-            <Text layoutX="499.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VEHICULO" textAlignment="CENTER">
+            <Text layoutX="402.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VEHICULO" textAlignment="CENTER">
                <font>
                   <Font name="Consolas" size="25.0" />
                </font>
             </Text>
-            <TableView fx:id="tabla" layoutX="33.0" layoutY="276.0" prefHeight="307.0" prefWidth="1114.0">
+            <TableView fx:id="tabla" editable="true" layoutX="33.0" layoutY="276.0" prefHeight="307.0" prefWidth="1114.0">
                <columns>
-                  <TableColumn id="id" fx:id="id" prefWidth="69.0" text="ID Fila" />
                   <TableColumn fx:id="colCodArticulo" prefWidth="124.0">
                      <graphic>
                         <ComboBox id="codArticulo" fx:id="codart" prefHeight="25.0" prefWidth="232.0" promptText="Articulo" />
@@ -113,7 +115,8 @@
                </columnResizePolicy>
             </TableView>
             <Button id="add" fx:id="addfila" layoutX="1147.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" text="+" />
-            <Button id="btncrear" fx:id="btncrear" layoutX="531.0" layoutY="767.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Crear / Modificar" />
+            <Button id="add" fx:id="removefila" layoutX="1147.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" text="-" />
+            <Button id="btncrear" fx:id="btncrear" layoutX="531.0" layoutY="767.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="MODIFICAR FACTURA" />
             <VBox layoutX="244.0" layoutY="583.0" prefHeight="168.0" prefWidth="692.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="585.0">

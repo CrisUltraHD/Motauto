@@ -6,8 +6,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.sun.media.sound.FFT;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -37,10 +37,13 @@ import motauto.FacturaFiles;
 import motauto.FacturaHeader;
 import motauto.Vehiculo;
 
-public class Crear_Factura implements Initializable {
-    
+public class Modificar_Factura implements Initializable{
+
     @FXML
     private TableColumn<FacturaFiles, String> colCodArticulo;
+
+    @FXML
+    private TextField descuentoTotalFactura;
 
     @FXML
     private Label hora;
@@ -53,6 +56,9 @@ public class Crear_Factura implements Initializable {
 
     @FXML
     private Button addfila;
+    
+    @FXML
+    private Button removefila;
 
     @FXML
     private Label dir;
@@ -61,13 +67,22 @@ public class Crear_Factura implements Initializable {
     private Label nombre;
 
     @FXML
+    private TextField formapago;
+
+    @FXML
     private ComboBox<Articulos> codart;
+
+    @FXML
+    private TableColumn<FacturaFiles, Float> colDescuento;
 
     @FXML
     private TextField precio;
 
     @FXML
     private TextField total;
+
+    @FXML
+    private Label totalFactura;
 
     @FXML
     private TextField iva;
@@ -82,10 +97,22 @@ public class Crear_Factura implements Initializable {
     private Label correo;
 
     @FXML
+    private DatePicker fechaFactura;
+
+    @FXML
+    private ComboBox<FacturaHeader> seleccionaNumFactura;
+
+    @FXML
+    private Label baseImponible;
+
+    @FXML
     private TableView<FacturaFiles> tabla;
 
     @FXML
-    private TableColumn<FacturaFiles, Integer> id;
+    private Label totalIvaFactura;
+
+    @FXML
+    private TableColumn<FacturaFiles, String> id;
 
     @FXML
     private ComboBox<Cliente> dni;
@@ -94,57 +121,35 @@ public class Crear_Factura implements Initializable {
     private TableColumn<FacturaFiles, Integer> colCantidad;
 
     @FXML
+    private RadioButton porpagar;
+
+    @FXML
     private TableColumn<FacturaFiles, Float> colTotal;
 
     @FXML
-    private Label nfactura;
+    private TextField ivaFactura;
+
+    @FXML
+    private TextField descuento;
+
+    @FXML
+    private ComboBox<Vehiculo> vehiculo;
+
+    @FXML
+    private ToggleGroup pago;
 
     @FXML
     private Label tlf;
 
     @FXML
-    private DatePicker fechaFactura;
-    
-    @FXML
-    private TextField cantidad;
-
-    @FXML
-    private TableColumn<FacturaFiles, Float> colDescuento;  
-    
-    @FXML
-    private TextField descuento;
-    
-    @FXML
-    private ComboBox<Vehiculo> vehiculo;
-    
-    @FXML
-    private TextField formapago;
-    
-
-    @FXML
-    private ToggleGroup pago;
-    @FXML
     private RadioButton pagado;
-    @FXML
-    private RadioButton porpagar;
 
     @FXML
     private TextArea observaciones;
 
+    @FXML
+    private TextField cantidad;
     
-    @FXML
-    private TextField ivaFactura;
-    @FXML
-    private Label baseImponible;
-    @FXML
-    private TextField descuentoTotalFactura;
-    @FXML
-    private Label totalIvaFactura;
-    @FXML
-    private Label totalFactura;
-
-    
-
     
     //CLIENTES
     private ObservableList <Cliente> clientes;
@@ -152,12 +157,20 @@ public class Crear_Factura implements Initializable {
     private ObservableList <Vehiculo> vehiculos;
     //ARTICULOS
     private ObservableList <Articulos> articulos;
+    //HEADERS
+    private ObservableList <FacturaHeader> header;
+    //FILAS
+    private ObservableList <FacturaFiles> filas;
+	FilteredList<FacturaFiles> filasFiltradas;
 
+	FacturaHeader fh = new FacturaHeader();
+	FacturaFiles ff = new FacturaFiles();
+	ArrayList<FacturaFiles> arrayFiles = new ArrayList<FacturaFiles>();
 
     
-	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-    	
+    	System.out.println("fasdsdsadsa");
+
 		//Connexio BBDD
 		Database db=null;
 		try 
@@ -171,8 +184,63 @@ public class Crear_Factura implements Initializable {
 		}
 		
     	Database bd = db;
+    	
+		//SELECCIONAR NUM FACTURA
+    	header = FXCollections.observableArrayList();
+    	FacturaHeader.llenarInformacionHeader(db, header);
+    	
+		FilteredList<FacturaHeader> headerFiltrado;
+		headerFiltrado = new FilteredList<>(header, p -> true);
+		seleccionaNumFactura.setItems(headerFiltrado);
+		
+		//INICIALIZAR FILAS
+    	filas = FXCollections.observableArrayList();
+    	FacturaFiles.llenarInformacionFacturaFiles(db, filas);
+    	
+		filasFiltradas = new FilteredList<>(filas, p -> true);
 
+		
+    	//TABLEVIEW    	
+    	colCodArticulo.setCellValueFactory(new PropertyValueFactory<FacturaFiles,String>("nombre"));
+    	colCantidad.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("cantidad"));
+    	colDescuento.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("descuento"));
+    	colIva.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("iva"));
+    	colPrecio.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("precio"));
+    	colTotal.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("precio_total"));  
+    	/////////
 
+    	//IMPORTANTE
+		seleccionaNumFactura.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<FacturaHeader>() {
+			@Override
+			public void changed(ObservableValue<? extends FacturaHeader> seleccionat, FacturaHeader anterior, FacturaHeader nou) {
+				
+				fh = nou;
+				arrayFiles = Comprovaciones.consultaFacturaFiles(fh, fh.getNumPressupost(), bd);
+				
+				tabla.getItems().addAll(filasFiltradas);
+				dni.setValue(fh.getCliente());
+				vehiculo.setValue(fh.getVehiculo());
+				fechaFactura.setValue(fh.getDataFactura());
+				hora.setText(fh.getHoraFactura()+"");
+				if(fh.getEstado() == 1) {pagado.setSelected(true); porpagar.setSelected(false);}
+				if(fh.getEstado() == 0) {porpagar.setSelected(true); pagado.setSelected(false);}
+				formapago.setText(fh.getForma_pago());
+				
+				float baseImponibleFactura = 0;
+				for(FacturaFiles f : arrayFiles) 
+				{
+					baseImponibleFactura += f.getPrecio_total();
+				}
+				baseImponible.setText(baseImponibleFactura+"");
+				ivaFactura.setText(fh.getTotalIva()/baseImponibleFactura+"");
+				descuentoTotalFactura.setText(fh.getDescuentoFactura()+"");
+				observaciones.setText(fh.getObservaciones());
+
+			}
+		});
+		////////////
+		
+		
 		//CLIENTES
     	clientes = FXCollections.observableArrayList();
     	Cliente.llenarInformacionCliente(db, clientes);
@@ -202,8 +270,6 @@ public class Crear_Factura implements Initializable {
 			}
 		});
 		
-		
-    	
     	//ARTICULOS
     	articulos = FXCollections.observableArrayList();
     	Articulos.llenarInformacionArticulos(db, articulos);
@@ -363,94 +429,118 @@ public class Crear_Factura implements Initializable {
     				totalIvaFactura.setText(precioIvaC+"");
     				//Total
     				totalFactura.setText(totalFacturaConIvaC+"");
+    				
+                	//BASE IMPONIBLE
+                	float bi = 0;
+                	for(FacturaFiles f : arrayFiles) 
+                	{
+                		bi += f.getPrecio_total();
+                	}
+                	baseImponible.setText(bi+"");
+
 
     			}
     			catch(Exception e) {}    			
     		}
     	}); 
-    	
-    	//HORA
-    	hora.setText(LocalTime.now()+"");
-    	
-    	//NUM FACTURA
-    	int numFactura = Comprovaciones.getNumFactura(db);
-    	nfactura.setText("Num Factura: "+numFactura+"");
-    		
-    	//TABLEVIEW    	
-    	//id.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("numFila"));    	
-    	colCodArticulo.setCellValueFactory(new PropertyValueFactory<FacturaFiles,String>("nombre"));
-    	colCantidad.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("cantidad"));
-    	colDescuento.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("descuento"));
-    	colIva.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("iva"));
-    	colPrecio.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("precio"));
-    	colTotal.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("precio_total"));  
-    	
-    	ArrayList<FacturaFiles> files = new ArrayList<FacturaFiles>();
 
     	//BOTON + AÑADIR FILA
     	addfila.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)
             {
-            	files.add(anadirFila(numFactura,bd));
+            	arrayFiles.add(anadirFila(seleccionaNumFactura.getSelectionModel().getSelectedItem().getNumPressupost(),bd));
             	
             	//BASE IMPONIBLE
             	float bi = 0;
-            	for(FacturaFiles f : files) 
+            	for(FacturaFiles f : arrayFiles) 
             	{
             		bi += f.getPrecio_total();
             	}
             	baseImponible.setText(bi+"");
             }
-        });     
+        }); 
     	
-    	//BOTON CREAR FACTURA
-    	btncrear.setOnAction(new EventHandler<ActionEvent>()
+
+    	//BOTON - ELIMINAR FILA
+    	removefila.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)
             {
-            	//PAGADO, POR PAGAR
-            	int estado = 0;
+            	quitarFila(seleccionaNumFactura.getSelectionModel().getSelectedItem().getNumPressupost(),bd);
             	
-            	if(pagado.isSelected()) {estado = 1;}
-            	else if(porpagar.isSelected()) {estado = 0;}
-            	//POR SI ACASO :)
-            	else {estado = 0;}
-            	
-            	try 
+            	//BASE IMPONIBLE
+            	float bi = 0;
+            	for(FacturaFiles f : arrayFiles) 
             	{
-            		LocalDate value = fechaFactura.getValue();
-
-            		FacturaHeader fh = new FacturaHeader(0,"",estado,Float.parseFloat(baseImponible.getText()),dni.getSelectionModel().getSelectedItem(),vehiculo.getSelectionModel().getSelectedItem(),files,Float.parseFloat(descuentoTotalFactura.getText()),Float.parseFloat(totalIvaFactura.getText()),Float.parseFloat(totalFactura.getText()),observaciones.getText(),value,LocalTime.parse(hora.getText()),formapago.getText());
-            	
-	        		fh.insertFacturaHeader(bd);
-
-            		//AL HACER EL INSERT DEL HEADER TIENE QUE OBTENER EL NUM FACTURA
-            		int numFactura = Comprovaciones.returnNumFactura(bd, dni.getSelectionModel().getSelectedItem().getDni(), value, LocalTime.parse(hora.getText()));
-            		fh.setNumPressupost(numFactura);
-
-            		
-	            	for(FacturaFiles f : files) 
-	            	{
-	            		f.setFacturasHeader(fh);
-	            	}
-	            	
-	        		// HACE LOS INSERT DEL HEADER Y LAS FILAS
-	
-	        		for (FacturaFiles f : files) {
-	        			f.insertFacturaFila(bd);
-	        		}
-	        		
-	        		System.out.println("INSERT CORRECTO");
-
-            	
+            		bi += f.getPrecio_total();
             	}
-            	catch(Exception ex) {ex.printStackTrace();}
-        	}
-        });     
+            	baseImponible.setText(bi+"");
+            	
+				float baseImponibleC = Float.parseFloat(baseImponible.getText());
+				float precioIvaC = baseImponibleC * Float.parseFloat(ivaFactura.getText());
+				float totalFacturaConIvaC = baseImponibleC + (baseImponibleC * Float.parseFloat(ivaFactura.getText()));
+				totalFacturaConIvaC = totalFacturaConIvaC - (totalFacturaConIvaC * Float.parseFloat(descuentoTotalFactura.getText()));
+				
+				//Base Imponible
+				baseImponible.setText(baseImponibleC+"");
+				//IVA
+				totalIvaFactura.setText(precioIvaC+"");
+				//Total
+				totalFactura.setText(totalFacturaConIvaC+"");
+
+		    	//BOTON CREAR FACTURA
+		    	btncrear.setOnAction(new EventHandler<ActionEvent>()
+		        {    	
+		            public void handle(ActionEvent e)
+		            {
+		            	//PAGADO, POR PAGAR
+		            	int estado = 0;
+		            	
+		            	if(pagado.isSelected()) {estado = 1;}
+		            	else if(porpagar.isSelected()) {estado = 0;}
+		            	//POR SI ACASO :)
+		            	else {estado = 0;}
+		            	
+		            	try 
+		            	{
+		            		LocalDate value = fechaFactura.getValue();
+
+		            		FacturaHeader fh = new FacturaHeader(seleccionaNumFactura.getSelectionModel().getSelectedItem().getNumPressupost(),"",estado,Float.parseFloat(baseImponible.getText()),dni.getSelectionModel().getSelectedItem(),vehiculo.getSelectionModel().getSelectedItem(),arrayFiles,Float.parseFloat(descuentoTotalFactura.getText()),Float.parseFloat(totalIvaFactura.getText()),Float.parseFloat(totalFactura.getText()),observaciones.getText(),value,LocalTime.parse(hora.getText()),formapago.getText());
+		            	
+		            		fh.modificarFactura(bd);
+
+		            		//AL HACER EL INSERT DEL HEADER TIENE QUE OBTENER EL NUM FACTURA
+		            		int numFactura = Comprovaciones.returnNumFactura(bd, dni.getSelectionModel().getSelectedItem().getDni(), value, LocalTime.parse(hora.getText()));
+		            		fh.setNumPressupost(numFactura);
+
+		            		
+			            	for(FacturaFiles f : arrayFiles) 
+			            	{
+			            		f.setFacturasHeader(fh);
+			            	}
+			            	
+			        		// HACE LOS INSERT DEL HEADER Y LAS FILAS
+			
+			        		for (FacturaFiles f : arrayFiles) {
+			        			f.insertFacturaFila(bd);
+			        		}
+			        		
+			        		System.out.println("INSERT CORRECTO");
+
+		            	
+		            	}
+		            	catch(Exception ex) {ex.printStackTrace();}
+		        	}
+		        });     
+
+            }
+        });
+
+		
+
 
 	}
-	
 	
 	FacturaFiles anadirFila(int numFactura, Database db) 
 	{
@@ -473,4 +563,27 @@ public class Crear_Factura implements Initializable {
 		}
 		return ff;
 	}
+	
+	void quitarFila(int numFactura, Database db) 
+	{
+		try 
+		{
+			for(int x = 0;x<arrayFiles.size();x++) 
+			{
+				if(arrayFiles.get(x).getArticulos().getNombre().equalsIgnoreCase(tabla.getSelectionModel().getSelectedItem().getArticulos().getNombre())) 
+				{
+					arrayFiles.get(x).borrarFila(db);
+					arrayFiles.remove(x);
+					tabla.getItems().remove(tabla.getSelectionModel().getSelectedItem());
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+
+
 }

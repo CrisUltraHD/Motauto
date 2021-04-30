@@ -76,7 +76,6 @@
             </Text>
             <TableView fx:id="tabla" layoutX="33.0" layoutY="276.0" prefHeight="307.0" prefWidth="1114.0">
                <columns>
-                  <TableColumn id="id" fx:id="id" prefWidth="69.0" text="ID Fila" />
                   <TableColumn fx:id="colCodArticulo" prefWidth="124.0">
                      <graphic>
                         <ComboBox id="codArticulo" fx:id="codart" prefHeight="25.0" prefWidth="232.0" promptText="Articulo" />
@@ -113,7 +112,7 @@
                </columnResizePolicy>
             </TableView>
             <Button id="add" fx:id="addfila" layoutX="1147.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" text="+" />
-            <Button id="btncrear" fx:id="btncrear" layoutX="531.0" layoutY="767.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Crear / Modificar" />
+            <Button id="btncrear" fx:id="btncrear" layoutX="531.0" layoutY="767.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="CREAR FACTURA" />
             <VBox layoutX="244.0" layoutY="583.0" prefHeight="168.0" prefWidth="692.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="585.0">
