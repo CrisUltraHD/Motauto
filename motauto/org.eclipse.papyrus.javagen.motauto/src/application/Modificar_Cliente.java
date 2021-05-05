@@ -3,6 +3,8 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import motauto.AlterarEstructuraBBDD;
+import motauto.Articulos;
 import motauto.Cliente;
 import motauto.Comprovaciones;
 import motauto.Database;
@@ -40,6 +43,7 @@ public class Modificar_Cliente implements Initializable {
 
     @FXML
     private TableColumn<Cliente, Integer> telefonoCol;
+    
     @FXML
     private TableColumn<Cliente, String> direccionCol;
     @FXML
@@ -62,10 +66,13 @@ public class Modificar_Cliente implements Initializable {
 
     @FXML
     private Label info;
+    
+    @FXML
+    private Button fill;
 
     @FXML
     private Button btnModificar;
-    private ObservableList <Cliente>headers;
+    private ObservableList <Cliente> headers;
     
     @FXML
 	private FilteredList<Cliente> llistaFiltrada;
@@ -96,7 +103,24 @@ public class Modificar_Cliente implements Initializable {
     	telefonoCol.setCellValueFactory(new PropertyValueFactory<Cliente,Integer>("telefono"));
     	direccionCol.setCellValueFactory(new PropertyValueFactory<Cliente,String>("direccion"));
     	
-    	Comprovaciones.mostrarClientes(db, headers);
+    	Comprovaciones.mostrarClientes(db, headers);    	
+    	
+    	//BOTON AÑADIR INFORMACION
+    	fill.setOnAction(new EventHandler<ActionEvent>()
+        {    	
+            public void handle(ActionEvent e)
+            {
+            	Cliente cliente = tabla.getSelectionModel().getSelectedItem();
+				dni.setText(cliente.getDni());
+				nombre.setText(cliente.getNombre());
+				apellidos.setText(cliente.getApellidos());
+				correo.setText(cliente.getCorreo());
+				telefono.setText(cliente.getTelefono()+"");
+				direccion.setText(cliente.getDireccion()+"");
+
+            }
+        });
+    	
     	
     	btnModificar.setOnAction(new EventHandler<ActionEvent>()
         {    	
@@ -113,6 +137,9 @@ public class Modificar_Cliente implements Initializable {
 						telefono.clear();
 						direccion.clear();
 						info.setText("Cliente modificado");
+						headers.clear();
+				    	Comprovaciones.mostrarClientes(db, headers);
+
 					}
 					else {
 						info.setText("El Cliente no existe en al BDD");

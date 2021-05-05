@@ -53,10 +53,11 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <Button fx:id="fill" mnemonicParsing="false" text="LLENAR INFORMACION" />
                   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                      <children>
                         <Label text="DNI" />
-                        <TextField fx:id="dni" prefHeight="25.0" prefWidth="157.0">
+                        <TextField fx:id="dni" disable="true" prefHeight="25.0" prefWidth="157.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
