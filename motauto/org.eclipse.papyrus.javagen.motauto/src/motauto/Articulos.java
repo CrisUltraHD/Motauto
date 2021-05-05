@@ -5,6 +5,7 @@
 package motauto;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 
@@ -19,7 +20,7 @@ public class Articulos {
 	private float precio;
 	private float iva;
 
-	Articulos (String codigo, String nombre, float precio, float iva){
+	public Articulos (String codigo, String nombre, float precio, float iva){
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.precio = precio;
@@ -105,6 +106,7 @@ public class Articulos {
 		System.out.println("Precio: " + precio + "€");
 		System.out.println("Iva: " + iva + "%");
 	}
+	
 	public void borrarArticulo(Database db) {
 		boolean correcto;
 		try 
@@ -118,6 +120,31 @@ public class Articulos {
 		}
 	}
 	
+	public static ArrayList<Articulos> getArticulos(Database db) {
+		
+		ArrayList<Articulos> art = new ArrayList<Articulos>();
+		
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos");
+			
+			while(rs.next()) 
+			{
+				art.add(
+				new Articulos(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getFloat(4)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return art;
+	}
 	
 	public static void llenarInformacionArticulos(Database db, ObservableList<Articulos> articulos) 
 	{
