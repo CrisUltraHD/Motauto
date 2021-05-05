@@ -13,7 +13,7 @@ public class Cliente {
 	private int telefono;
 	private String direccion;
 
-	Cliente(String dni, String nombre, String apellidos, String correo, int telefono, String direccion) {
+	public Cliente(String dni, String nombre, String apellidos, String correo, int telefono, String direccion) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -118,35 +118,15 @@ public class Cliente {
 		}
 	}
 
-	public void borrarCliente(Database db) {
-		boolean correcto;
+	public boolean borrarCliente(Database db) {
+		boolean correcto = false;
 		try {
 			correcto = db.ExecuteUpdate("DELETE FROM clientes WHERE dni='" + this.dni + "';");
 			System.out.println(correcto ? "Delete Correcte" : "Delete Incorrecte");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return correcto;
 	}
 	
-	public static void llenarInformacionCliente(Database db, ObservableList<Cliente> clientes) 
-	{
-		try 
-		{
-			ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes");
-			
-			while(rs.next()) 
-			{
-				clientes.add(
-				new Cliente(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getInt(5), rs.getString(6)));
-			}
-			
-			rs.close();
-
-		}
-		
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-	}
 };

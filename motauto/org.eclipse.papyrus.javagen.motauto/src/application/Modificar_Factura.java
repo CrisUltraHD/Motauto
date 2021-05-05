@@ -169,8 +169,6 @@ public class Modificar_Factura implements Initializable{
 
     
 	public void initialize(URL location, ResourceBundle resources) {
-    	System.out.println("fasdsdsadsa");
-
 		//Connexio BBDD
 		Database db=null;
 		try 
@@ -187,7 +185,7 @@ public class Modificar_Factura implements Initializable{
     	
 		//SELECCIONAR NUM FACTURA
     	header = FXCollections.observableArrayList();
-    	FacturaHeader.llenarInformacionHeader(db, header);
+    	Comprovaciones.llenarInformacionHeader(db, header);
     	
 		FilteredList<FacturaHeader> headerFiltrado;
 		headerFiltrado = new FilteredList<>(header, p -> true);
@@ -249,7 +247,7 @@ public class Modificar_Factura implements Initializable{
 		
 		//CLIENTES
     	clientes = FXCollections.observableArrayList();
-    	Cliente.llenarInformacionCliente(db, clientes);
+    	Comprovaciones.llenarInformacionCliente(db, clientes);
     	
 		FilteredList<Cliente> clientsFiltrats;
 		clientsFiltrats = new FilteredList<>(clientes, p -> true);
@@ -266,7 +264,7 @@ public class Modificar_Factura implements Initializable{
 	    		
 	    		//VEHICULO CLIENTE
 	        	vehiculos = FXCollections.observableArrayList();
-	        	Vehiculo.llenarInformacionVehiculo(bd, vehiculos, nou.getDni());
+	        	Comprovaciones.llenarInformacionVehiculo(bd, vehiculos, nou.getDni());
 	        	
 	    		FilteredList<Vehiculo> vehiculoFiltrado;
 	    		vehiculoFiltrado = new FilteredList<>(vehiculos, p -> true);
@@ -278,7 +276,7 @@ public class Modificar_Factura implements Initializable{
 		
     	//ARTICULOS
     	articulos = FXCollections.observableArrayList();
-    	Articulos.llenarInformacionArticulos(db, articulos);
+    	Comprovaciones.llenarInformacionArticulos(db, articulos);
     	
 		FilteredList<Articulos> articlesFiltrats;
 		articlesFiltrats = new FilteredList<>(articulos, p -> true);

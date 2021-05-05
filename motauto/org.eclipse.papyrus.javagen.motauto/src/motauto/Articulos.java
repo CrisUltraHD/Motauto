@@ -145,28 +145,4 @@ public class Articulos {
 		
 		return art;
 	}
-	
-	public static void llenarInformacionArticulos(Database db, ObservableList<Articulos> articulos) 
-	{
-		try 
-		{
-			ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos");
-			
-			while(rs.next()) 
-			{
-				articulos.add(
-				new Articulos(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getFloat(4)));
-			}
-			
-			rs.close();
-
-		}
-		
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
-	}
-
 };

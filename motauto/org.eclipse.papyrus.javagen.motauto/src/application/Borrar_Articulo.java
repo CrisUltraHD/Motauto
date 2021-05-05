@@ -78,7 +78,7 @@ public class Borrar_Articulo implements Initializable {
 		iva.setCellValueFactory(new PropertyValueFactory<Articulos, Float>("iva"));
 		nombre.setCellValueFactory(new PropertyValueFactory<Articulos, String>("nombre"));
 
-		Articulos.llenarInformacionArticulos(bd, headers);
+		Comprovaciones.llenarInformacionArticulos(bd, headers);
 
 		codigoArticulo.setItems(llistaFiltrada);
 
@@ -93,11 +93,8 @@ public class Borrar_Articulo implements Initializable {
 				catch(Exception ex) {info.setText(ex.getMessage());}
 
 				headers.clear();
-				Articulos.llenarInformacionArticulos(bd, headers);
-
+				Comprovaciones.llenarInformacionArticulos(bd, headers);
 			}
 		});
-
 	}
-
 }

@@ -177,7 +177,7 @@ public class Crear_Factura implements Initializable {
 
 		//CLIENTES
     	clientes = FXCollections.observableArrayList();
-    	Cliente.llenarInformacionCliente(db, clientes);
+    	Comprovaciones.llenarInformacionCliente(db, clientes);
     	
 		FilteredList<Cliente> clientsFiltrats;
 		clientsFiltrats = new FilteredList<>(clientes, p -> true);
@@ -194,7 +194,7 @@ public class Crear_Factura implements Initializable {
 	    		
 	    		//VEHICULO CLIENTE
 	        	vehiculos = FXCollections.observableArrayList();
-	        	Vehiculo.llenarInformacionVehiculo(bd, vehiculos, nou.getDni());
+	        	Comprovaciones.llenarInformacionVehiculo(bd, vehiculos, nou.getDni());
 	        	
 	    		FilteredList<Vehiculo> vehiculoFiltrado;
 	    		vehiculoFiltrado = new FilteredList<>(vehiculos, p -> true);
@@ -208,7 +208,7 @@ public class Crear_Factura implements Initializable {
     	
     	//ARTICULOS
     	articulos = FXCollections.observableArrayList();
-    	Articulos.llenarInformacionArticulos(db, articulos);
+    	Comprovaciones.llenarInformacionArticulos(db, articulos);
     	
 		FilteredList<Articulos> articlesFiltrats;
 		articlesFiltrats = new FilteredList<>(articulos, p -> true);

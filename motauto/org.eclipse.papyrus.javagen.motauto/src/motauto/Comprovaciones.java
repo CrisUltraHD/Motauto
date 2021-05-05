@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
+
 import java.sql.Time;
 /************************************************************/
 /**
@@ -575,6 +578,114 @@ public class Comprovaciones {
 		
 		return num;
 
+	}
+	
+	/*
+	 * Llenar observableList
+	 */
+	public static void mostrarClientes(Database db, ObservableList<Cliente> clientes) {
+		try {
+			 ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes;");
+	            while (rs.next()) 
+	            {
+	            	clientes.add(
+	            			new Cliente (rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6)));
+	            }
+			}
+			catch(SQLException e) 
+			{
+				e.printStackTrace();
+			}
+	}
+	
+	
+	public static void llenarInformacionHeader(Database db, ObservableList<FacturaHeader> header) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_header");
+			ArrayList<FacturaFiles> ff = new ArrayList<FacturaFiles>();
+			while(rs.next()) 
+			{
+				header.add(
+				new FacturaHeader(rs.getInt(2),rs.getString(1),rs.getInt(8),rs.getFloat(9), Comprovaciones.consultaClient(rs.getString(3), db), Comprovaciones.consultaVehiculo(rs.getString(7), db),ff,rs.getFloat(10),rs.getFloat(11),rs.getFloat(12),rs.getString(13),rs.getDate(4).toLocalDate(),rs.getTime(5).toLocalTime(),rs.getString(6)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static void llenarInformacionCliente(Database db, ObservableList<Cliente> clientes) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes");
+			
+			while(rs.next()) 
+			{
+				clientes.add(
+				new Cliente(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getInt(5), rs.getString(6)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static void llenarInformacionArticulos(Database db, ObservableList<Articulos> articulos) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos");
+			
+			while(rs.next()) 
+			{
+				articulos.add(
+				new Articulos(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getFloat(4)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static void llenarInformacionVehiculo(Database db, ObservableList<Vehiculo> vehiculo, String dni) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo where dni = '" + dni + "';");
+			
+			while(rs.next()) 
+			{
+				vehiculo.add(
+				new Vehiculo(rs.getString(2),rs.getString(3),rs.getString(4),Comprovaciones.consultaClient(rs.getString(1), db)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
 

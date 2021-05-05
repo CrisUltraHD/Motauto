@@ -118,7 +118,7 @@ public class Borrar_Factura implements Initializable {
     	totalFactura.setCellValueFactory(new PropertyValueFactory<FacturaHeader,Float>("totalFactura"));
 
 
-    	FacturaHeader.llenarInformacionHeader(bd, headers);
+    	Comprovaciones.llenarInformacionHeader(bd, headers);
     	
 
     	numfacturaCombo.setItems(llistaFiltrada);
@@ -160,7 +160,7 @@ public class Borrar_Factura implements Initializable {
     			info.setText("Se ha borrado satisfactoriamente");
 
     			headers.clear();
-    	    	FacturaHeader.llenarInformacionHeader(bd, headers);
+    			Comprovaciones.llenarInformacionHeader(bd, headers);
 
             }
         });

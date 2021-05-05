@@ -56,35 +56,7 @@ public class Crear_Articulo implements Initializable {
 		}
 
 		Database bd = db;
-
-    	//ARTICULOS
-		ArrayList<Articulos> articulos;
-		articulos = Articulos.getArticulos(bd);
-		
-		codigoArticulo.textProperty().addListener(new ChangeListener<String>() {
-    		@Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-    			
-    			try 
-    			{  	
-    				for(Articulos a : articulos) 
-    				{
-        				if(codigoArticulo.getText().equalsIgnoreCase(a.getCodigo())) 
-        				{
-        					btnCrear.setDisable(true);
-        				}
-        				else 
-        				{
-        					btnCrear.setDisable(false);
-        				}
-    				}
-
-    				
-    			}
-    			catch(Exception e) {}    			
-    		}
-    	}); 
-		
+	
 
 		btnCrear.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -96,8 +68,19 @@ public class Crear_Articulo implements Initializable {
 					float precioA = Float.parseFloat(precioArticulo.getText());
 
 					Articulos articulo = new Articulos(codigoA, nombreA, precioA, ivaA);
-					articulo.insertArticulo(bd);
-					info.setText("Articulo Creado Correctamente");
+					
+					if(!Comprovaciones.comprovarCodigoArticulo(codigoArticulo.getText(), bd)) 
+					{
+						articulo.insertArticulo(bd);
+						info.setText("Articulo Creado Correctamente");
+						codigoArticulo.clear();
+						precioArticulo.clear();
+						nombreArticulo.clear();
+						ivaArticulo.clear();
+					}
+					else {
+						info.setText("EL ARTICULO YA EXISTE");
+					}
 				} catch (Exception e1) {
 					info.setText("Error: "+e1.getLocalizedMessage());
 				}

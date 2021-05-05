@@ -283,27 +283,6 @@ public class FacturaHeader {
 		
 		return updateCorrecto;
 	}
-	
-	public static void llenarInformacionHeader(Database db, ObservableList<FacturaHeader> header) 
-	{
-		try 
-		{
-			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_header");
-			ArrayList<FacturaFiles> ff = new ArrayList<FacturaFiles>();
-			while(rs.next()) 
-			{
-				header.add(
-				new FacturaHeader(rs.getInt(2),rs.getString(1),rs.getInt(8),rs.getFloat(9), Comprovaciones.consultaClient(rs.getString(3), db), Comprovaciones.consultaVehiculo(rs.getString(7), db),ff,rs.getFloat(10),rs.getFloat(11),rs.getFloat(12),rs.getString(13),rs.getDate(4).toLocalDate(),rs.getTime(5).toLocalTime(),rs.getString(6)));
-			}
-			
-			rs.close();
 
-		}
-		
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-	}
 
 }
