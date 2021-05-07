@@ -5,10 +5,16 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Cliente;
 import motauto.Comprovaciones;
@@ -16,6 +22,64 @@ import motauto.Database;
 
 public class Crear_Cliente implements Initializable {
 
+	public static Stage stageProjecte;
+	
+	//HEADER
+    private MenuItem verClientes;
+
+    @FXML
+    private MenuItem modificarCliente;
+
+    @FXML
+    private MenuItem crearArticulo;
+
+    @FXML
+    private MenuItem verVehiculos;
+
+    @FXML
+    private MenuItem borrarFactura;
+
+    @FXML
+    private MenuItem verFacturas;
+
+    @FXML
+    private MenuItem borrarArticulo;
+
+    @FXML
+    private MenuItem crearFactura;
+
+    @FXML
+    private MenuItem modificarArticulo;
+
+    @FXML
+    private MenuItem crearCliente;
+
+    @FXML
+    private MenuItem borrarCliente;
+
+    @FXML
+    private Button home;
+
+    @FXML
+    private MenuItem verArticulos;
+
+    @FXML
+    private MenuItem modificarVehiculo;
+
+    @FXML
+    private MenuItem crearVehiculo;
+
+    @FXML
+    private MenuItem modificarFactura;
+
+    @FXML
+    private MenuItem borrarVehiculos;
+
+	//ACABA HEADER
+
+    @FXML
+    public static Pane pane;
+    
 	@FXML
 	private TextField dni;
 
@@ -51,6 +115,27 @@ public class Crear_Cliente implements Initializable {
 		catch(Exception e) {
 			System.out.print(e);
 		}
+		
+		
+		
+		/*crearFactura.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					System.out.println("asdadadsdasdasdsadad");
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistes/Alta_Factura.fxml"));
+					AnchorPane root = (AnchorPane) fxmlLoader.load();
+					stageProjecte = new Stage();
+					stageProjecte.setScene(new Scene(root));
+					stageProjecte.show();
+					//loginController.stagePrincipal.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 		
+			}
+		});*/
+
+		
 		
 		//BOTON
 		btnCrear.setOnAction(new EventHandler<ActionEvent>() {

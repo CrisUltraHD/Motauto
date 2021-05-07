@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Crear_Factura">
+   <children>
+      <Pane layoutX="7.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <fx:include source="Header.fxml" />
+            <Text layoutX="529.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FACTURA" textAlignment="CENTER" underline="true">
+               <font>
+                  <Font name="Consolas" size="36.0" />
+               </font>
+            </Text>
+            <HBox layoutX="35.0" layoutY="141.0" prefHeight="102.0" prefWidth="1147.0">
+               <children>
+                  <VBox prefHeight="102.0" prefWidth="173.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="560.0" text="DNI/CIF:" textAlignment="CENTER" />
+                        <Label prefHeight="17.0" prefWidth="641.0" text="Nombre Cliente:" textAlignment="CENTER" />
+                        <Label prefHeight="17.0" prefWidth="641.0" text="Apelidos Cliente" textAlignment="CENTER" />
+                        <Label prefHeight="17.0" prefWidth="560.0" text="Correo" textAlignment="CENTER" />
+                        <Label prefHeight="17.0" prefWidth="641.0" text="Teléfono" textAlignment="CENTER" />
+                        <Label prefHeight="17.0" prefWidth="560.0" text="Dirección:" textAlignment="CENTER" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="110.0" prefWidth="345.0">
+                     <children>
+                        <ComboBox fx:id="dni" prefWidth="150.0" />
+                        <Label id="nombre" fx:id="nombre" prefHeight="17.0" prefWidth="641.0" />
+                        <Label id="apeliido" fx:id="apellido" prefHeight="17.0" prefWidth="641.0" />
+                        <Label id="correo" fx:id="correo" prefHeight="17.0" prefWidth="523.0" />
+                        <Label id="tlf" fx:id="tlf" prefHeight="17.0" prefWidth="641.0" />
+                        <Label id="direccion" fx:id="dir" prefHeight="17.0" prefWidth="560.0" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="183.0" layoutY="10.0" prefHeight="102.0" prefWidth="541.0">
+                     <children>
+                        <ComboBox fx:id="vehiculo" prefWidth="150.0" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="198.0">
+                     <children>
+                        <Label fx:id="nfactura" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="1241.0" text="NºFactura     0" textAlignment="RIGHT" />
+                        <DatePicker fx:id="fechaFactura" />
+                        <Label fx:id="hora" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="1251.0" text="Hora: 00:00:00" textAlignment="RIGHT" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <RadioButton fx:id="porpagar" mnemonicParsing="false" text="Por Pagar">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="pago" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="pagado" mnemonicParsing="false" text="Pagado" toggleGroup="$pago" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="formapago" layoutX="10.0" layoutY="69.0" promptText="Forma de Pago" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Text layoutX="33.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLIENTE" textAlignment="CENTER">
+               <font>
+                  <Font name="Consolas" size="25.0" />
+               </font>
+            </Text>
+            <Text layoutX="499.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VEHICULO" textAlignment="CENTER">
+               <font>
+                  <Font name="Consolas" size="25.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tabla" layoutX="33.0" layoutY="276.0" prefHeight="307.0" prefWidth="1114.0">
+               <columns>
+                  <TableColumn fx:id="colCodArticulo" prefWidth="124.0">
+                     <graphic>
+                        <ComboBox id="codArticulo" fx:id="codart" prefHeight="25.0" prefWidth="232.0" promptText="Articulo" />
+                     </graphic>
+                  </TableColumn>
+                  <TableColumn fx:id="colCantidad" prefWidth="71.0">
+                     <graphic>
+                        <TextField id="cantidad" fx:id="cantidad" prefHeight="25.0" prefWidth="117.0" promptText="Cantidad" />
+                     </graphic>
+                  </TableColumn>
+                  <TableColumn fx:id="colIva" prefWidth="71.0">
+                     <graphic>
+                        <TextField id="cantidad" fx:id="iva" prefHeight="25.0" prefWidth="117.0" promptText="Iva" />
+                     </graphic>
+                  </TableColumn>
+                  <TableColumn fx:id="colDescuento" prefWidth="71.0">
+                     <graphic>
+                        <TextField id="cantidad" fx:id="descuento" prefHeight="25.0" prefWidth="117.0" promptText="Descuento" />
+                     </graphic>
+                  </TableColumn>
+                  <TableColumn fx:id="colPrecio" prefWidth="92.0">
+                     <graphic>
+                        <TextField id="precio" fx:id="precio" prefHeight="25.0" prefWidth="168.0" promptText="Precio Articulo" />
+                     </graphic>
+                  </TableColumn>
+                  <TableColumn fx:id="colTotal" prefWidth="170.0">
+                     <graphic>
+                        <TextField id="total" fx:id="total" prefHeight="25.0" prefWidth="168.0" promptText="Total" />
+                     </graphic>
+                  </TableColumn>
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button id="add" fx:id="addfila" layoutX="1147.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" text="+" />
+            <Button id="btncrear" fx:id="btncrear" layoutX="531.0" layoutY="767.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="CREAR FACTURA" />
+            <VBox layoutX="244.0" layoutY="583.0" prefHeight="168.0" prefWidth="692.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="585.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="641.0" text="Total Base Imponible:  " />
+                        <Label fx:id="baseImponible" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="641.0" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="585.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="641.0" text="IVA: " />
+                        <TextField fx:id="ivaFactura" prefHeight="25.0" prefWidth="648.0" promptText="IVA" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="585.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="641.0" text="Total IVA: " />
+                        <Label fx:id="totalIvaFactura" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="641.0" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="585.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="641.0" text="Descuento Total Factura: " />
+                        <TextField fx:id="descuentoTotalFactura" prefHeight="25.0" prefWidth="648.0" promptText="Descuento" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="82.0" prefHeight="100.0" prefWidth="585.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="641.0" text="Total Factura: " />
+                        <Label fx:id="totalFactura" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="641.0" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="observaciones" prefHeight="205.0" prefWidth="692.0" promptText="Observaciones" />
+               </children>
+            </VBox>
+            <Label fx:id="info" layoutX="661.0" layoutY="771.0" text="Info: " />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

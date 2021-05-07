@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -75,22 +76,6 @@ public class Borrar_Cliente implements Initializable {
     @FXML
 	private FilteredList<Cliente> llistaFiltrada;
 	static Database db=null;
-
-	 
-	public void start(Stage primaryStage) throws IOException {
-         primaryStage.setTitle("Title");
-         primaryStage.setScene(createScene(loadMainPane("path_of_your_fxml")));
-         primaryStage.show();
-
-	}
-
-	 private AnchorPane loadMainPane(String path) throws IOException {
-	     FXMLLoader loader = new FXMLLoader();
-	
-	     AnchorPane mainPane = (AnchorPane) loader.load(getClass().getResourceAsStream(path));
-	
-	     return mainPane;
-	 }
 
 	
 	
