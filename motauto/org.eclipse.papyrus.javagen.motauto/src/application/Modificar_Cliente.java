@@ -116,7 +116,7 @@ public class Modificar_Cliente implements Initializable {
 				apellidos.setText(cliente.getApellidos());
 				correo.setText(cliente.getCorreo());
 				telefono.setText(cliente.getTelefono()+"");
-				direccion.setText(cliente.getDireccion()+"");
+				direccion.setText(cliente.getDireccion());
 
             }
         });

@@ -558,27 +558,28 @@ public class Comprovaciones {
 
 	}
 	
-	/**
-	 * Obtener el ultimo numero de factura +1 que no sea repetido
-	 * 
-	 */
-	public static int getNumFila(Database db) 
-	{
-		int num = 0;
-		
+
+	public static Vehiculo consultaVehiculoPorDni(String dni, Database db) {
+		Vehiculo vehiculo=null;
+		Cliente cliente=null;
 		try 
 		{
-            ResultSet rs = db.ExecuteQuery("SELECT COUNT(num_fila) FROM facturas_filas;");
-            num = rs.getInt(1);
-
+            ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo WHERE dni = '"+dni+"';");
+            
+            if(rs.next()) 
+            {
+            	cliente = consultaClient(rs.getString(1), db);
+            	vehiculo = new Vehiculo(rs.getString(2), rs.getString(3), rs.getString(4), cliente);
+            }
 		}
 		catch(SQLException e) 
 		{
+			e.printStackTrace();
 		}
 		
-		return num;
-
+		return vehiculo;
 	}
+	
 	
 	/*
 	 * Llenar observableList
