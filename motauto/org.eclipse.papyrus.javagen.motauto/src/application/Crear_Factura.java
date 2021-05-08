@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.SwingUtilities;
+
 import com.sun.media.sound.FFT;
 
 import javafx.beans.value.ChangeListener;
@@ -159,7 +161,10 @@ public class Crear_Factura implements Initializable {
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-    	
+    		
+		btncrear.setDisable(true);
+
+		
 		//Connexio BBDD
 		Database db=null;
 		try 
@@ -199,8 +204,6 @@ public class Crear_Factura implements Initializable {
 	    		FilteredList<Vehiculo> vehiculoFiltrado;
 	    		vehiculoFiltrado = new FilteredList<>(vehiculos, p -> true);
 	    		vehiculo.setItems(vehiculoFiltrado);
-
-	    		
 			}
 		});
 		
@@ -347,7 +350,9 @@ public class Crear_Factura implements Initializable {
     				totalFactura.setText(totalFacturaConIvaC+"");
     				
     			}
-    			catch(Exception e) {e.printStackTrace();}    			
+    			catch(Exception e) {
+    				//e.printStackTrace();    			
+    			}
     		}
     	}); 
     	
@@ -374,6 +379,20 @@ public class Crear_Factura implements Initializable {
     			catch(Exception e) {}    			
     		}
     	}); 
+    	
+    	//TOTAL FINAL FACTURA
+    	totalFactura.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			
+    			try 
+    			{
+    				btncrear.setDisable(false);
+    			}
+    			catch(Exception e) {}    			
+    		}
+    	}); 
+
     	
     	//HORA
     	hora.setText(LocalTime.now()+"");
@@ -447,41 +466,28 @@ public class Crear_Factura implements Initializable {
 	void btnCrearFactura(ArrayList<FacturaFiles> files, Database bd) {
     	//PAGADO, POR PAGAR
     	int estado = 0;
-    	
     	if(pagado.isSelected()) {estado = 1;}
     	else if(porpagar.isSelected()) {estado = 0;}
-    	//POR SI ACASO :)
     	else {estado = 0;}
     	
     	try 
     	{
     		LocalDate value = fechaFactura.getValue();
-
     		FacturaHeader fh = new FacturaHeader(0,"",estado,Float.parseFloat(baseImponible.getText()),dni.getSelectionModel().getSelectedItem(),vehiculo.getSelectionModel().getSelectedItem(),files,Float.parseFloat(descuentoTotalFactura.getText()),Float.parseFloat(totalIvaFactura.getText()),Float.parseFloat(totalFactura.getText()),observaciones.getText(),value,LocalTime.parse(hora.getText()),formapago.getText());
-    	
     		fh.insertFacturaHeader(bd);
-
     		//AL HACER EL INSERT DEL HEADER TIENE QUE OBTENER EL NUM FACTURA
     		int numFactura = Comprovaciones.returnNumFactura(bd, dni.getSelectionModel().getSelectedItem().getDni(), value, LocalTime.parse(hora.getText()));
     		fh.setNumPressupost(numFactura);
-
-    		
         	for(FacturaFiles f : files) 
         	{
         		f.setFacturasHeader(fh);
         	}
-        	
     		// HACE LOS INSERT DEL HEADER Y LAS FILAS
-
     		for (FacturaFiles f : files) {
     			f.insertFacturaFila(bd);
     		}
-
-    		
     		info.setText("FACTURA CREADA CORRECTAMENTE");
     		System.out.println("INSERT CORRECTO");
-
-    	
     	}
     	catch(Exception ex) {info.setText(ex.getLocalizedMessage());}
 	}

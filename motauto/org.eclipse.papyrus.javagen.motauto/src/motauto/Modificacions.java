@@ -157,7 +157,7 @@ public class Modificacions {
 	 * 
 	 * @param matricula
 	 */
-	public static void borrarVehiculo(Database db) {
+	/*public static void borrarVehiculo(Database db) {
 
 	if (Utiles.siNo("Vols mostrar les matricules? ")) {
 			Comprovaciones.mostrarVehiculos(db);
@@ -180,7 +180,7 @@ public class Modificacions {
 
 		}
 
-	}
+	}*/
 
 	/*
 	 * 
@@ -217,7 +217,7 @@ public class Modificacions {
 		// *******************************************************
 
 		// SECCION VEHICULO
-		Comprovaciones.mostrarVehiculos(db);
+		//Comprovaciones.mostrarVehiculos(db);
 		System.out.println("Matricula Cliente: ");
 		String matricula = lector.nextLine();
 
@@ -231,7 +231,7 @@ public class Modificacions {
 
 			Modificacions.altaVehiculo(db);
 
-			Comprovaciones.mostrarVehiculos(db);
+			//Comprovaciones.mostrarVehiculos(db);
 
 			System.out.println("Matricula Cliente: ");
 			matricula = lector.nextLine();

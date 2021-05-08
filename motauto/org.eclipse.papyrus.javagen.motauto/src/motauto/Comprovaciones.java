@@ -374,39 +374,25 @@ public class Comprovaciones {
 	}
 	
 	
-	public static void mostrarVehiculos(Database db) {
-	String matricula="";
+	public static void mostrarVehiculos(Database db, ObservableList<Vehiculo> vehiculo) {
+		try 
+			{
+	            ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo;");
+	            while (rs.next()) 
+	            {
+	            	vehiculo.add(
+	            			new Vehiculo (rs.getString(2),rs.getString(3),rs.getString(4),Comprovaciones.consultaClient(rs.getString(1), db)));
+	            }
+			}
+			catch(SQLException e) 
+			{
+				e.printStackTrace();
+			}
 
 
-	 String color="";
-
-	 String tipo_vehiculo;
-
-	 String dni;
-
-
-	try 
-		{
-            ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo ;");
-            while (rs.next()) 
-            {
-            	matricula = rs.getString(2);
-				System.out.println("Matricula: "+matricula+" ");
-            	color = rs.getString(3);
-				System.out.println("Color: "+color+" ");
-            	tipo_vehiculo = rs.getString(4);
-				System.out.println("Tipo: "+tipo_vehiculo+" ");
-            	dni = rs.getString(1);
-				System.out.println("dni: "+dni+" ");
-            }
 		}
-		catch(SQLException e) 
-		{
-			e.printStackTrace();
-		}
-
-
-	}
+	
+	
 	public static void mostrarArticulos(Database db) {
 		try {
 			System.out.println("Lista de los articulos: ");

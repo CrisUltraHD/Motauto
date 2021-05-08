@@ -22,7 +22,7 @@ public interface MotAuto {
 	
 	static Scanner lector = new Scanner(System.in);
 	
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		Database db=null;
 		try {
 		db = AlterarEstructuraBBDD.establecerPrimeraConexion();
@@ -36,7 +36,7 @@ public interface MotAuto {
 			MenuPrincipal(db);
 		}
 		
-	}
+	}*/
 	public static void MenuPrincipal(Database db) 
 	{
 		System.out.println("\n--------MOTAUTO--------");
@@ -187,10 +187,10 @@ public interface MotAuto {
 		Modificacions.ModificarVehiculo(db);
 			break;
 		case 3:
-		Modificacions.borrarVehiculo(db);
+		//Modificacions.borrarVehiculo(db);
 			break;
 		case 4:
-		Comprovaciones.mostrarVehiculos(db);
+		//Comprovaciones.mostrarVehiculos(db);
 			break;
 		case 5:
 			MenuPrincipal(db);

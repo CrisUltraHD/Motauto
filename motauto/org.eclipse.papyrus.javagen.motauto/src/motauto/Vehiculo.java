@@ -25,7 +25,7 @@ public class Vehiculo {
 
 	private Cliente cliente;
 
-	Vehiculo (String matricula, String color, String tipo_vehiculo, Cliente cliente) {
+	public Vehiculo (String matricula, String color, String tipo_vehiculo, Cliente cliente) {
 		this.matricula = matricula;
 		this.color = color;
 		this.tipo_vehiculo = tipo_vehiculo;
@@ -89,7 +89,7 @@ public class Vehiculo {
 	boolean correcto;
 		try 
 		{
-		correcto = db.ExecuteUpdate("UPDATE vehiculo SET color = '"+this.color+"', tipo = '"+this.tipo_vehiculo+"' WHERE matricula = '"+this.matricula+"';");			
+		correcto = db.ExecuteUpdate("UPDATE vehiculo SET color = '"+this.color+"', tipo = '"+this.tipo_vehiculo+"', dni = '"+ cliente.getDni() +"' WHERE matricula = '"+this.matricula+"';");			
 		System.out.println(correcto ? "Update Correcte" : "Update Incorrecte");
 		}
 		catch(Exception e)
