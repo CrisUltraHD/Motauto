@@ -115,43 +115,16 @@ public class Borrar_Cliente implements Initializable {
         		Cliente cliente = Comprovaciones.consultaClient(dniCombo.getSelectionModel().getSelectedItem().getDni(), db);
 				if (Comprovaciones.comprovarDni(cliente.getDni(), db)) {
 					
-					if(Comprovaciones.consultaVehiculoPorDni(cliente.getDni(), db) != null) 
-					{
-						//Mostrem un missatge de que la inserció s'ha fet correctament
-						Alert missatge=new Alert(AlertType.CONFIRMATION);
-						missatge.setTitle("ATENCION!");
-						missatge.setContentText("Existe un vehiculo con este DNI, quieres borrarlo?");
-						missatge.setHeaderText("Resultat:");
-						missatge.show();
-
-
-						ButtonType si = new ButtonType("Si",ButtonBar.ButtonData.YES);
-						ButtonType no = new ButtonType("No",ButtonBar.ButtonData.NO);
-						missatge.getButtonTypes().setAll(si,no);
-						
-						
-						missatge.showAndWait().ifPresent(type -> {
-							if(type == ButtonType.OK) {
-								Comprovaciones.consultaVehiculoPorDni(cliente.getDni(), db).borrarVehiculo(db);
-								cliente.borrarCliente(db);
-								info.setText("Cliente Borrado");
-								headers.clear();
-						    	Comprovaciones.mostrarClientes(db, headers);
-							}
-							else if(type == ButtonType.NO) {
-								info.setText("Operacion Cancelada");
-							}
-							else {
-								info.setText("Operacion Cancelada");
-							}
-						});
-					}
+					Comprovaciones.consultaVehiculoPorDni(cliente.getDni(), db).borrarVehiculo(db);
+					cliente.borrarCliente(db);
+					info.setText("Cliente Borrado");
+					headers.clear();
+			    	Comprovaciones.mostrarClientes(db, headers);
 				}
 				else {
 					info.setText("El Cliente no existe en al BDD");
 				}
 
-        		info.setText(cliente.borrarCliente(db) ? "Se borro el cliente "+cliente.getNombre() : "No se borro el cliente " + cliente.getNombre());
             	}
             	catch(Exception ex) 
             	{

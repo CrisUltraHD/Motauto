@@ -322,6 +322,23 @@ public class Header implements Initializable {
 		});
     	
     	
+    	verFacturas.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistes/Mostrar_Facturas.fxml"));
+					AnchorPane root = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setScene(new Scene(root));
+					stage.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+    	
+    	
     	verVehiculos.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {

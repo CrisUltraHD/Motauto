@@ -163,6 +163,7 @@ public class Crear_Factura implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
     		
 		btncrear.setDisable(true);
+		porpagar.setSelected(true);
 
 		
 		//Connexio BBDD
