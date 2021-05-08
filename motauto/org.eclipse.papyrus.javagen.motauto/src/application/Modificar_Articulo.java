@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
+import motauto.Cliente;
 import motauto.Comprovaciones;
 import motauto.Database;
 
@@ -42,7 +43,7 @@ public class Modificar_Articulo implements Initializable {
     private Button btnModificar;
 
     @FXML
-    private ComboBox<Articulos> codigoArticulo;
+    private TextField codigoArticulo;
 
     @FXML
     private TextField precioArticulo;
@@ -68,8 +69,8 @@ public class Modificar_Articulo implements Initializable {
 	
 	
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		try 
+  	
+    	try 
 		{
 			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
 			db.connectDatabase();
@@ -80,6 +81,7 @@ public class Modificar_Articulo implements Initializable {
 		}
 		
 		headers = FXCollections.observableArrayList();
+    	Comprovaciones.mostrarArticulos(db, headers);
 		llistaFiltrada = new FilteredList<>(headers, p -> true);
 		tabla.setItems(llistaFiltrada);
 		
@@ -88,19 +90,18 @@ public class Modificar_Articulo implements Initializable {
 		precio.setCellValueFactory(new PropertyValueFactory<Articulos,Float>("precio"));
     	iva.setCellValueFactory(new PropertyValueFactory<Articulos,Float>("iva"));
     	nombre.setCellValueFactory(new PropertyValueFactory<Articulos,String>("nombre"));
-    
-    	Comprovaciones.mostrarArticulos(db);   	
+    	
     	
     	//BOTON AÑADIR INFORMACION
     	fill.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)
             {
-            	Articulos articulo = tabla.getSelectionModel().getSelectedItem();
-            	codigo.setText(articulo.getCodigo());
-				nombre.setText(articulo.getNombre());
-				iva.setText(articulo.getIva()+"");
-				precio.setText(articulo.getPrecio()+"");
+            	Articulos articulo = new Articulos(tabla.getSelectionModel().getSelectedItem().getCodigo(),tabla.getSelectionModel().getSelectedItem().getNombre(),tabla.getSelectionModel().getSelectedItem().getPrecio(),tabla.getSelectionModel().getSelectedItem().getIva());
+            	codigoArticulo.setText(articulo.getCodigo());
+				nombreArticulo.setText(articulo.getNombre());
+				ivaArticulo.setText(articulo.getIva()+"");
+				precioArticulo.setText(articulo.getPrecio()+"");
             }
         });
     	
@@ -110,26 +111,21 @@ public class Modificar_Articulo implements Initializable {
             public void handle(ActionEvent e)
             {
             	try {
-            		Articulos articulo = new Articulos(precioArticulo.getText(), nombreArticulo.getText(),Integer.parseInt(precioArticulo.getText()), Integer.parseInt(ivaArticulo.getText()));
-					if (Comprovaciones.consultaArticulo(articulo.getCodigo(), db)!=null) {
-						articulo.modificarArticulo(db);
-						
-						
-						
-						info.setText("Cliente modificado");
-						headers.clear();
-				    	Comprovaciones.mostrarArticulos(db);;
+	            	Articulos articulo = new Articulos(codigoArticulo.getText(),nombreArticulo.getText(),Float.parseFloat(precioArticulo.getText()),Float.parseFloat(ivaArticulo.getText()));
+            		articulo.modificarArticulo(db);
+					codigoArticulo.clear();
+					nombreArticulo.clear();
+					precioArticulo.clear();
+					ivaArticulo.clear();
 
-					}
-					else {
-						info.setText("El Article no existe en al BDD");
-					}
+            		info.setText("Articulo modificado");
+					headers.clear();
+			    	Comprovaciones.mostrarArticulos(db, headers);
             	}
             	
             	catch(Exception ex) {
             		info.setText(ex.getLocalizedMessage());
             	}
-            	
             }
         });
 	}

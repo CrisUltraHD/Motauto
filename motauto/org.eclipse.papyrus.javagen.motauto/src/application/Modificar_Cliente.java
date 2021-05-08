@@ -46,6 +46,7 @@ public class Modificar_Cliente implements Initializable {
     
     @FXML
     private TableColumn<Cliente, String> direccionCol;
+    
     @FXML
     private TextField dni;
 

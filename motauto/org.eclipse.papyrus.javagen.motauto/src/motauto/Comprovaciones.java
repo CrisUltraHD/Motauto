@@ -393,23 +393,23 @@ public class Comprovaciones {
 		}
 	
 	
-	public static void mostrarArticulos(Database db) {
-		try {
-			System.out.println("Lista de los articulos: ");
-			 ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos;");
+	public static void mostrarArticulos(Database db, ObservableList<Articulos> articulo) {
+		try 
+			{
+	            ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos;");
 	            while (rs.next()) 
 	            {
-	            	System.out.print(rs.getString(1) + " equivale al articulo: "+ rs.getString(2) + " con Precio: "+ rs.getString(3) + " con un iva de " + rs.getString(4));
-	            	System.out.println();
+	            	articulo.add(
+	            			new Articulos(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getFloat(4)));
 	            }
-	            
 			}
 			catch(SQLException e) 
 			{
 				e.printStackTrace();
 			}
-	}
-	
+
+
+		}	
 	public static void mostrarFacturas(Database db) {
 		try 
 		{
