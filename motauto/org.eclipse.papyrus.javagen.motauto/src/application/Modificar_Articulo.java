@@ -1,7 +1,5 @@
 package application;
 
-import java.awt.Label;
-import java.awt.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -13,8 +11,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
@@ -101,8 +101,6 @@ public class Modificar_Articulo implements Initializable {
 				nombre.setText(articulo.getNombre());
 				iva.setText(articulo.getIva()+"");
 				precio.setText(articulo.getPrecio()+"");
-				
-
             }
         });
     	
