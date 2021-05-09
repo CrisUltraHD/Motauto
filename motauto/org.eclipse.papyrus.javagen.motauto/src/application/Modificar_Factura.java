@@ -216,7 +216,7 @@ public class Modificar_Factura implements Initializable{
 				tabla.getItems().clear();
 				filas.clear();
 		    	
-				FacturaFiles.llenarInformacionFacturaFiles(bd, filas, nou.getNumPressupost());
+				Comprovaciones.llenarInformacionFacturaFiles(bd, filas, nou.getNumPressupost());
 				filasFiltradas = new FilteredList<>(filas, p -> true);
 				tabla.getItems().addAll(filasFiltradas);
 				

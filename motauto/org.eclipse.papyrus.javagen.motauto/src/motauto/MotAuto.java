@@ -286,5 +286,5 @@ public static Database MenuConfiguracion(Database db) {
 	}
 	return conexion;
 	   
-}
+}*/
 }

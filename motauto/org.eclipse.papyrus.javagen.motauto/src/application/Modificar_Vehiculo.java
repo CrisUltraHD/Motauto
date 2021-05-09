@@ -69,6 +69,7 @@ public class Modificar_Vehiculo implements Initializable {
 	private FilteredList<Cliente> llistaFiltradaCliente;
 
 	static Database db=null;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try 

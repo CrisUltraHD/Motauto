@@ -120,7 +120,7 @@ public class Articulos {
 		}
 	}
 	
-	public static ArrayList<Articulos> getArticulos(Database db) {
+	/*public static ArrayList<Articulos> getArticulos(Database db) {
 		
 		ArrayList<Articulos> art = new ArrayList<Articulos>();
 		
@@ -144,5 +144,5 @@ public class Articulos {
 		}
 		
 		return art;
-	}
+	}*/
 };

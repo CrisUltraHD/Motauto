@@ -181,30 +181,4 @@ public class FacturaFiles {
 		
 		return updateCorrecto;
 	}
-	
-	public static void llenarInformacionFacturaFiles(Database db, ObservableList<FacturaFiles> ff, int numFactura) 
-	{
-		try 
-		{
-			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_filas where num_factura = '"+numFactura+"';");
-			
-			while(rs.next()) 
-			{
-				ff.add(
-				new FacturaFiles(rs.getInt(4),Comprovaciones.consultaArticulo(rs.getString(2), db),Comprovaciones.consultaArticulo(rs.getString(2), db).getNombre(),Comprovaciones.consultaArticulo(rs.getString(2), db).getIva(),Comprovaciones.consultaArticulo(rs.getString(2), db).getPrecio(),Comprovaciones.consultaFacturaHeader(rs.getInt(1), db),rs.getFloat(6),rs.getFloat(7)));
-			}
-			
-			rs.close();
-
-		}
-		
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-	}
-
-	
-
-	
 }

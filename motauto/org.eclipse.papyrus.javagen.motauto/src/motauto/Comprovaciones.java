@@ -78,8 +78,6 @@ public class Comprovaciones {
 	 */
 	public static boolean comprovarMatricula(String matricula, Database db) 
 	{
-
-
 		boolean trobat = false;
 		
 		try 
@@ -95,9 +93,7 @@ public class Comprovaciones {
 		{
 			e.printStackTrace();
 		}
-		
 		return trobat;
-
 	}
 	
 	/**
@@ -410,6 +406,31 @@ public class Comprovaciones {
 
 
 		}	
+	
+	public static void llenarInformacionFacturaFiles(Database db, ObservableList<FacturaFiles> ff, int numFactura) 
+	{
+		try 
+		{
+			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_filas where num_factura = '"+numFactura+"';");
+			
+			while(rs.next()) 
+			{
+				ff.add(
+				new FacturaFiles(rs.getInt(4),Comprovaciones.consultaArticulo(rs.getString(2), db),Comprovaciones.consultaArticulo(rs.getString(2), db).getNombre(),Comprovaciones.consultaArticulo(rs.getString(2), db).getIva(),Comprovaciones.consultaArticulo(rs.getString(2), db).getPrecio(),Comprovaciones.consultaFacturaHeader(rs.getInt(1), db),rs.getFloat(6),rs.getFloat(7)));
+			}
+			
+			rs.close();
+
+		}
+		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	
+	
 	public static void mostrarFacturas(Database db) {
 		try 
 		{
@@ -428,7 +449,7 @@ public class Comprovaciones {
 		}
 	}
 	
-	public static void mostrarFacturasPerNum(FacturaHeader fh, ArrayList<FacturaFiles> ff, Database db) 
+	/*public static void mostrarFacturasPerNum(FacturaHeader fh, ArrayList<FacturaFiles> ff, Database db) 
 	{
 		System.out.println("\n-------------------------------------------------------");
 
@@ -469,9 +490,9 @@ public class Comprovaciones {
 
 		System.out.println("-------------------------------------------------------");
 
-	}
+	}*/
 	
-	public static void mostrarFiles(FacturaHeader fh, ArrayList<FacturaFiles> ff, Database db) 
+	/*public static void mostrarFiles(FacturaHeader fh, ArrayList<FacturaFiles> ff, Database db) 
 	{
 		System.out.println("\n-------------------------------------------------------");
 		//FILAS ARTICULOS USADOS
@@ -486,9 +507,9 @@ public class Comprovaciones {
 		}
 		System.out.println("-------------------------------------------------------");
 
-	}
+	}*/
 	
-	public static void imprimirFacturaPorCodigo(Database db) 
+	/*public static void imprimirFacturaPorCodigo(Database db) 
 	{
 		Comprovaciones.mostrarFacturas(db);
 		System.out.println("Inserta num factura a imprimir: ");
@@ -503,10 +524,10 @@ public class Comprovaciones {
 		ArrayList<FacturaFiles> ff = Comprovaciones.consultaFacturaFiles(fh, num, db);
 		
 		Comprovaciones.mostrarFacturasPerNum(fh, ff, db);
-	}
+	}*/
 	
 
-	public static void ImprimirArticulos(Database db) {
+	/*public static void ImprimirArticulos(Database db) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos");
 			System.out.println("CODIGO:\tNombre: ");
@@ -516,7 +537,7 @@ public class Comprovaciones {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	/**
 	 * Obtener el ultimo numero de factura +1 que no sea repetido

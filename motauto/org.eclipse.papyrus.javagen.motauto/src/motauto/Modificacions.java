@@ -16,7 +16,7 @@ public class Modificacions {
 
 	public static Scanner lector = new Scanner(System.in);
 
-	public static void altaCliente(Database db) {
+	/*public static void altaCliente(Database db) {
 		String dni, nombre, apellidos, correo, direccion;
 		int telefono;
 		System.out.println("Dni cliente: ");
@@ -38,13 +38,13 @@ public class Modificacions {
 			System.out.println("Ya existe un cliente con este dni.");
 		}
 
-	}
+	}*/
 
 	/**
 	 * 
 	 * @param ObjectArticulo
 	 */
-	public static void altaArticulo(Database db) {
+	/*public static void altaArticulo(Database db) {
 		String codigo, nombre;
 		float precio, iva;
 
@@ -65,14 +65,14 @@ public class Modificacions {
 			Articulos articulo = new Articulos(codigo, nombre, precio, iva);
 			articulo.insertArticulo(db);
 		}
-	}
+	}*/
 
 	/**
 	 * 
 	 * @param ObjecteVehicle
 	 */
 
-	public static void altaVehiculo(Database db) {
+	/*public static void altaVehiculo(Database db) {
 
 		String matricula, dni, color, tipo;
 		System.out.println("Matricula Vehiculo: ");
@@ -97,13 +97,13 @@ public class Modificacions {
 		} else {
 			System.out.println("Ya existe un Vehiculo con esta matricula");
 		}
-	}
+	}*/
 
 	/**
 	 * 
 	 * @param dni
 	 */
-	public static void borrarCliente(Database db) {
+	/*public static void borrarCliente(Database db) {
 
 		if (Utiles.siNo("Quieres mostrar los Clientes? ")) {
 			Comprovaciones.mostrarClientes(db);
@@ -125,13 +125,13 @@ public class Modificacions {
 			borrarCliente(db);
 		}
 
-	}
+	}*/
 
 	/**
 	 * 
 	 * @param codigoArticulo
 	 */
-	public static void borrarArticulo(Database db) {
+	/*public static void borrarArticulo(Database db) {
 		if (Utiles.siNo("Quieres mostrar los Articulos? ")) {
 			Comprovaciones.mostrarArticulos(db);
 		}
@@ -151,7 +151,7 @@ public class Modificacions {
 			System.out.println("Este codigo del articulo no exsite.");
 
 		}
-	}
+	}*/
 
 	/**
 	 * 
@@ -187,7 +187,7 @@ public class Modificacions {
 	 * Crea una factura
 	 * 
 	 */
-	public static void CrearFactura(Database db) {
+	/*public static void CrearFactura(Database db) {
 
 		boolean fiArticles = false;
 		float totalFiles = 0;
@@ -335,14 +335,14 @@ public class Modificacions {
 		for (FacturaFiles f : filas) {
 			f.insertFacturaFila(db);
 		}
-	}
+	}*/
 
 	/**
 	 * 
 	 * Modifica la Factura
 	 * 
 	 */
-	public static void ModificarFactura(Database db) {
+	/*public static void ModificarFactura(Database db) {
 		if (Utiles.siNo("Quieres Mostrar Todos los numeros de Facturas? ")) 
 		{
 			Comprovaciones.mostrarFacturas(db);
@@ -466,14 +466,14 @@ public class Modificacions {
 				break;
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * 
 	 * @param esborrat
 	 * @param numFactura
 	 */
-	public static void borrarFactura(Database db) {
+	/*public static void borrarFactura(Database db) {
 		
 		Comprovaciones.mostrarFacturas(db);
 		System.out.println("Inserta num factura a borrar: ");
@@ -516,14 +516,14 @@ public class Modificacions {
 				System.out.println("La Fila Num: "+fh.getNumPressupost()+" NO SE ha borrado");
 			}			
 		}
-	}
+	}*/
 
 	/**
 	 * 
 	 * @param ObjecteVehicle
 	 * @return
 	 */
-	public static void ModificarVehiculo(Database db) {
+	/*public static void ModificarVehiculo(Database db) {
 		Vehiculo vehiculo = null;
 
 		System.out.println("Menu:");
@@ -579,13 +579,13 @@ public class Modificacions {
 			}
 		}
 
-	}
+	}*/
 
 	/**
 	 * 
 	 * @param ObjecteClient
 	 */
-	public static void ModificarCliente(Database db) {
+	/*public static void ModificarCliente(Database db) {
 		Cliente cliente = null;
 		if (Utiles.siNo("Quieres mostrar la lista de los clientes?")) {
 			Comprovaciones.mostrarClientes(db);
@@ -623,9 +623,9 @@ public class Modificacions {
 		} else {
 			System.out.println("No existe un cliente con el dni " + dni);
 		}
-	}
+	}*/
 
-	public static void ModificarAriculo(Database db) {
+	/*public static void ModificarAriculo(Database db) {
 
 		Articulos articulo = null;
 		if (Utiles.siNo("Quieres mostrar la lista de los articulos?")) {
@@ -661,6 +661,6 @@ public class Modificacions {
 			ModificarAriculo(db);
 		}
 
-	}
+	}*/
 
 }
