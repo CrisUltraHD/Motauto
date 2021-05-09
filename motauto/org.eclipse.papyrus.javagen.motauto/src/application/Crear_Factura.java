@@ -30,6 +30,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
 import motauto.Cliente;
@@ -162,8 +163,11 @@ public class Crear_Factura implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
     		
-		btncrear.setDisable(true);
+		//DEFAULT VALUES
 		porpagar.setSelected(true);
+		fechaFactura.setValue(LocalDate.now());
+		formapago.setText("N/A");
+		
 
 		
 		//Connexio BBDD
@@ -437,7 +441,16 @@ public class Crear_Factura implements Initializable {
             {
             	btnCrearFactura(files,bd);
         	}
-        });     
+        });  
+    	
+    	btncrear.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {                
+                if(dni.getSelectionModel().isEmpty() || vehiculo.getSelectionModel().isEmpty() || formapago.getText().equalsIgnoreCase("") || tabla.getItems().isEmpty() || ivaFactura.getText().equalsIgnoreCase("")) {
+                	btncrear.setDisable(true);
+                }
+            }
+        });
 
 	}
 	
