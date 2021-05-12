@@ -17,7 +17,7 @@ import motauto.Cliente;
 import motauto.Comprovaciones;
 import motauto.Database;
 
-public class Mostrar_Cliente implements Initializable{
+public class Mostrar_Cliente implements Initializable {
 
     @FXML
     private TableView<Cliente> table;
@@ -41,40 +41,40 @@ public class Mostrar_Cliente implements Initializable{
     private TableColumn<Cliente, String> direccion;
 
     private Database db=null;
-    private ObservableList <Cliente>headers;
     
     @FXML
+    private ObservableList <Cliente>headers;
 	private FilteredList<Cliente> llistaFiltrada;
 
-		@Override
-		public void initialize(URL arg0, ResourceBundle arg1) {
-			try {
-				db = AlterarEstructuraBBDD.establecerPrimeraConexion();
-				db.conectToBDD();
-			}
-			catch(Exception e) {
-				System.out.print(e);
-			}
-			
-			try {
-				headers = FXCollections.observableArrayList();
-				llistaFiltrada = new FilteredList<>(headers, p -> true);
-				table.setItems(llistaFiltrada);
-				
-				// Crear Table VIEW
-				dni.setCellValueFactory(new PropertyValueFactory<Cliente,String>("dni"));
-		    	nombre.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombre"));
-		    	apellido.setCellValueFactory(new PropertyValueFactory<Cliente,String>("apellidos"));
-		    	correo.setCellValueFactory(new PropertyValueFactory<Cliente,String>("correo"));
-		    	telefono.setCellValueFactory(new PropertyValueFactory<Cliente,Integer>("telefono"));
-		    	direccion.setCellValueFactory(new PropertyValueFactory<Cliente,String>("direccion"));
-		    	
-		    	Comprovaciones.mostrarClientes(db, headers);
-			} 		
-			catch (Exception e) {
-				
-			}
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		try {
+			// Conectaremos con la Base de datos
+			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
+			db.connectDatabase();
 		}
+		catch(Exception e) {
+			System.out.print(e);
+		}
+		try {
+			headers = FXCollections.observableArrayList();
+			// Usamos el metodo sobrecargado mostrar clientes
+			// Como parametro le pasamos la conexion a la base de datos y la array que llenaremos
+	    	Comprovaciones.mostrarClientes(db, headers);
+			llistaFiltrada = new FilteredList<>(headers, p -> true);
+			table.setItems(llistaFiltrada);
 
-	
+			
+			// Inicializamos las columnas de la base de datos con el tipo i la ID de la misma
+			dni.setCellValueFactory(new PropertyValueFactory<Cliente,String>("dni"));
+	    	nombre.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombre"));
+	    	apellido.setCellValueFactory(new PropertyValueFactory<Cliente,String>("apellidos"));
+	    	correo.setCellValueFactory(new PropertyValueFactory<Cliente,String>("correo"));
+	    	telefono.setCellValueFactory(new PropertyValueFactory<Cliente,Integer>("telefono"));
+	    	direccion.setCellValueFactory(new PropertyValueFactory<Cliente,String>("direccion"));
+		} 		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

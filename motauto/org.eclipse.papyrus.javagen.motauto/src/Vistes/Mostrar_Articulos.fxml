@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Mostrar_Articulo">
    <children>
       <Pane layoutX="-380.0" layoutY="-368.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,12 +21,12 @@
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Text>
-                  <TableView prefHeight="693.0" prefWidth="1154.0">
+                  <TableView fx:id="panel" prefHeight="693.0" prefWidth="1154.0">
                     <columns>
-                      <TableColumn prefWidth="155.0" text="CODIGO" />
-                      <TableColumn fx:id="tablaArticulos" minWidth="0.0" prefWidth="774.0" text="NOMBRE" />
-                        <TableColumn minWidth="0.0" prefWidth="113.0" text="PRECIO" />
-                        <TableColumn prefWidth="142.0" text="IVA" />
+                      <TableColumn fx:id="codigo" prefWidth="155.0" text="CODIGO" />
+                      <TableColumn fx:id="nombre" minWidth="0.0" prefWidth="774.0" text="NOMBRE" />
+                        <TableColumn fx:id="precio" minWidth="0.0" prefWidth="113.0" text="PRECIO" />
+                        <TableColumn fx:id="iva" prefWidth="142.0" text="IVA" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="20.0" right="20.0" />

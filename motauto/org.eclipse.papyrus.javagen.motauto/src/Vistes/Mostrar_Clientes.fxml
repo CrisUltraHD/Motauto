@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Mostrar_Cliente">
    <children>
       <Pane layoutX="-380.0" layoutY="-368.0" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,14 +21,14 @@
                         <Font name="Consolas" size="25.0" />
                      </font>
                   </Text>
-                  <TableView prefHeight="693.0" prefWidth="1154.0">
+                  <TableView fx:id="table" prefHeight="693.0" prefWidth="1154.0">
                     <columns>
-                      <TableColumn prefWidth="155.0" text="DNI" />
-                      <TableColumn minWidth="0.0" prefWidth="774.0" text="NOMBRE" />
-                        <TableColumn minWidth="0.0" prefWidth="113.0" text="APELLIDOS" />
-                        <TableColumn prefWidth="142.0" text="CORREO" />
-                        <TableColumn prefWidth="142.0" text="TELEFONO" />
-                        <TableColumn prefWidth="142.0" text="DIRECCION" />
+                      <TableColumn fx:id="dni" prefWidth="155.0" text="DNI" />
+                      <TableColumn fx:id="nombre" minWidth="0.0" prefWidth="774.0" text="NOMBRE" />
+                        <TableColumn fx:id="apellido" minWidth="0.0" prefWidth="113.0" text="APELLIDOS" />
+                        <TableColumn fx:id="correo" prefWidth="142.0" text="CORREO" />
+                        <TableColumn fx:id="telefono" prefWidth="142.0" text="TELEFONO" />
+                        <TableColumn fx:id="direccion" prefWidth="142.0" text="DIRECCION" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="20.0" right="20.0" />

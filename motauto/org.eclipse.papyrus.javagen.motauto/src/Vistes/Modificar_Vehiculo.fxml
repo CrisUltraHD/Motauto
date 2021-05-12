@@ -50,7 +50,7 @@
                   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                      <children>
                         <Label text="Matricula" />
-                        <TextField fx:id="matriculaVehiculo" editable="false" prefHeight="25.0" prefWidth="144.0">
+                        <TextField fx:id="matriculaVehiculo" disable="true" editable="false" prefHeight="25.0" prefWidth="144.0">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>

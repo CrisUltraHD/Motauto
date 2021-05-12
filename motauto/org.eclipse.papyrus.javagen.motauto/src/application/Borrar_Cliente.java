@@ -113,9 +113,7 @@ public class Borrar_Cliente implements Initializable {
             {
             	try {
         		Cliente cliente = Comprovaciones.consultaClient(dniCombo.getSelectionModel().getSelectedItem().getDni(), db);
-				if (Comprovaciones.comprovarDni(cliente.getDni(), db)) {
-					
-					Comprovaciones.consultaVehiculoPorDni(cliente.getDni(), db).borrarVehiculo(db);
+				if (Comprovaciones.comprovarDni(cliente.getDni(), db)) {					
 					cliente.borrarCliente(db);
 					info.setText("Cliente Borrado");
 					headers.clear();
@@ -133,6 +131,5 @@ public class Borrar_Cliente implements Initializable {
     			headers.clear();
     			Comprovaciones.mostrarClientes(db, headers);
             }
-        });	
-	}
+        });		}
 }
