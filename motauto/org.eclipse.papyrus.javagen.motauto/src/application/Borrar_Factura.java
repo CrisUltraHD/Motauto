@@ -118,11 +118,12 @@ public class Borrar_Factura implements Initializable {
     	totalFactura.setCellValueFactory(new PropertyValueFactory<FacturaHeader,Float>("totalFactura"));
 
 
+    	//LLENAMOS EL LISTVIEW CON LA INFORMACION DE LOS HEADERS DE LA FACTURA
     	Comprovaciones.llenarInformacionHeader(bd, headers);
-    	
-
     	numfacturaCombo.setItems(llistaFiltrada);
     	
+    	
+    	//AÑADIMOS LISTENER AL BOTON BORRAR
     	btnBorrar.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)
@@ -130,6 +131,8 @@ public class Borrar_Factura implements Initializable {
         		FacturaHeader fh = Comprovaciones.consultaFacturaHeader(numfacturaCombo.getSelectionModel().getSelectedItem().getNumPressupost(), bd);
         		ArrayList<FacturaFiles> ff = Comprovaciones.consultaFacturaFiles(fh, numfacturaCombo.getSelectionModel().getSelectedItem().getNumPressupost(), bd);
             
+        		//BORRAMOS LAS FILAS QUE TIENE EL HEADER
+        		
     			for(FacturaFiles f : ff) 
     			{
     				boolean ffBorrat = f.borrarFila(bd);
@@ -144,7 +147,7 @@ public class Borrar_Factura implements Initializable {
     				}
     			}		
 
-    			
+    			//BORRAMOS EL HEADER
     			boolean fhBorrat = fh.borrarHeader(bd);
     			
     			if(fhBorrat) 

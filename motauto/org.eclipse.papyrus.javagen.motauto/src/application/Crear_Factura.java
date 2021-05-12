@@ -150,7 +150,7 @@ public class Crear_Factura implements Initializable {
 
     
 
-    
+    //CREAMOS LOS OBSERVABLELIST
     //CLIENTES
     private ObservableList <Cliente> clientes;
     //VEHICULOS
@@ -188,12 +188,14 @@ public class Crear_Factura implements Initializable {
 		//CLIENTES
     	clientes = FXCollections.observableArrayList();
     	Comprovaciones.llenarInformacionCliente(db, clientes);
-    	
+    	//LISTA FILTRADA
 		FilteredList<Cliente> clientsFiltrats;
 		clientsFiltrats = new FilteredList<>(clientes, p -> true);
 		dni.setItems(clientsFiltrats);
 
+		//AÑADIMOS LISTENER AL DNI
 		dni.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cliente>() {
+			//AL SELECCIONAR EL CLIENTE DE EL COMBOBOX CANVIA LOS TEXTOS
 			@Override
 			public void changed(ObservableValue<? extends Cliente> seleccionat, Cliente anterior, Cliente nou) {
 	    		nombre.setText(nou.getNombre());
@@ -202,7 +204,7 @@ public class Crear_Factura implements Initializable {
 	    		tlf.setText(nou.getTelefono()+"");
 	    		dir.setText(nou.getDireccion());
 	    		
-	    		//VEHICULO CLIENTE
+	    		//LLENAMOS EL COMBOBOX DE VEHICULOS QUE TIENE EL CLIENTE
 	        	vehiculos = FXCollections.observableArrayList();
 	        	Comprovaciones.llenarInformacionVehiculo(bd, vehiculos, nou.getDni());
 	        	
@@ -222,8 +224,11 @@ public class Crear_Factura implements Initializable {
 		articlesFiltrats = new FilteredList<>(articulos, p -> true);
     	codart.setItems(articlesFiltrats);
     	
+    	//AÑADIMOS UN LISTENER
     	codart.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Articulos>() {
-			@Override
+			
+    		//CALCULA LOS PRECIOS, IVA Y LLENA LOS CAMPOS PARA AÑADIR UN ARTICULO
+    		@Override
 			public void changed(ObservableValue<? extends Articulos> seleccionat, Articulos anterior, Articulos nou) {
 				System.out.println("HAS CANVIAT EL COMBO");
 				//PREUS DE LA FILA
@@ -407,7 +412,6 @@ public class Crear_Factura implements Initializable {
     	nfactura.setText("Num Factura: "+numFactura+"");
     		
     	//TABLEVIEW    	
-    	//id.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("numFila"));    	
     	colCodArticulo.setCellValueFactory(new PropertyValueFactory<FacturaFiles,String>("nombre"));
     	colCantidad.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Integer>("cantidad"));
     	colDescuento.setCellValueFactory(new PropertyValueFactory<FacturaFiles,Float>("descuento"));
@@ -443,6 +447,7 @@ public class Crear_Factura implements Initializable {
         	}
         });  
     	
+    	//SI HAY ALGUN CAMPO OBLIGATORIO Y NO ESTA RELLENADO DESACTIVA EL BOTON DE CREAR FACTURA AL PASAR POR ENCIMA EL BOTON
     	btncrear.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {                
@@ -454,12 +459,13 @@ public class Crear_Factura implements Initializable {
 
 	}
 	
-	
+	//BOTON AÑADIR FILA
 	FacturaFiles anadirFila(int numFactura, Database db) 
 	{
 		FacturaFiles ff = new FacturaFiles();
 		try 
 		{
+			//COGE LOS DATOS DE LA FILA
 			int cant = Integer.parseInt(cantidad.getText());
 			Articulos art = codart.getSelectionModel().getSelectedItem();
 			float desc = Float.parseFloat(descuento.getText());
@@ -467,6 +473,7 @@ public class Crear_Factura implements Initializable {
 			FacturaHeader fh = new FacturaHeader();
 
 			ff = new FacturaFiles(cant,art,art.getNombre(),art.getIva(), art.getPrecio(),fh,desc,precioTotal);
+			//LO AÑADE AL LISTVIEW
 			tabla.getItems().add(ff);
 			
 		}
@@ -477,6 +484,7 @@ public class Crear_Factura implements Initializable {
 		return ff;
 	}
 	
+	//BOTON CREAR FACTURA
 	void btnCrearFactura(ArrayList<FacturaFiles> files, Database bd) {
     	//PAGADO, POR PAGAR
     	int estado = 0;
@@ -506,6 +514,7 @@ public class Crear_Factura implements Initializable {
     	catch(Exception ex) {info.setText(ex.getLocalizedMessage());}
 	}
 	
+	//FORMATAR FLOAT A 2 DECIMALES
 	public static double round1(double value, int scale) {
 	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
 	}

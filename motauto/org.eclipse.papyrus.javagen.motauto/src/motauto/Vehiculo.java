@@ -67,7 +67,7 @@ public class Vehiculo {
 	}
 
 
-	public void insertVehiculo(Database db) {
+	public boolean insertVehiculo(Database db) {
 		boolean insertCorrecte = false;
 
 		try {
@@ -78,15 +78,16 @@ public class Vehiculo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return insertCorrecte;
 
 	}
 
 	/**
 	 * 
 	 */
-	public void modificarVehiculo(Database db) {
+	public boolean modificarVehiculo(Database db) {
 				
-	boolean correcto;
+	boolean correcto = false;
 		try 
 		{
 		correcto = db.ExecuteUpdate("UPDATE vehiculo SET color = '"+this.color+"', tipo = '"+this.tipo_vehiculo+"', dni = '"+ cliente.getDni() +"' WHERE matricula = '"+this.matricula+"';");			
@@ -96,11 +97,12 @@ public class Vehiculo {
 		{
 			e.printStackTrace();
 		}
-
+		
+		return correcto;
 
 	}
-	public void borrarVehiculo(Database db) {
-		boolean correcto;
+	public boolean borrarVehiculo(Database db) {
+		boolean correcto = false;
 		try 
 		{
 		correcto = db.ExecuteUpdate("DELETE FROM vehiculo WHERE matricula='"+this.matricula+"';");			
@@ -110,6 +112,7 @@ public class Vehiculo {
 		{
 			e.printStackTrace();
 		}
+		return correcto;
 	}
 	/**
 	 * 

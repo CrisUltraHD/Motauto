@@ -37,6 +37,8 @@ public interface MotAuto {
 		}
 		
 	}*/
+	
+	/*
 	public static void MenuPrincipal(Database db) 
 	{
 		System.out.println("\n--------MOTAUTO--------");

@@ -25,6 +25,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
 import motauto.Cliente;
@@ -491,60 +492,52 @@ public class Modificar_Factura implements Initializable{
 				//IVA
 				totalIvaFactura.setText(precioIvaC+"");
 				//Total
-				totalFactura.setText(totalFacturaConIvaC+"");
-
-		    	//BOTON CREAR FACTURA
-		    	btncrear.setOnAction(new EventHandler<ActionEvent>()
-		        {    	
-		            public void handle(ActionEvent e)
-		            {
-		            	//PAGADO, POR PAGAR
-		            	int estado = 0;
-		            	
-		            	if(pagado.isSelected()) {estado = 1;}
-		            	else if(porpagar.isSelected()) {estado = 0;}
-		            	//POR SI ACASO :)
-		            	else {estado = 0;}
-		            	
-		            	try 
-		            	{
-		            		LocalDate value = fechaFactura.getValue();
-
-		            		FacturaHeader fh = new FacturaHeader(seleccionaNumFactura.getSelectionModel().getSelectedItem().getNumPressupost(),"",estado,Float.parseFloat(baseImponible.getText()),dni.getSelectionModel().getSelectedItem(),vehiculo.getSelectionModel().getSelectedItem(),arrayFiles,Float.parseFloat(descuentoTotalFactura.getText()),Float.parseFloat(totalIvaFactura.getText()),Float.parseFloat(totalFactura.getText()),observaciones.getText(),value,LocalTime.parse(hora.getText()),formapago.getText());
-		            	
-		            		fh.modificarFactura(bd);
-
-		            		//AL HACER EL INSERT DEL HEADER TIENE QUE OBTENER EL NUM FACTURA
-		            		int numFactura = Comprovaciones.returnNumFactura(bd, dni.getSelectionModel().getSelectedItem().getDni(), value, LocalTime.parse(hora.getText()));
-		            		fh.setNumPressupost(numFactura);
-
-		            		
-			            	for(FacturaFiles f : arrayFiles) 
-			            	{
-			            		f.setFacturasHeader(fh);
-			            	}
-			            	
-			        		// HACE LOS INSERT DEL HEADER Y LAS FILAS
-			
-			        		for (FacturaFiles f : arrayFiles) {
-			        			f.insertFacturaFila(bd);
-			        		}
-			        		
-			        		System.out.println("INSERT CORRECTO");
-
-		            	
-		            	}
-		            	catch(Exception ex) {ex.printStackTrace();info.setText(ex.getCause()+"");}
-		            	info.setText("Factura Modificada Correctamente");
-		        	}
-		        });     
-
+				totalFactura.setText(totalFacturaConIvaC+"");   
             }
         });
 
-		
 
+    	
+    	//BOTON CREAR FACTURA
+    	btncrear.setOnAction(new EventHandler<ActionEvent>()
+        {    	
+            public void handle(ActionEvent e)
+            {
+            	//PAGADO, POR PAGAR
+            	int estado = 0;
+            	
+            	if(pagado.isSelected()) {estado = 1;}
+            	else if(porpagar.isSelected()) {estado = 0;}
+            	else {estado = 0;}
+            	
+            	try 
+            	{
+            		LocalDate value = fechaFactura.getValue();
 
+            		FacturaHeader fh = new FacturaHeader(seleccionaNumFactura.getSelectionModel().getSelectedItem().getNumPressupost(),"",estado,Float.parseFloat(baseImponible.getText()),dni.getSelectionModel().getSelectedItem(),vehiculo.getSelectionModel().getSelectedItem(),arrayFiles,Float.parseFloat(descuentoTotalFactura.getText()),Float.parseFloat(totalIvaFactura.getText()),Float.parseFloat(totalFactura.getText()),observaciones.getText(),value,LocalTime.parse(hora.getText()),formapago.getText());
+            	
+            		fh.modificarFactura(bd);
+
+            		//AL HACER EL INSERT DEL HEADER TIENE QUE OBTENER EL NUM FACTURA
+            		int numFactura = Comprovaciones.returnNumFactura(bd, dni.getSelectionModel().getSelectedItem().getDni(), value, LocalTime.parse(hora.getText()));
+            		fh.setNumPressupost(numFactura);
+
+            		
+	            	for(FacturaFiles f : arrayFiles) 
+	            	{
+	            		f.setFacturasHeader(fh);
+	            	}
+	            	
+	        		// HACE LOS INSERT DEL HEADER Y LAS FILAS
+	        		for (FacturaFiles f : arrayFiles) {
+	        			f.insertFacturaFila(bd);
+	        		}
+	        		System.out.println("INSERT CORRECTO");            	
+            	}
+            	catch(Exception ex) {ex.printStackTrace();info.setText(ex.getCause()+"");}
+            	info.setText("Factura Modificada Correctamente");
+        	}
+        }); 
 	}
 	
 	FacturaFiles anadirFila(int numFactura, Database db) 
