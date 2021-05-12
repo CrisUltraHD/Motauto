@@ -10,22 +10,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import motauto.AlterarEstructuraBBDD;
-import motauto.Articulos;
-import motauto.Cliente;
 import motauto.Comprovaciones;
 import motauto.Database;
-import motauto.Modificacions;
 import motauto.Vehiculo;
 
 public class Borrar_Vehiculo implements Initializable{

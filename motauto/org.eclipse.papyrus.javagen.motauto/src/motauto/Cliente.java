@@ -1,9 +1,5 @@
 package motauto;
 
-import java.sql.ResultSet;
-
-import javafx.collections.ObservableList;
-
 public class Cliente {
 
 	private String dni;

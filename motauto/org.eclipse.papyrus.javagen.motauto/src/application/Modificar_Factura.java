@@ -25,7 +25,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
 import motauto.Cliente;

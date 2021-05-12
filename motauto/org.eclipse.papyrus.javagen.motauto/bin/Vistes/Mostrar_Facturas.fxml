@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Mostrar_Facturas">
+   <children>
+      <Pane layoutX="-380.0" layoutY="-368.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <fx:include source="Header.fxml" />
+            <VBox layoutX="20.0" layoutY="72.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="735.0" prefWidth="1185.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FACTURAS" textAlignment="CENTER">
+                     <font>
+                        <Font name="Consolas" size="25.0" />
+                     </font>
+                  </Text>
+                  <TableView fx:id="tabla" prefHeight="677.0" prefWidth="1185.0">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <columns>
+                        <TableColumn fx:id="numFactura" prefWidth="75.0" text="NUM FACTURA" />
+                        <TableColumn fx:id="estado" prefWidth="75.0" text="ESTADO" />
+                        <TableColumn fx:id="fecha" prefWidth="75.0" text="FECHA" />
+                        <TableColumn fx:id="hora" prefWidth="75.0" text="HORA" />
+                        <TableColumn fx:id="cliente" prefWidth="75.0" text="CLIENTE" />
+                        <TableColumn fx:id="vehiculo" prefWidth="75.0" text="VEHICULO" />
+                        <TableColumn fx:id="observaciones" prefWidth="75.0" text="OBSERVACIONES" />
+                        <TableColumn fx:id="formapago" prefWidth="75.0" text="FORMA PAGO" />
+                        <TableColumn fx:id="descuento" prefWidth="75.0" text="DESCUENTO" />
+                        <TableColumn fx:id="total" prefWidth="75.0" text="TOTAL" />
+                        <TableColumn fx:id="totaliva" prefWidth="75.0" text="TOTAL IVA" />
+                        <TableColumn fx:id="totalFactura" prefWidth="75.0" text="TOTAL FACTURA" />
+                     </columns>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

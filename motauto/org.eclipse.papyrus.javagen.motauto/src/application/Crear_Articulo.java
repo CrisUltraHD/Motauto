@@ -1,14 +1,7 @@
 package application;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,10 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Articulos;
-import motauto.Cliente;
 import motauto.Comprovaciones;
 import motauto.Database;
-import motauto.FacturaFiles;
 
 public class Crear_Articulo implements Initializable {
 

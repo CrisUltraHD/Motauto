@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="org.eclipse.papyrus.javagen.motauto/src/ibatis2-common-2.1.7.597.jar"/>
 	<classpathentry kind="lib" path="org.eclipse.papyrus.javagen.motauto/src/jfoenix-8.0.10.jar"/>
 	<classpathentry kind="lib" path="org.eclipse.papyrus.javagen.motauto/src/mariadb-java-client-2.3.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="org.eclipse.papyrus.javagen.motauto/bin"/>
 </classpath>

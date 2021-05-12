@@ -3,26 +3,16 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import motauto.AlterarEstructuraBBDD;
-import motauto.Cliente;
-import motauto.Comprovaciones;
-import motauto.Database;
 
 public class Header implements Initializable {
 
@@ -83,7 +73,6 @@ public class Header implements Initializable {
 
 
     public void initialize(URL arg0, ResourceBundle arg1) {
-    	Stage stage = null;
     	
     	crearArticulo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
