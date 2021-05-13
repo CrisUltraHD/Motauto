@@ -74,10 +74,13 @@ public class Header implements Initializable {
 
     public void initialize(URL arg0, ResourceBundle arg1) {
     	
+    	//AÑADIMOS LISTENER A LOS BOTONES DEL HEADER
+    	
     	crearArticulo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				try {
+					//ASIGNAMOS EL FXML A CARGAR Y LO ABRE EN UNA VENTANA NUEVA
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistes/Alta_Articulo.fxml"));
 					AnchorPane root = (AnchorPane) fxmlLoader.load();
 					Stage stage = new Stage();
@@ -360,11 +363,5 @@ public class Header implements Initializable {
 				}
 			}
 		});
-    	
-    	
-    	
-
-    
-    
     }		
 }

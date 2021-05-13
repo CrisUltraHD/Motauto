@@ -98,6 +98,8 @@ public class Modificar_Vehiculo implements Initializable {
 		tipoCol.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("tipo_vehiculo"));
     	
     	Comprovaciones.mostrarVehiculos(db, headers); 	
+    	
+    	//BOTON QUE RELLENA LOS TEXTFIELDS A PARTIR DE LA FILA SELECCIONADA
     	fill.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)
@@ -110,6 +112,8 @@ public class Modificar_Vehiculo implements Initializable {
 
             }
         });
+
+		//BOTON MODIFICAR A LA DB ELS CAMPS QUE SHAN RECOLLIT ANTERIORMENT
     	btnModificar.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)

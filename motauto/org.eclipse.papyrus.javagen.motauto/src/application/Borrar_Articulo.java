@@ -67,32 +67,36 @@ public class Borrar_Articulo implements Initializable {
 		}
 
 		Database bd = db;
-
+		// ArrayList donde guardaremos toda la inforamcion de los articulos para poderla imprimir en la tabla
 		headers = FXCollections.observableArrayList();
 		llistaFiltrada = new FilteredList<>(headers, p -> true);
 		tabla.setItems(llistaFiltrada);
 
-		// TABLEVIEW
+		// Inicializamos las variables que controlan el contenido de las columnas de la tabla 
 		codigo.setCellValueFactory(new PropertyValueFactory<Articulos, String>("codigo"));
 		precio.setCellValueFactory(new PropertyValueFactory<Articulos, Float>("precio"));
 		iva.setCellValueFactory(new PropertyValueFactory<Articulos, Float>("iva"));
 		nombre.setCellValueFactory(new PropertyValueFactory<Articulos, String>("nombre"));
-
+		// Llamamos la funcion llenarInformaticon, esta ara un select a la base de datos i nos recojera toda la informacion de los articuos
+		// Le pasamos como parametro la conexion a la base de datos, i la arraylist donde guardaremos dicha informacion 
 		Comprovaciones.llenarInformacionArticulos(bd, headers);
-
+		// Rellenamos el comboBox con la lista de codigos i nombre de los articulos para poder escojerlos
 		codigoArticulo.setItems(llistaFiltrada);
-
+		// Cuando clicamos sobre el boton de borrar articulos, recojeremos toda la inforamcion te los textViews,
+		// Con ella creamos un objeto Articulo que sera el encargado de llamar su funcion interna para borrarse de la base de datos
 		btnBorrar.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				try 
 				{
+					//Llamamos la funcion consultaArticulo asi nos cercioramos de que el articulo existe en la base de datos
 				Articulos articulo = Comprovaciones.consultaArticulo(codigoArticulo.getSelectionModel().getSelectedItem().getCodigo(), bd);
-				articulo.borrarArticulo(bd);
+				articulo.borrarArticulo(bd); // Una vez recojido lo borramos
 				info.setText("Se ha borrado satisfactoriamente");
 				}
 				catch(Exception ex) {info.setText(ex.getMessage());}
-
+				// Limpiamos el arraylist 
 				headers.clear();
+				// Lo volvemos a llenar con la inforamcion nueva de la base de datos
 				Comprovaciones.llenarInformacionArticulos(bd, headers);
 			}
 		});

@@ -225,7 +225,6 @@ public class Crear_Factura implements Initializable {
     		//CALCULA LOS PRECIOS, IVA Y LLENA LOS CAMPOS PARA AÑADIR UN ARTICULO
     		@Override
 			public void changed(ObservableValue<? extends Articulos> seleccionat, Articulos anterior, Articulos nou) {
-				System.out.println("HAS CANVIAT EL COMBO");
 				//PREUS DE LA FILA
 				float ivat;
 				float preciot;
@@ -421,7 +420,7 @@ public class Crear_Factura implements Initializable {
         {    	
             public void handle(ActionEvent e)
             {
-            	files.add(anadirFila(numFactura,bd));
+            	files.add(anadirFila());
             	
             	//BASE IMPONIBLE
             	float bi = 0;
@@ -455,7 +454,7 @@ public class Crear_Factura implements Initializable {
 	}
 	
 	//BOTON AÑADIR FILA
-	FacturaFiles anadirFila(int numFactura, Database db) 
+	FacturaFiles anadirFila() 
 	{
 		FacturaFiles ff = new FacturaFiles();
 		try 

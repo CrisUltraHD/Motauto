@@ -106,36 +106,18 @@ public class Crear_Cliente implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		//connection DDBB
 		try {
 			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
 			db.conectToBDD();
 		}
 		catch(Exception e) {
 			System.out.print(e);
-		}
-		
-		
-		
-		/*crearFactura.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				try {
-					System.out.println("asdadadsdasdasdsadad");
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistes/Alta_Factura.fxml"));
-					AnchorPane root = (AnchorPane) fxmlLoader.load();
-					stageProjecte = new Stage();
-					stageProjecte.setScene(new Scene(root));
-					stageProjecte.show();
-					//loginController.stagePrincipal.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 		
-			}
-		});*/
-
-		
+		}	
 		
 		//BOTON
+		// Cuando clicamos el boton crear, coge los valores que hay puestos en los textfield y los utiliza para hacer el insert en db
+		// tambien comprueva si existe en la db ya el cliente o si se ha creado correctmente
 		btnCrear.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {

@@ -453,7 +453,7 @@ public class Modificar_Factura implements Initializable{
         {    	
             public void handle(ActionEvent e)
             {
-            	arrayFiles.add(anadirFila(seleccionaNumFactura.getSelectionModel().getSelectedItem().getNumPressupost(),bd));
+            	arrayFiles.add(anadirFila());
             	
             	//BASE IMPONIBLE
             	float bi = 0;
@@ -471,7 +471,7 @@ public class Modificar_Factura implements Initializable{
         {    	
             public void handle(ActionEvent e)
             {
-            	quitarFila(seleccionaNumFactura.getSelectionModel().getSelectedItem().getNumPressupost(),bd);
+            	quitarFila(bd);
             	
             	//BASE IMPONIBLE
             	float bi = 0;
@@ -539,7 +539,7 @@ public class Modificar_Factura implements Initializable{
         }); 
 	}
 	
-	FacturaFiles anadirFila(int numFactura, Database db) 
+	FacturaFiles anadirFila()
 	{
 		FacturaFiles ff = new FacturaFiles();
 		try 
@@ -561,7 +561,7 @@ public class Modificar_Factura implements Initializable{
 		return ff;
 	}
 	
-	void quitarFila(int numFactura, Database db) 
+	void quitarFila(Database db) 
 	{
 		try 
 		{

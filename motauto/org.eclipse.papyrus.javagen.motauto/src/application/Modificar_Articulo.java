@@ -67,8 +67,9 @@ public class Modificar_Articulo implements Initializable {
 	
 	
 	public void initialize(URL arg0, ResourceBundle arg1) {
-  	
-    	try 
+  	//crear connection a la db
+    	
+		try 
 		{
 			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
 			db.connectDatabase();
@@ -103,7 +104,7 @@ public class Modificar_Articulo implements Initializable {
             }
         });
     	
-    	
+    	//BOTON PARA MODIFICAR LOS CAMPOS DE ARTIULO EN LA DB
     	btnModificar.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)

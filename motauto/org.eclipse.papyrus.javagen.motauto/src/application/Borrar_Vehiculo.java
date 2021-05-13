@@ -52,6 +52,7 @@ public class Borrar_Vehiculo implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+			// Connexio BBDD
 		try 
 		{
 			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
@@ -61,19 +62,23 @@ public class Borrar_Vehiculo implements Initializable{
 		{
 			e.printStackTrace();
 		}
-		
+				
+		// ArrayList donde guardaremos toda la inforamcion de los articulos para poderla imprimir en la tabla
+
 		headers = FXCollections.observableArrayList();
     	
 		llistaFiltrada = new FilteredList<>(headers, p -> true);
 		tabla.setItems(llistaFiltrada);
-	
+		
+		// Inicializamos las variables que controlan el contenido de las columnas de la tabla 
+
 		matriculaCol.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("matricula"));
 		colorCol.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("color"));
 		tipoCol.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("tipo_vehiculo"));
 		Comprovaciones.mostrarVehiculos(db, headers);
 		matricula.setItems(llistaFiltrada);
 
-		
+		//Al clicar al boton llamamos al metodo borrar vehiculo, y lo eliminamos de la db
 		btnBorrarVehiculo.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)

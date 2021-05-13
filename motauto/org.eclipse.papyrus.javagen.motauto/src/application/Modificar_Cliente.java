@@ -118,7 +118,7 @@ public class Modificar_Cliente implements Initializable {
             }
         });
     	
-    	
+    	//BOTON MODIFICAR EL CLIENTE EN LA DB CON LOS NUEVOS VALORES RECOGIDOS
     	btnModificar.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)

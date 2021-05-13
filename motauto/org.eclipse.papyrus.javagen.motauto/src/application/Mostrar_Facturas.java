@@ -90,7 +90,7 @@ public class Mostrar_Facturas implements Initializable {
 	    	tabla.setItems(llistaFiltrada);
 	    	
 
-	    	//TABLEVIEW    	
+	    	//TABLEVIEW DONDE MOSTRAMOS LOS VALORES DE LA FACTURA 	
 	    	numFactura.setCellValueFactory(new PropertyValueFactory<FacturaHeader,Integer>("numPressupost"));
 	    	estado.setCellValueFactory(new PropertyValueFactory<FacturaHeader,Integer>("estado"));
 	    	fecha.setCellValueFactory(new PropertyValueFactory<FacturaHeader,LocalDate>("dataFactura"));

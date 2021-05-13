@@ -73,7 +73,7 @@ public class Borrar_Cliente implements Initializable {
 		{
 			e.printStackTrace();
 		}
-		
+		// ArrayList donde guardaremos toda la informacion de los cliente para poderla imprimir en la tabla
 		headers = FXCollections.observableArrayList();
     	Comprovaciones.mostrarClientes(db, headers);
 		llistaFiltrada = new FilteredList<>(headers, p -> true);
@@ -89,7 +89,12 @@ public class Borrar_Cliente implements Initializable {
     	
     	dniCombo.setItems(llistaFiltrada);
     	
-    	btnBorrar.setOnAction(new EventHandler<ActionEvent>()
+    	//al clicar al boton de borrar consultarem el cliente por su dni
+		//llamaremos al consulta cliente de la db apartir del dni 
+		//informaremos que se ha borrado o no
+		//mostraremos en blanco los headers
+		//en caso que no exista el cliente mostraremos que no existe por informacion
+		btnBorrar.setOnAction(new EventHandler<ActionEvent>()
         {    	
             public void handle(ActionEvent e)
             {

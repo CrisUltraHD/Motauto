@@ -4,11 +4,8 @@
 
 package motauto;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import javafx.collections.ObservableList;
 
 /************************************************************/
 /**
@@ -24,7 +21,7 @@ public class Vehiculo {
 	private String tipo_vehiculo;
 
 	private Cliente cliente;
-
+	// creem el constructor
 	public Vehiculo (String matricula, String color, String tipo_vehiculo, Cliente cliente) {
 		this.matricula = matricula;
 		this.color = color;
@@ -34,6 +31,7 @@ public class Vehiculo {
 	
 	Vehiculo(){}
 
+//setters i getters 
 	public String getMatricula() {
 		return matricula;
 	}
@@ -66,7 +64,7 @@ public class Vehiculo {
 		this.cliente = cliente;
 	}
 
-
+	// iserim el Vehiculo a la db i ens retorna en Strinc si es creat(true) i si no(fase)
 	public boolean insertVehiculo(Database db) {
 		boolean insertCorrecte = false;
 
@@ -83,7 +81,7 @@ public class Vehiculo {
 	}
 
 	/**
-	 * 
+	 * Modifiquem el Vehiculo amb update a la db 
 	 */
 	public boolean modificarVehiculo(Database db) {
 				
@@ -101,6 +99,8 @@ public class Vehiculo {
 		return correcto;
 
 	}
+
+	//Eliminem el Vehiculo amb update a la db 
 	public boolean borrarVehiculo(Database db) {
 		boolean correcto = false;
 		try 

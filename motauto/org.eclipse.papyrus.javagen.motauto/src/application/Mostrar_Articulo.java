@@ -53,12 +53,13 @@ public class Mostrar_Articulo implements Initializable {
 			// Creamos una Array
 			headers = FXCollections.observableArrayList();
 			
+			// Llenamos el panel
 	    	Comprovaciones.mostrarArticulos(db, headers);
 			llistaFiltrada = new FilteredList<>(headers, p -> true);
 			panel.setItems(llistaFiltrada);
 
 			
-			// Crear Table VIEW
+			// Asignamos los campos
 			codigo.setCellValueFactory(new PropertyValueFactory<Articulos,String>("codigo"));
 	    	nombre.setCellValueFactory(new PropertyValueFactory<Articulos,String>("nombre"));
 	    	precio.setCellValueFactory(new PropertyValueFactory<Articulos,Float>("precio"));

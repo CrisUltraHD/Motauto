@@ -37,6 +37,7 @@ public class Crear_Articulo implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+		// Connexio BBDD
 
 		Database db = null;
 		try {
@@ -48,7 +49,8 @@ public class Crear_Articulo implements Initializable {
 
 		Database bd = db;
 	
-
+		// Cuando clicamos el boton crar, coge los valores que hay puestos en los textfield y los utiliza para hacer el insert en db
+		// tambien comprueva si existe en la db ya el articulo o si se ha creado correctmente
 		btnCrear.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 

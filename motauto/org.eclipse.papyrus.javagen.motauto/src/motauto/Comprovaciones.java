@@ -11,9 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
-
 import java.sql.Time;
 
 /************************************************************/
@@ -22,7 +20,7 @@ import java.sql.Time;
  */
 public class Comprovaciones {
 	/**
-	 * 
+	 * DEVUELVE TRUE SI EL CLIENTE POR DNI EXISTE
 	 * @param dni
 	 * @param existe
 	 */
@@ -42,7 +40,7 @@ public class Comprovaciones {
 	}
 
 	/**
-	 * 
+	 * DEVUELVE TRUE SI EL ARTICULO POR CODIGO EXISTE
 	 * @param codigoArticulo
 	 * @return
 	 */
@@ -64,7 +62,7 @@ public class Comprovaciones {
 	}
 
 	/**
-	 * 
+	 * DEVUELVE TRUE SI EL VEHICULO POR MATRICULA EXISTE
 	 * @param matricula
 	 * @param Existeix
 	 */
@@ -84,7 +82,7 @@ public class Comprovaciones {
 	}
 
 	/**
-	 * 
+	 * DEVUELVE TRUE SI EL NUM FACTURA EXISTE
 	 * @param codigo
 	 */
 	public static boolean comprobarNumFactura(int codigo, Database db) {
@@ -105,7 +103,7 @@ public class Comprovaciones {
 	}
 
 	/**
-	 * 
+	 * DEVUELVE TRUE SI EL NUM FILA EXISTE
 	 * @param num fila
 	 */
 	public static boolean comprobarNumFila(int num, Database db) {
@@ -126,7 +124,7 @@ public class Comprovaciones {
 	}
 
 	/**
-	 * 
+	 * DEVUELVE UN OBJETO CLIENTE A PARTIR DEL DNI
 	 * @param DNI
 	 * 
 	 */
@@ -146,6 +144,12 @@ public class Comprovaciones {
 		return cliente;
 	}
 
+	/**
+	 * DEVUELVE UN OBJETO ARTICULO A PARTIR DEL CODIGO
+	 * @param codigoArticulo
+	 * @param db
+	 * @return
+	 */
 	public static Articulos consultaArticulo(String codigoArticulo, Database db) {
 		String codigo = "";
 		String nombre = "";
@@ -168,6 +172,12 @@ public class Comprovaciones {
 		return articulo;
 	}
 
+	/**
+	 * DEVUELVE UN OBJETO VEHICULO A PARTIR DE LA MATRICULA
+	 * @param matricula
+	 * @param db
+	 * @return
+	 */
 	public static Vehiculo consultaVehiculo(String matricula, Database db) {
 		Vehiculo vehiculo = null;
 		Cliente cliente = null;
@@ -185,7 +195,7 @@ public class Comprovaciones {
 		return vehiculo;
 	}
 
-	// RETORNA NUM FACTURA
+	// RETORNA NUM FACTURA A PARTIR DE LOS PARAMETROS
 	public static int returnNumFactura(Database db, String dniCliente, LocalDate data, LocalTime hora) {
 
 		int num = 0;
@@ -209,7 +219,7 @@ public class Comprovaciones {
 		return num;
 	}
 
-	// RETORNA FACTURA HEADER
+	// RETORNA FACTURA HEADER A PARTIR DEL CODIGO FACTURA
 	public static FacturaHeader consultaFacturaHeader(int codigoFactura, Database db) {
 		String cifEmpresa = "";
 		int numPressupost = 0;
@@ -298,7 +308,7 @@ public class Comprovaciones {
 		return filas;
 	}
 
-	public static void mostrarClientes(Database db) {
+	/*public static void mostrarClientes(Database db) {
 		try {
 			System.out.println("Lista de los clientes: ");
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes;");
@@ -310,8 +320,13 @@ public class Comprovaciones {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODOS LOS VEHICULOS
+	 * @param db
+	 * @param vehiculo
+	 */
 	public static void mostrarVehiculos(Database db, ObservableList<Vehiculo> vehiculo) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo;");
@@ -325,6 +340,11 @@ public class Comprovaciones {
 
 	}
 
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODOS LOS ARTICULOS
+	 * @param db
+	 * @param articulo
+	 */
 	public static void mostrarArticulos(Database db, ObservableList<Articulos> articulo) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos;");
@@ -337,6 +357,12 @@ public class Comprovaciones {
 
 	}
 
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODAS LAS FACTURA FILES A PARTIR DEL NUMERO DE FACTURA
+	 * @param db
+	 * @param ff
+	 * @param numFactura
+	 */
 	public static void llenarInformacionFacturaFiles(Database db, ObservableList<FacturaFiles> ff, int numFactura) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_filas where num_factura = '" + numFactura + "';");
@@ -358,7 +384,7 @@ public class Comprovaciones {
 		}
 	}
 
-	public static void mostrarFacturas(Database db) {
+	/*public static void mostrarFacturas(Database db) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_header;");
 
@@ -375,7 +401,7 @@ public class Comprovaciones {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/*
 	 * public static void mostrarFacturasPerNum(FacturaHeader fh,
@@ -455,6 +481,12 @@ public class Comprovaciones {
 	 * Obtener el ultimo numero de factura +1 que no sea repetido
 	 * 
 	 */
+	
+	/**
+	 * DEVUELVE EL PROXIMO VALOR AUTOINCREMENTAL DE LA BBDD PARA EL NUMERO DE FACTURA
+	 * @param db
+	 * @return
+	 */
 	public static int getNumFactura(Database db) {
 		int num = 0;
 
@@ -492,6 +524,12 @@ public class Comprovaciones {
 	/*
 	 * Llenar observableList
 	 */
+	
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODOS LOS CLIENTES
+	 * @param db
+	 * @param clientes
+	 */
 	public static void mostrarClientes(Database db, ObservableList<Cliente> clientes) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes;");
@@ -504,6 +542,11 @@ public class Comprovaciones {
 		}
 	}
 
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODAS LAS FACTURAS HEADER
+	 * @param db
+	 * @param header
+	 */
 	public static void llenarInformacionHeader(Database db, ObservableList<FacturaHeader> header) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM facturas_header");
@@ -525,6 +568,11 @@ public class Comprovaciones {
 		}
 	}
 
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODOS LOS CLIENTES
+	 * @param db
+	 * @param clientes
+	 */
 	public static void llenarInformacionCliente(Database db, ObservableList<Cliente> clientes) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM clientes");
@@ -543,6 +591,11 @@ public class Comprovaciones {
 		}
 	}
 
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODOS LOS ARTICULOS
+	 * @param db
+	 * @param articulos
+	 */
 	public static void llenarInformacionArticulos(Database db, ObservableList<Articulos> articulos) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos");
@@ -560,7 +613,13 @@ public class Comprovaciones {
 		}
 
 	}
-
+	
+	/**
+	 * RELLENA EL OBSERVABLE LIST DE TODOS LOS VEHICULOS A PARTIR DEL DNI
+	 * @param db
+	 * @param vehiculo
+	 * @param dni
+	 */
 	public static void llenarInformacionVehiculo(Database db, ObservableList<Vehiculo> vehiculo, String dni) {
 		try {
 			ResultSet rs = db.ExecuteQuery("SELECT * FROM vehiculo where dni = '" + dni + "';");
@@ -578,5 +637,4 @@ public class Comprovaciones {
 			e.printStackTrace();
 		}
 	}
-
 }

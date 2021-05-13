@@ -43,7 +43,8 @@ public class Mostrar_Vehiculo implements Initializable {
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		// Conectaremos con la Base de datos
+
 		try {
 			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
 			db.connectDatabase();
@@ -59,7 +60,8 @@ public class Mostrar_Vehiculo implements Initializable {
 	    	Comprovaciones.mostrarVehiculos(db, headers);
 			llistaFiltrada = new FilteredList<>(headers, p -> true);
 			table.setItems(llistaFiltrada);
-			
+			// Usamos el metodo sobrecargado mostrar vehiculos
+			// Como parametro le pasamos la conexion a la base de datos y la array que llenaremos
 			matricula.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("matricula"));
 			color.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("color"));
 			tipo.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("tipo_vehiculo"));

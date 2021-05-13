@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	//AL EJECUTARSE EL MAIN ABRE LA VENTANA MENU.FXML
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -18,9 +19,6 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-
-
-
 		}
 		catch(Exception e) 
 		{
@@ -28,7 +26,7 @@ public class Main extends Application {
 		}
 	}
 	
-	
+	//EJECUTA EL START
 	public static void main(String[] args) 
 	{		
 		launch(args);

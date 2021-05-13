@@ -4,10 +4,6 @@
 
 package motauto;
 
-import java.sql.ResultSet;
-
-import javafx.collections.ObservableList;
-
 /************************************************************/
 /**
  * 
@@ -125,6 +121,11 @@ public class FacturaFiles {
 		this.iva = iva;
 	}
 
+	/**
+	 * HACE INSERT DE LA FACTURA FILA
+	 * @param db
+	 * @return
+	 */
 	public boolean insertFacturaFila(Database db) {
 		boolean creacionCorrecta = false;
 

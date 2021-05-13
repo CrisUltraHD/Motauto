@@ -44,6 +44,7 @@ public class Crear_Vehiculo implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		//connexio bbdd
 		try {
 			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
 			db.conectToBDD();
@@ -56,6 +57,8 @@ public class Crear_Vehiculo implements Initializable {
 
 		cliente.setItems(llistaFiltrada);
 		// BOTON
+		// Cuando clicamos el boton crear, coge los valores que hay puestos en los textfield y los utiliza para hacer el insert en db
+		// tambien comprueba si existe en la db ya el vehiculo o si se ha creado correctmente
 		btnCrear.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {

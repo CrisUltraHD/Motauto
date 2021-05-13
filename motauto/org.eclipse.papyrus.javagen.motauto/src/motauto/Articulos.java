@@ -4,11 +4,6 @@
 
 package motauto;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import javafx.collections.ObservableList;
-
 /************************************************************/
 /**
  * 
@@ -19,7 +14,7 @@ public class Articulos {
 	private String nombre;
 	private float precio;
 	private float iva;
-
+// creamos el constructor
 	public Articulos (String codigo, String nombre, float precio, float iva){
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -27,7 +22,7 @@ public class Articulos {
 		this.iva = iva;
 	}
 
-
+//getters i setters
 	public String getCodigo() {
 		return codigo;
 	}
@@ -59,6 +54,7 @@ public class Articulos {
 	public void setIva(float iva) {
 		this.iva = iva;
 	}
+	// insereix article a la base de dades
 	public void insertArticulo(Database db) {
 		boolean creacionCorrecta = false;
 
@@ -75,7 +71,7 @@ public class Articulos {
 	}
 
 	/**
-	 * 
+	 Fem un update de article i ens retorna si està editat correctament 
 	 */
 	public void modificarArticulo(Database db) {
 		boolean creacionCorrecta = false;
@@ -93,6 +89,7 @@ public class Articulos {
 	}
 	
 	@Override
+	//ajunteem codi i nombre en un sol String
 	public String toString() 
 	{
 		return this.codigo + " " + this.nombre;
@@ -119,30 +116,4 @@ public class Articulos {
 			e.printStackTrace();
 		}
 	}
-	
-	/*public static ArrayList<Articulos> getArticulos(Database db) {
-		
-		ArrayList<Articulos> art = new ArrayList<Articulos>();
-		
-		try 
-		{
-			ResultSet rs = db.ExecuteQuery("SELECT * FROM articulos");
-			
-			while(rs.next()) 
-			{
-				art.add(
-				new Articulos(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getFloat(4)));
-			}
-			
-			rs.close();
-
-		}
-		
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return art;
-	}*/
 };

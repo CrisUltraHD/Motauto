@@ -102,50 +102,6 @@ public class VehiculoTest {
 	}
 
 	@Test
-	public void borrarVehiculo() {
-		try 
-		{
-			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
-			db.connectDatabase();
-		}
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
-		Cliente cliente = Comprovaciones.consultaClient("41529675r", db);
-		Vehiculo vehiculo = new Vehiculo("9173PEP","Blanquito","Motito",cliente);
-		boolean correcto = false;
-		correcto = vehiculo.borrarVehiculo(db);
-
-		assertEquals(true,correcto);
-	}
-	
-	@Test
-	public void borrarVehiculo2() {
-		try 
-		{
-			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
-			db.connectDatabase();
-		}
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
-		Cliente cliente = Comprovaciones.consultaClient("41529675r", db);
-		Vehiculo vehiculo = new Vehiculo("9173PEP","Blanquito","Motito",cliente);
-		boolean correcto = false;
-
-		try {
-		correcto = vehiculo.borrarVehiculo(null);
-		}
-		catch(Exception e) {
-		}
-		assertEquals(false,correcto);
-	}
-	
-	@Test
 	public void comprovarMatricula() {
 		try 
 		{
@@ -299,4 +255,50 @@ public class VehiculoTest {
 		
 		assertEquals(null,vehiculoComprovar);
 	}
+	
+	@Test
+	public void borrarVehiculo() {
+		try 
+		{
+			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
+			db.connectDatabase();
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		Cliente cliente = Comprovaciones.consultaClient("41529675r", db);
+		Vehiculo vehiculo = new Vehiculo("9173PEP","Blanquito","Motito",cliente);
+		boolean correcto = false;
+		correcto = vehiculo.borrarVehiculo(db);
+
+		assertEquals(true,correcto);
+	}
+	
+	@Test
+	public void borrarVehiculo2() {
+		try 
+		{
+			db = AlterarEstructuraBBDD.establecerPrimeraConexion();
+			db.connectDatabase();
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		Cliente cliente = Comprovaciones.consultaClient("41529675r", db);
+		Vehiculo vehiculo = new Vehiculo("9173PEP","Blanquito","Motito",cliente);
+		boolean correcto = false;
+
+		try {
+		correcto = vehiculo.borrarVehiculo(null);
+		}
+		catch(Exception e) {
+		}
+		assertEquals(false,correcto);
+	}
+	
+
 }

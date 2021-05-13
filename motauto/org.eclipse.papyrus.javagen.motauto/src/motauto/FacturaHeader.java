@@ -3,14 +3,9 @@
 // --------------------------------------------------------
 
 package motauto;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import javafx.collections.ObservableList;
 
 /************************************************************/
 /**
@@ -223,7 +218,7 @@ public class FacturaHeader {
 
 	/**
 	 * 
-	 *  
+	 *  HACE INSERT DEL HEADER A LA BBDD
 	 */
 	public boolean insertFacturaHeader(Database db) 
 	{

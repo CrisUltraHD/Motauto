@@ -9,6 +9,8 @@ public class Cliente {
 	private int telefono;
 	private String direccion;
 
+	// creem el constructor i li passem els paràmetres que fan falta
+
 	public Cliente(String dni, String nombre, String apellidos, String correo, int telefono, String direccion) {
 		this.dni = dni;
 		this.nombre = nombre;
@@ -17,7 +19,7 @@ public class Cliente {
 		this.telefono = telefono;
 		this.direccion = direccion;
 	}
-
+	// getters i setters 
 	public String getDni() {
 		return dni;
 	}
@@ -66,12 +68,14 @@ public class Cliente {
 		this.direccion = direccion;
 	}
 
-	public String columnes() {
+	
+	/*public String columnes() {
 		String columnes = "('dni','nombre','apellidos','correo','telefono','direccion')";
 		return columnes;
-	}
+	}*/
 
-	public void insertCliente(Database db) {
+	//fem insert apartir de les variables del constructor a la db. Ens retorna true or false passat a text per saber si sha creat correctamet 
+	public boolean insertCliente(Database db) {
 		boolean correcto = false;
 
 		try {
@@ -81,9 +85,9 @@ public class Cliente {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return correcto;
 	}
-	
+	//ajunteem codi i nombre en un sol String
 	@Override
 	public String toString() 
 	{
@@ -100,10 +104,11 @@ public class Cliente {
 	}
 
 	/**
-	 * 
+	 * @return 
+	 * Modifiquem un client apartir del seu dni 
 	 */
-	public void modificarCliente(Database db) {
-		boolean correcto;
+	public boolean modificarCliente(Database db) {
+		boolean correcto = false;
 		try {
 			correcto = db.ExecuteUpdate("UPDATE clientes SET dni='" + this.dni + "'," + "nombre='" + this.nombre + "',"
 					+ "apellidos='" + this.apellidos + "',correo='" + this.correo + "',telefono='" + this.telefono
@@ -112,7 +117,10 @@ public class Cliente {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return correcto;
 	}
+
+	//borrem client apartir del DNI
 
 	public boolean borrarCliente(Database db) {
 		boolean correcto = false;
