@@ -16,7 +16,12 @@ import java.util.Scanner;
 import com.ibatis.common.jdbc.ScriptRunner;
 
 public class AlterarEstructuraBBDD {
-
+	// Metodo para Crear una nueva base de datos
+	// Conectamos directamente al servidor, llamamos la funcion que nos pide datos para conectarnos a la nueva base de datos
+	// Ejecutamos la caomanda para crear la base de datos, si funciona Imprimimos en pantalla correcto sino incorrecto
+	// Apartir del driver ScriptRunner ejecutamos un script con la nueva conexion
+	// Cremos un archivo de texto con los datos de la conexion para que se guarden fisicamente i no tengamos que estar entrandolos
+	// Finalmente ejecutamos el script, i cerramos todo
 	public static Database createBDD() {
 		Database db = null;
 		try {
@@ -49,7 +54,10 @@ public class AlterarEstructuraBBDD {
 		}
 		return db;
 	}
-
+		// Metodo para modificar una base de datos apartir de un script
+		// Nos pide la conexion a la base de daots
+		// Luego nos pide que Script queremos ejecutar, puede ser cualquier cosa, desde cargar un juego de datos
+		// A un script para borrar toda la base de datos
 	public static boolean updateBDD(Database db) {
 		boolean correct;
 		try {
@@ -72,7 +80,8 @@ public class AlterarEstructuraBBDD {
 		}
 		return correct;
 	}
-
+	// Metodo para configurar desde 0 la conexion a la base de datos, todo lo configuarado en este metodo
+	// Se guardara fisicamente en un archivo el cual podremos usar para conectarlos apartir de ese momento
 	public static Database configuracionBDD() {
 		String ruta = "Scripts\\datosConex.txt";
 		File archivo = new File(ruta);
@@ -119,6 +128,8 @@ public class AlterarEstructuraBBDD {
 		return conexion;
 
 	}
+		// Metodo para Mostar todas las tablas que hay en un servidor de BDD
+		// Simpelemnte ejecuta un Show tables, i te muestra todas las tablas, de manera que asi es mas facil esojer una de ellas
 
 	public static void showTables(Database db) {
 		ArrayList<String> tables = new ArrayList<String>();
@@ -141,7 +152,9 @@ public class AlterarEstructuraBBDD {
 
 		}
 	}
-
+		// Metodo para ejecutar codigo secuencial en una base de datos
+		// Le pide al usuario que codigo quiere introducir, una tra sla otra, i cuando acaba ejecuta todas secuencialmente
+		// Es muy util para no tene rque ir al servidor de Bdd fisicamente, puedes ejecutar cualquier cosa desde aqui
 	public static void sqlInyector(Database db) {
 		ArrayList<String> commands = new ArrayList<String>();
 		String text = "";
@@ -159,7 +172,8 @@ public class AlterarEstructuraBBDD {
 			}
 		}
 	}
-
+		// Este metodo se ejecuta si el archivo de coneexion no existe, asi si desplegamos el programa por primera vez, nos pedira que hagamos una primera conexion a la base de datos
+		// De la misma manera se creara el archivo i no tendremos que crearlo mas
 	public static Database establecerPrimeraConexion() throws FileNotFoundException {
 		String ruta = "Scripts\\datosConex.txt";
 		File archivo = new File(ruta);

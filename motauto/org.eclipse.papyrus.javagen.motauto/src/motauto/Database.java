@@ -119,6 +119,9 @@ public class Database {
 
 		return ejecucionCorrecta;
     }
+    // Metodo para apartir de una conexion al servidor, i no a una base de datos en concreto, podemos ejecutar comandas a nivel serivodr
+    // Por ejemplo la comanda de crear una base de datos solo se puede ejecutar aqui, conectando directamente al servidor i no a la base de daots
+    
     public boolean ExecuteCreate(String query) throws SQLException {
 		boolean ejecucionCorrecta;
 		connection = conectToBDD(this.db);
@@ -135,6 +138,7 @@ public class Database {
 		
 		return ejecucionCorrecta;
     }
+    // Apartir del driver de la conexion, nos conecta directamente al servidor, este metodo se ejecuta si no le decimos a que base de datos nos quereos conectar
     public Connection conectToBDD() {
         try {
 
@@ -155,6 +159,8 @@ public class Database {
         
         return connection;
     }
+    // Apartir del driver de la conexion, nos conecta directamente al servidor, este metodo se ejecuta si le decimos a que base de datos nos quereos conectar explicitamente
+    // Es un metodo sobrecargado, asi que si no le pasmos parametro se ejecutara la conexion al servidor directamente i no a la base de datos
     public Connection conectToBDD(String db) {
     	boolean conexValida=false;
         try {

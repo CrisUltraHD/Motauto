@@ -1,9 +1,6 @@
 package JUnit;
 
 import static org.junit.Assert.*;
-
-import java.sql.SQLException;
-
 import org.junit.Test;
 import motauto.AlterarEstructuraBBDD;
 import motauto.Cliente;
